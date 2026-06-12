@@ -1,0 +1,82 @@
+import { connection } from "../configs/Database.js";
+
+const agendamentoRepository = {
+
+    criar: async (agendamento)=>{
+
+        const [result] = await connection.execute(
+            `INSERT INTO agendamentos
+            (
+                id_cliente,
+                id_medico,
+                data,
+                hora,
+                tipo_atendimento,
+                status
+            )
+            VALUES(?,?,?,?,?,?)`,
+            [
+                agendamento.idCliente,
+                agendamento.idMedico,
+                agendamento.data,
+                agendamento.hora,
+                agendamento.tipoAtendimento,
+                agendamento.status
+            ]
+        );
+
+        return result;
+    },
+
+    selecionar: async ()=>{
+
+        const [rows] = await connection.execute(`
+            SELECT
+                a.*,
+                c.nome as cliente,
+                u.nome as medico
+            FROM agendamentos a
+            INNER JOIN clientes c
+                ON c.id_cliente = a.id_cliente
+            INNER JOIN usuarios u
+                ON u.id_usuario = a.id_medico
+        `);
+
+        return rows;
+    },
+
+    atualizar: async(agendamento)=>{
+
+        const [result] = await connection.execute(
+            `UPDATE agendamentos
+            SET
+                data=?,
+                hora=?,
+                tipo_atendimento=?,
+                status=?
+            WHERE id_agendamento=?`,
+            [
+                agendamento.data,
+                agendamento.hora,
+                agendamento.tipoAtendimento,
+                agendamento.status,
+                agendamento.id
+            ]
+        );
+
+        return result;
+    },
+
+    deletar: async(id)=>{
+
+        const [result] = await connection.execute(
+            `DELETE FROM agendamentos
+            WHERE id_agendamento=?`,
+            [id]
+        );
+
+        return result;
+    }
+};
+
+export default agendamentoRepository;
