@@ -2,7 +2,7 @@ import { connection } from "../configs/Database.js";
 
 const agendamentoRepository = {
 
-    criar: async (agendamento)=>{
+    criar: async (agendamento) => {
 
         const [result] = await connection.execute(
             `INSERT INTO agendamentos
@@ -28,7 +28,7 @@ const agendamentoRepository = {
         return result;
     },
 
-    selecionar: async ()=>{
+    selecionar: async () => {
 
         const [rows] = await connection.execute(`
             SELECT
@@ -45,21 +45,39 @@ const agendamentoRepository = {
         return rows;
     },
 
-    atualizar: async(agendamento)=>{
+    buscarPorId: async (id) => {
+
+        const [rows] = await connection.execute(
+            `SELECT *
+         FROM agendamentos
+         WHERE id_agendamento = ?`,
+            [id]
+        );
+
+        return rows[0];
+    },
+
+    atualizar: async (agendamento) => {
+
+        const atual = await agendamentoRepository.buscarPorId(agendamento.id);
+
+        if (!atual) {
+            throw new Error("Agendamento não encontrado");
+        }
 
         const [result] = await connection.execute(
             `UPDATE agendamentos
-            SET
-                data=?,
-                hora=?,
-                tipo_atendimento=?,
-                status=?
-            WHERE id_agendamento=?`,
+        SET
+            data=?,
+            hora=?,
+            tipo_atendimento=?,
+            status=?
+        WHERE id_agendamento=?`,
             [
-                agendamento.data,
-                agendamento.hora,
-                agendamento.tipoAtendimento,
-                agendamento.status,
+                agendamento.data ?? atual.data,
+                agendamento.hora ?? atual.hora,
+                agendamento.tipoAtendimento ?? atual.tipo_atendimento,
+                agendamento.status ?? atual.status,
                 agendamento.id
             ]
         );
@@ -67,7 +85,7 @@ const agendamentoRepository = {
         return result;
     },
 
-    deletar: async(id)=>{
+    deletar: async (id) => {
 
         const [result] = await connection.execute(
             `DELETE FROM agendamentos

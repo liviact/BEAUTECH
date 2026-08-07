@@ -27,33 +27,31 @@ export class Protocolo {
     static criar(dados) {
 
         return new Protocolo(
-            dados.idCliente,
-            dados.idAgendamento,
+            dados.id_cliente,
+            dados.id_agendamento,
             dados.descricao,
             dados.etapas,
-            dados.produtosUtilizados,
+            dados.produtos_utilizados,
             dados.prognostico,
             dados.recomendacoes,
-            dados.quantidadeSessoes,
-            dados.dataAvaliacao
+            dados.quantidade_sessoes,
+            dados.data_avaliacao
         );
-
-
     }
 
     static alterar(dados, id) {
 
         return {
             id,
-            idCliente: dados.idCliente,
-            idAgendamento: dados.idAgendamento,
+            idCliente: dados.id_cliente,
+            idAgendamento: dados.id_agendamento,
             descricao: dados.descricao,
             etapas: dados.etapas,
-            produtosUtilizados: dados.produtosUtilizados,
+            produtosUtilizados: dados.produtos_utilizados,
             prognostico: dados.prognostico,
             recomendacoes: dados.recomendacoes,
-            quantidadeSessoes: dados.quantidadeSessoes,
-            dataAvaliacao: dados.dataAvaliacao
+            quantidadeSessoes: dados.quantidade_sessoes,
+            dataAvaliacao: dados.data_avaliacao
         };
     }
 }

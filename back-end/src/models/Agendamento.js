@@ -16,7 +16,7 @@ export class Agendamento {
         tipoAtendimento,
         status = 'agendado',
         id = null
-    ){
+    ) {
         this.id = id;
         this.idCliente = idCliente;
         this.idMedico = idMedico;
@@ -26,24 +26,24 @@ export class Agendamento {
         this.status = status;
     }
 
-    static criar(dados){
+    static criar(dados) {
         return new Agendamento(
-            dados.idCliente,
-            dados.idMedico,
+            dados.id_cliente,
+            dados.id_medico,
             dados.data,
             dados.hora,
-            dados.tipoAtendimento,
+            dados.tipo_atendimento,
             dados.status
         );
     }
 
-    static alterar(dados,id){
+    static alterar(dados, id) {
         return new Agendamento(
-            dados.idCliente,
-            dados.idMedico,
+            dados.id_cliente,
+            dados.id_medico,
             dados.data,
             dados.hora,
-            dados.tipoAtendimento,
+            dados.tipo_atendimento,
             dados.status,
             id
         );

@@ -67,21 +67,27 @@ const medicoRepository = {
         return rows[0];
     },
 
-    atualizar: async (id,dados) => {
+    atualizar: async (id, dados) => {
+
+        const medicoAtual = await medicoRepository.buscarPorId(id);
+
+        if (!medicoAtual) {
+            throw new Error("Médico não encontrado");
+        }
 
         const [result] = await connection.execute(
             `UPDATE usuarios
-            SET
-                nome=?,
-                email=?,
-                crm=?,
-                especializacao=?
-            WHERE id_usuario=?`,
+        SET
+            nome=?,
+            email=?,
+            crm=?,
+            especializacao=?
+        WHERE id_usuario=?`,
             [
-                dados.nome,
-                dados.email,
-                dados.crm,
-                dados.especializacao,
+                dados.nome ?? medicoAtual.nome,
+                dados.email ?? medicoAtual.email,
+                dados.crm ?? medicoAtual.crm,
+                dados.especializacao ?? medicoAtual.especializacao,
                 id
             ]
         );

@@ -7,7 +7,7 @@ export class Atendimento {
         descricaoProcedimento,
         observacoes,
         id = null
-    ){
+    ) {
         this.id = id;
         this.idCliente = idCliente;
         this.idAgendamento = idAgendamento;
@@ -16,13 +16,13 @@ export class Atendimento {
         this.observacoes = observacoes;
     }
 
-    static criar(dados){
+    static criar(dados) {
 
         return new Atendimento(
-            dados.idCliente,
-            dados.idAgendamento,
+            dados.id_cliente,
+            dados.id_agendamento,
             dados.data,
-            dados.descricaoProcedimento,
+            dados.descricao_procedimento,
             dados.observacoes
         );
     }
