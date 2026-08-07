@@ -1,0 +1,175 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: Clientes
+meta:
+  id: wrk_44db1609f6c745538b85c158466c55f8
+  created: 1786109367490
+  modified: 1786109367490
+  description: ""
+collection:
+  - url: http://localhost:8000/clientes/1
+    name: New Request
+    meta:
+      id: req_40d321d9dc2640db97f0ad95417e5d95
+      created: 1786109370826
+      modified: 1786110619319
+      isPrivate: false
+      description: ""
+      sortKey: -1786109370826
+    method: GET
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidGlwbyI6ImNsaWVudGUiLCJpYXQiOjE3ODYxMTA1NzEsImV4cCI6MTc4NjE5Njk3MX0.-Nr1llLrHM7PU4FyScehmdSFBXzJcXrgwnF12Ii0HZ8
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8000/clientes
+    name: New Request
+    meta:
+      id: req_29b0bef23b2d4807b996ba742e3005de
+      created: 1786109372373
+      modified: 1786110552727
+      isPrivate: false
+      description: ""
+      sortKey: -1786109372373
+    method: GET
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidGlwbyI6ImNsaWVudGUiLCJpYXQiOjE3ODYxMTA1NDMsImV4cCI6MTc4NjE5Njk0M30.xzXMrNGgj2ydvUNxg0fPlBfRKq6XeZd96bCuGQrdLXU
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8000/login/cliente
+    name: New Request
+    meta:
+      id: req_f94d5ecd28e74f9aa7fffdb49b58feaf
+      created: 1786109373774
+      modified: 1786109964910
+      isPrivate: false
+      description: ""
+      sortKey: -1786109373774
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+            "cpf":"12345678900",
+            "senha":"123456"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8000/clientes
+    name: New Request
+    meta:
+      id: req_af72c5c33501403eb02dd63b36451c82
+      created: 1786109375263
+      modified: 1786109912095
+      isPrivate: false
+      description: ""
+      sortKey: -1786109375263
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "nome": "Maria",
+          "telefone": "11999999999",
+          "cpf": "12345678900",
+          "senha": "123456",
+          "tipo_pele": "Oleosa",
+          "endereco": "Rua das Flores, 123"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8000/clientes/1
+    name: New Request
+    meta:
+      id: req_afae166fc3fc425f9a30dadfdafa8929
+      created: 1786110601833
+      modified: 1786110688599
+      isPrivate: false
+      description: ""
+      sortKey: -1786110601833
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+            "telefone":"11988888888"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidGlwbyI6ImNsaWVudGUiLCJpYXQiOjE3ODYxMTA2NjEsImV4cCI6MTc4NjE5NzA2MX0.cck-pV7IGDzY-E7Uk-5FZIpSa-UTSbxZ920rNyIW10A
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8000/clientes/2
+    name: New Request
+    meta:
+      id: req_c70acd8250564edd97828252f9018759
+      created: 1786110606680
+      modified: 1786116130710
+      isPrivate: false
+      description: ""
+      sortKey: -1786110606680
+    method: DELETE
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidGlwbyI6ImNsaWVudGUiLCJpYXQiOjE3ODYxMTQ0MTEsImV4cCI6MTc4NjIwMDgxMX0.Wg5zGoAd6zS6ZS-ZLWMP0owo_DqW3BSU-OpiXbDS0wE
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_05b06f083d1354be9388fa5609ce0ac6bb409515
+    created: 1786109367527
+    modified: 1786109367527
+environments:
+  name: Base Environment
+  meta:
+    id: env_05b06f083d1354be9388fa5609ce0ac6bb409515
+    created: 1786109367521
+    modified: 1786109367521
+    isPrivate: false

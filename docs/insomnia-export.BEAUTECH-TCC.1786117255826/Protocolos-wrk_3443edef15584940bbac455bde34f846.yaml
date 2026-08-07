@@ -1,0 +1,153 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: Protocolos
+meta:
+  id: wrk_3443edef15584940bbac455bde34f846
+  created: 1786116869793
+  modified: 1786116869793
+  description: ""
+collection:
+  - url: http://localhost:8000/protocolos
+    name: New Request
+    meta:
+      id: req_4acab2177cd84266aa2269e2e7f4e7b6
+      created: 1786116872449
+      modified: 1786117087510
+      isPrivate: false
+      description: ""
+      sortKey: -1786116872449
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+            "id_cliente": 1,
+            "id_agendamento": 1,
+            "descricao": "Pele oleosa",
+            "etapas": "Limpeza",
+            "produtos_utilizados": "Sabonete facial",
+            "prognostico": "Bom",
+            "recomendacoes": "Usar protetor solar diariamente",
+            "quantidade_sessoes": 10,
+            "data_avaliacao": "2026-08-07"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidGlwbyI6ImNsaWVudGUiLCJpYXQiOjE3ODYxMTY5NzIsImV4cCI6MTc4NjIwMzM3Mn0.mysyKUoiimJrX8uRGXG3Sy0ltytlHv1A2HnjONyZ7eM
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8000/protocolos
+    name: New Request
+    meta:
+      id: req_0340a7f5544b49c2b91de2a02d4ccac7
+      created: 1786117070581
+      modified: 1786117110177
+      isPrivate: false
+      description: ""
+      sortKey: -1786117070581
+    method: GET
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidGlwbyI6ImNsaWVudGUiLCJpYXQiOjE3ODYxMTcwOTUsImV4cCI6MTc4NjIwMzQ5NX0.5sA56EyVHZiwsOYitGFqs6Qm_pnVJ1jYKWMSPGdB25g
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8000/protocolos/1
+    name: New Request
+    meta:
+      id: req_dd24033391c142e88725a0f7b1f221dd
+      created: 1786117124815
+      modified: 1786117130671
+      isPrivate: false
+      description: ""
+      sortKey: -1786116971515
+    method: GET
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidGlwbyI6ImNsaWVudGUiLCJpYXQiOjE3ODYxMTcwOTUsImV4cCI6MTc4NjIwMzQ5NX0.5sA56EyVHZiwsOYitGFqs6Qm_pnVJ1jYKWMSPGdB25g
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8000/protocolos/1
+    name: New Request
+    meta:
+      id: req_6bb12b655b2347d690386af8fb8f6e4a
+      created: 1786117148241
+      modified: 1786117165909
+      isPrivate: false
+      description: ""
+      sortKey: -1786116921982
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+            "descricao":"Nova descrição"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidGlwbyI6ImNsaWVudGUiLCJpYXQiOjE3ODYxMTcwOTUsImV4cCI6MTc4NjIwMzQ5NX0.5sA56EyVHZiwsOYitGFqs6Qm_pnVJ1jYKWMSPGdB25g
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8000/protocolos/1
+    name: New Request
+    meta:
+      id: req_036fb12599a34d17afc2ac52bdc0aaaa
+      created: 1786117186253
+      modified: 1786117206819
+      isPrivate: false
+      description: ""
+      sortKey: -1786116897215.5
+    method: DELETE
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidGlwbyI6ImNsaWVudGUiLCJpYXQiOjE3ODYxMTcwOTUsImV4cCI6MTc4NjIwMzQ5NX0.5sA56EyVHZiwsOYitGFqs6Qm_pnVJ1jYKWMSPGdB25g
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_0c399c8365ac7ccc83023123c18b6af8dc29fb2b
+    created: 1786116869823
+    modified: 1786116869823
+environments:
+  name: Base Environment
+  meta:
+    id: env_0c399c8365ac7ccc83023123c18b6af8dc29fb2b
+    created: 1786116869818
+    modified: 1786116869818
+    isPrivate: false

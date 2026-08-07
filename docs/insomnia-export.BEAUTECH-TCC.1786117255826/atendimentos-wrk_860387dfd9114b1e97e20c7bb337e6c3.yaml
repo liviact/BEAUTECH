@@ -1,0 +1,119 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: atendimentos
+meta:
+  id: wrk_860387dfd9114b1e97e20c7bb337e6c3
+  created: 1786116320573
+  modified: 1786116337890
+  description: ""
+collection:
+  - url: http://localhost:8000/atendimentos
+    name: New Request
+    meta:
+      id: req_babe008c74904e50acb52f93cc898295
+      created: 1786116340418
+      modified: 1786116743468
+      isPrivate: false
+      description: ""
+      sortKey: -1786116340418
+    method: GET
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidGlwbyI6ImNsaWVudGUiLCJpYXQiOjE3ODYxMTY2OTAsImV4cCI6MTc4NjIwMzA5MH0.gu5DebMSWd2z-s3QgejucqJqHg31JmU4fReVSpDYsWg
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8000/atendimentos
+    name: New Request
+    meta:
+      id: req_ad45e5e073fc468e958d4d0529a24a71
+      created: 1786116342653
+      modified: 1786116888641
+      isPrivate: false
+      description: ""
+      sortKey: -1786116342653
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+            "id_cliente": 1,
+            "id_agendamento": 6,
+            "data": "2026-08-10",
+            "descricao_procedimento": "Paciente com sintomas gripais",
+            "observacoes": "Sem alergias"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidGlwbyI6ImNsaWVudGUiLCJpYXQiOjE3ODYxMTYzOTQsImV4cCI6MTc4NjIwMjc5NH0.edpOfkSifwBXaS47MOfc0eDCOa3bYBMYJzUuHQdJd74
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8000/atendimentos/1
+    name: New Request
+    meta:
+      id: req_757f9ca9dd6245a2b64b31ad7b0e73c3
+      created: 1786116737421
+      modified: 1786116804731
+      isPrivate: false
+      description: ""
+      sortKey: -1786116737421
+    method: GET
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidGlwbyI6ImNsaWVudGUiLCJpYXQiOjE3ODYxMTY3NTQsImV4cCI6MTc4NjIwMzE1NH0.jNZ1gTRcPbuKmZUVds_8GKcRJfeMkGdbOKTnuxybqP0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8000/atendimentos/1
+    name: New Request
+    meta:
+      id: req_80fda0d9ead244b9a46167e35cd44e40
+      created: 1786116789762
+      modified: 1786116827552
+      isPrivate: false
+      description: ""
+      sortKey: -1786116789762
+    method: DELETE
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidGlwbyI6ImNsaWVudGUiLCJpYXQiOjE3ODYxMTY4MTYsImV4cCI6MTc4NjIwMzIxNn0.Dzp2puM4N8J15E_z7Z0A3AUAu-i8YOjkuXLr7VjFDR0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_caae3e62200695e7652482b2c544901de181c112
+    created: 1786116320586
+    modified: 1786116320586
+environments:
+  name: Base Environment
+  meta:
+    id: env_caae3e62200695e7652482b2c544901de181c112
+    created: 1786116320579
+    modified: 1786116320579
+    isPrivate: false
