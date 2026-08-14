@@ -1,31 +1,13 @@
-import { Navbar, setupNavbar } from '../components/layout/navbar.jsx';
-import { Card } from '../components/shared/card.jsx';
-import { listarAgendamentos } from '../service/agendamento.api.js';
+import Navbar from '../components/layout/navbar.jsx'
 
-export async function AgendamentosPage() {
-  const agendamentos = await listarAgendamentos();
+export default function Agendamentos() {
+  return (
+    <>
+      <Navbar />
 
-  return `
-    ${Navbar()}
-
-    <div class="container">
-      <h1>Meus Agendamentos</h1>
-
-      <a href="#/agendamentos/novo" class="btn btn-primary">
-        Novo Agendamento
-      </a>
-
-      ${agendamentos.map(a =>
-        Card(`
-          <h3>${a.procedimento}</h3>
-          <p>📅 ${a.data}</p>
-          <p>🕒 ${a.hora}</p>
-        `)
-      ).join('')}
-    </div>
-  `;
-}
-
-export function setupAgendamentos() {
-  setupNavbar();
+      <div className="container">
+        <h1>Meus Agendamentos</h1>
+      </div>
+    </>
+  )
 }

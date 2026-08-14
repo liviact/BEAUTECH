@@ -16,7 +16,7 @@ export default function Navbar() {
         <Link to="/dashboard">Início</Link>
         <Link to="/agendamentos">Agendamentos</Link>
         <Link to="/perfil">Perfil</Link>
-        <button onClick={sair}>Sair</button>
+        <button onClick={sair} className="btn-sair">Sair</button>
       </div>
     </nav>
   )

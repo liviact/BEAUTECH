@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import Navbar from '../components/layout/navbar'
+import Navbar from '../components/layout/navbar.jsx'
 
 export default function Dashboard() {
   return (

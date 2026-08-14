@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-import Input from '../components/shared/input'
-import Button from '../components/shared/button'
-import { login } from '../services/auth.api'
+import Input from '../components/shared/input.jsx'
+import Button from '../components/shared/button.jsx'
+import { login } from '../service/auth.api.js'
+import { salvarUsuario } from '../storage/usuario.storage.js'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -17,7 +18,7 @@ export default function Login() {
     try {
       const usuario = await login(email, senha)
 
-      localStorage.setItem('usuario', JSON.stringify(usuario))
+      salvarUsuario(usuario)
 
       navigate('/dashboard')
     } catch (err) {

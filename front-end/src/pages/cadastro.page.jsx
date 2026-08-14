@@ -1,19 +1,19 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import Input from '../components/shared/input'
-import Button from '../components/shared/button'
-import { cadastrar } from '../services/auth.api'
+import Input from '../components/shared/input.jsx'
+import Button from '../components/shared/button.jsx'
+import { cadastrar } from '../service/auth.api.js'
 
 export default function Cadastro() {
+  const navigate = useNavigate()
+
   const [form, setForm] = useState({
     nome: '',
     email: '',
     telefone: '',
     senha: ''
   })
-
-  const navigate = useNavigate()
 
   function handleChange(e) {
     setForm({
