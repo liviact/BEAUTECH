@@ -1,0 +1,174 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: Medicos
+meta:
+  id: wrk_17a57b9f3ced4de48c827086ee6f07c7
+  created: 1786108679801
+  modified: 1786108679801
+  description: ""
+collection:
+  - url: http://localhost:8000/medicos/1
+    name: New Request
+    meta:
+      id: req_3a64bf570ae34615b10dde4f9264f585
+      created: 1786108682788
+      modified: 1786110097886
+      isPrivate: false
+      description: ""
+      sortKey: -1786108682788
+    method: GET
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidGlwbyI6Im1lZGljbyIsImlhdCI6MTc4NjEwOTk4MywiZXhwIjoxNzg2MTk2MzgzfQ.Q3qemKmvvUcKL1uJoZ0Y1oZRmzr5IEEaY3HPcKcdm_U
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8000/medicos
+    name: New Request
+    meta:
+      id: req_36637e6b57e842ba9463f3919827a43f
+      created: 1786108685572
+      modified: 1786110487370
+      isPrivate: false
+      description: ""
+      sortKey: -1786108685572
+    method: GET
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidGlwbyI6Im1lZGljbyIsImlhdCI6MTc4NjExMDQ2NCwiZXhwIjoxNzg2MTk2ODY0fQ.zUI3pPjmUEUtJfx4YQFL2D-OiTYCM4srGfWzhGwMPbE
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8000/login/medico
+    name: New Request
+    meta:
+      id: req_be3287b92abd466fa42d7cfd181ab0d1
+      created: 1786108687138
+      modified: 1786110003157
+      isPrivate: false
+      description: ""
+      sortKey: -1786108687138
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "email": "joao@teste.com",
+          "senha": "123456"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8000/medicos
+    name: New Request
+    meta:
+      id: req_2c555c0fa61848f6b11443e5252a1981
+      created: 1786108688832
+      modified: 1786108835025
+      isPrivate: false
+      description: ""
+      sortKey: -1786108688832
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "nome": "João Silva",
+          "email": "joao@teste.com",
+          "senha": "123456",
+          "crm": "12345",
+          "especializacao": "Cardiologia"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8000/medicos/3
+    name: New Request
+    meta:
+      id: req_2913e3a556b047918b7de3a857fe6553
+      created: 1786110087370
+      modified: 1786110457835
+      isPrivate: false
+      description: ""
+      sortKey: -1786110087370
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+            "nome":"João Atualizado"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidGlwbyI6Im1lZGljbyIsImlhdCI6MTc4NjExMDEwMiwiZXhwIjoxNzg2MTk2NTAyfQ.0ndxgGyVs6F5x2bpTA9A5rqOJLuSDzyY_GBBJz42xyM
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8000/medicos/3
+    name: New Request
+    meta:
+      id: req_2ce32429200d42e9b6bae9af6f057ca5
+      created: 1786110450628
+      modified: 1786110475534
+      isPrivate: false
+      description: ""
+      sortKey: -1786110450628
+    method: DELETE
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidGlwbyI6Im1lZGljbyIsImlhdCI6MTc4NjExMDQ2NCwiZXhwIjoxNzg2MTk2ODY0fQ.zUI3pPjmUEUtJfx4YQFL2D-OiTYCM4srGfWzhGwMPbE
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_2c1075f945b26650a485ba16422260d45ee8dc9a
+    created: 1786108679819
+    modified: 1786108679819
+environments:
+  name: Base Environment
+  meta:
+    id: env_2c1075f945b26650a485ba16422260d45ee8dc9a
+    created: 1786108679809
+    modified: 1786108679809
+    isPrivate: false

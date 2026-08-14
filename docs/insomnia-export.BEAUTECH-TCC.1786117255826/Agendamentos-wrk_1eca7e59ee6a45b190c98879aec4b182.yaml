@@ -1,0 +1,128 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: Agendamentos
+meta:
+  id: wrk_1eca7e59ee6a45b190c98879aec4b182
+  created: 1786114580519
+  modified: 1786114580519
+  description: ""
+collection:
+  - url: http://localhost:8000/agendamentos
+    name: New Request
+    meta:
+      id: req_f96ac45db598462da6957a1bcbe36f57
+      created: 1786114583511
+      modified: 1786115481374
+      isPrivate: false
+      description: ""
+      sortKey: -1786114583511
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+            "id_cliente": 1,
+            "id_medico": 2,
+            "data": "2026-09-10",
+            "hora": "14:00",
+            "tipo_atendimento": "Presencial"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidGlwbyI6ImNsaWVudGUiLCJpYXQiOjE3ODYxMTQ2NjMsImV4cCI6MTc4NjIwMTA2M30.9mnTjGSip7Esnef75P6oE6wmZCd8C9525n77h1R9AC4
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8000/agendamentos
+    name: New Request
+    meta:
+      id: req_6deb061f3db948eab7ec5e0857c16403
+      created: 1786115464473
+      modified: 1786116359151
+      isPrivate: false
+      description: ""
+      sortKey: -1786115464473
+    method: GET
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidGlwbyI6Im1lZGljbyIsImlhdCI6MTc4NjExNTQ5OSwiZXhwIjoxNzg2MjAxODk5fQ.-ELtVuXNBMcBu3b1x1sRbGb-jtRPADu7nPbudH_kSG0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8000/agendamentos/1
+    name: New Request
+    meta:
+      id: req_2df2e4e59366490687729f0ddafb3714
+      created: 1786115579743
+      modified: 1786116110011
+      isPrivate: false
+      description: ""
+      sortKey: -1786115579743
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+            "hora":"15:30"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidGlwbyI6Im1lZGljbyIsImlhdCI6MTc4NjExNTYzMSwiZXhwIjoxNzg2MjAyMDMxfQ.GjMjhqj_UMDhh17sTFCf_zLPrxagSkxaADktVoiOcb4
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8000/agendamentos/1
+    name: New Request
+    meta:
+      id: req_47b1775c96cd4ee3a6bbf20a9728376d
+      created: 1786116101279
+      modified: 1786116248821
+      isPrivate: false
+      description: ""
+      sortKey: -1786116101279
+    method: DELETE
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidGlwbyI6Im1lZGljbyIsImlhdCI6MTc4NjExNjExNywiZXhwIjoxNzg2MjAyNTE3fQ._ZKh2FucSuYSRoY5CXbNCQVCScMHX9ZvFUP4aZTK4Ow
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_1a672aff00bc010f7302a91d3ca8cd90e8696e1f
+    created: 1786114580529
+    modified: 1786114580529
+environments:
+  name: Base Environment
+  meta:
+    id: env_1a672aff00bc010f7302a91d3ca8cd90e8696e1f
+    created: 1786114580524
+    modified: 1786114580524
+    isPrivate: false
