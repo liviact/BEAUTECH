@@ -75,14 +75,31 @@ const clienteController = {
 
     atualizar: async (req, res) => {
 
-        await clienteRepository.atualizar(
-            req.params.id,
-            req.body
-        );
+        // Somente o próprio cliente pode alterar o próprio perfil.
+        if (
+            !req.user ||
+            req.user.tipo !== 'cliente' ||
+            String(req.user.id) !== String(req.params.id)
+        ) {
+            return res.status(403).json({
+                message: 'Você só pode editar o seu próprio perfil.'
+            });
+        }
 
-        res.json({
-            message: 'Atualizado'
-        });
+        try {
+            await clienteRepository.atualizar(
+                req.params.id,
+                req.body
+            );
+
+            res.json({
+                message: 'Perfil atualizado com sucesso.'
+            });
+        } catch (error) {
+            res.status(500).json({
+                error: error.message
+            });
+        }
     },
 
     deletar: async (req, res) => {
