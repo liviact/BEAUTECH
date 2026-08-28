@@ -94,6 +94,27 @@ const agendamentoRepository = {
         );
 
         return result;
+    },
+
+    buscarConsultasDoMedicoNaData: async (idMedico, data) => {
+        const [rows] = await connection.execute(
+            `
+        SELECT
+            id_agendamento,
+            id_medico,
+            data,
+            hora,
+            status
+        FROM agendamentos
+        WHERE id_medico = ?
+        AND data = ?
+        AND status IN ('pendente', 'aceito')
+        ORDER BY hora
+        `,
+            [idMedico, data]
+        );
+
+        return rows;
     }
 };
 
