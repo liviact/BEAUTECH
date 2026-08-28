@@ -104,6 +104,41 @@ const medicoRepository = {
         );
 
         return result;
+    },
+
+    listarProcedimentos: async (idMedico) => {
+        const [rows] = await connection.execute(
+            `
+        SELECT
+            p.id_procedimento,
+            p.nome,
+            p.descricao
+        FROM procedimentos p
+        INNER JOIN medico_procedimentos mp
+            ON mp.id_procedimento = p.id_procedimento
+        WHERE mp.id_medico = ?
+        ORDER BY p.nome
+        `,
+            [idMedico]
+        );
+
+        return rows;
+    },
+
+    adicionarProcedimento: async (idMedico, idProcedimento) => {
+        const [result] = await connection.execute(
+            `
+        INSERT INTO medico_procedimentos
+        (
+            id_medico,
+            id_procedimento
+        )
+        VALUES (?, ?)
+        `,
+            [idMedico, idProcedimento]
+        );
+
+        return result;
     }
 };
 
