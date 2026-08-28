@@ -6,12 +6,9 @@ export function salvarUsuario(usuario) {
 }
 
 export function obterUsuario() {
-  const usuario =
-    localStorage.getItem('usuario');
+  const usuario = localStorage.getItem('usuario');
 
-  return usuario
-    ? JSON.parse(usuario)
-    : null;
+  return usuario ? JSON.parse(usuario) : null;
 }
 
 export function removerUsuario() {
@@ -37,8 +34,7 @@ export function decodificarToken(token) {
 }
 
 export function salvarSessao(token) {
-  const dados =
-    decodificarToken(token);
+  const dados = decodificarToken(token);
 
   if (!dados) {
     return null;
@@ -54,15 +50,9 @@ export function salvarSessao(token) {
   };
 
   if (dados.tipo === 'medico') {
-    localStorage.setItem(
-      'tokenMedico',
-      token
-    );
+    localStorage.setItem('tokenMedico', token);
   } else {
-    localStorage.setItem(
-      'token',
-      token
-    );
+    localStorage.setItem('token', token);
   }
 
   salvarUsuario(usuario);
