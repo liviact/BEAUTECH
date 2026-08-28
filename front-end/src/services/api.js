@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: 'http://localhost:8000',
+  // Em desenvolvimento usa http://localhost:8000.
+  // Para outro computador/servidor, defina VITE_API_URL no .env do front-end.
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json'
@@ -27,7 +29,9 @@ api.interceptors.response.use(
   response => response,
   error => {
     if (!error.response) {
-      console.error('Não foi possível conectar ao Back-End.');
+      console.error(
+        'Não foi possível conectar ao Back-End. Verifique se a API está rodando e se a URL está correta.'
+      );
     }
 
     if (error.response?.status === 401) {
