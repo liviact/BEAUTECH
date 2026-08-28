@@ -5,15 +5,8 @@ const agendamentoController = {
     // Criar agendamento
     criar: async (req, res) => {
         try {
-            const {
-                id_cliente,
-                id_medico,
-                data,
-                hora,
-                id_procedimento
-            } = req.body;
+            const { id_cliente, id_medico, data, hora, id_procedimento } = req.body;
 
-            // Verificações de acesso
             if (req.user.tipo !== 'cliente') {
                 return res.status(403).json({
                     message: 'Somente clientes podem realizar agendamentos.'
@@ -26,7 +19,6 @@ const agendamentoController = {
                 });
             }
 
-            // Validações da Model
             const agendamento = Agendamento.criar({
                 id_cliente,
                 id_medico,
@@ -35,18 +27,15 @@ const agendamentoController = {
                 id_procedimento
             });
 
-            // Busca conflitos no banco
             const consultasExistentes = await agendamentoRepository
                 .buscarConsultasDoMedicoNaData(id_medico, data);
 
-            // Verifica intervalo mínimo
             Agendamento.validarIntervaloEntreConsultas(
                 data,
                 hora,
                 consultasExistentes
             );
 
-            // Salva
             const resultado = await agendamentoRepository.criar(agendamento);
 
             return res.status(201).json({
@@ -55,9 +44,7 @@ const agendamentoController = {
             });
         } catch (error) {
             console.error(error);
-            return res.status(400).json({
-                message: error.message
-            });
+            return res.status(400).json({ message: error.message });
         }
     },
 
@@ -70,6 +57,27 @@ const agendamentoController = {
             console.error(error);
             return res.status(500).json({
                 message: 'Erro ao buscar agendamentos.'
+            });
+        }
+    },
+
+    // Agenda do médico
+    agendaMedico: async (req, res) => {
+        try {
+            if (req.user.tipo !== 'medico') {
+                return res.status(403).json({
+                    message: 'Somente médicos podem acessar a agenda.'
+                });
+            }
+
+            const agendamentos = await agendamentoRepository
+                .buscarConsultasDoMedico(req.user.id);
+
+            return res.json(agendamentos);
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({
+                message: 'Erro ao buscar agenda do médico.'
             });
         }
     },
@@ -110,9 +118,7 @@ const agendamentoController = {
                 message: 'Consulta aceita com sucesso.'
             });
         } catch (error) {
-            return res.status(400).json({
-                message: error.message
-            });
+            return res.status(400).json({ message: error.message });
         }
     },
 
@@ -152,9 +158,7 @@ const agendamentoController = {
                 message: 'Consulta recusada.'
             });
         } catch (error) {
-            return res.status(400).json({
-                message: error.message
-            });
+            return res.status(400).json({ message: error.message });
         }
     },
 
@@ -183,8 +187,6 @@ const agendamentoController = {
             }
 
             const agendamento = Agendamento.criarExistente(dados);
-
-            // A Model verifica as 24 horas
             agendamento.cancelar();
 
             await agendamentoRepository.atualizarStatus(
@@ -196,9 +198,7 @@ const agendamentoController = {
                 message: 'Consulta cancelada com sucesso.'
             });
         } catch (error) {
-            return res.status(400).json({
-                message: error.message
-            });
+            return res.status(400).json({ message: error.message });
         }
     },
 
@@ -238,9 +238,114 @@ const agendamentoController = {
                 message: 'Consulta marcada como realizada.'
             });
         } catch (error) {
-            return res.status(400).json({
-                message: error.message
+            return res.status(400).json({ message: error.message });
+        }
+    },
+
+    // Reagendar
+    reagendar: async (req, res) => {
+        try {
+            if (req.user.tipo !== 'cliente') {
+                return res.status(403).json({
+                    message: 'Somente clientes podem reagendar consultas.'
+                });
+            }
+
+            const id = req.params.id;
+            const dados = await agendamentoRepository.buscarPorId(id);
+
+            if (!dados) {
+                return res.status(404).json({
+                    message: 'Agendamento não encontrado.'
+                });
+            }
+
+            if (Number(dados.id_cliente) !== Number(req.user.id)) {
+                return res.status(403).json({
+                    message: 'Você não pode reagendar essa consulta.'
+                });
+            }
+
+            const { data, hora } = req.body;
+
+            const agendamento = Agendamento.criarExistente(dados);
+            agendamento.validarReagendamento();
+
+            if (!data || !hora) {
+                return res.status(400).json({
+                    message: 'Data e horário são obrigatórios.'
+                });
+            }
+
+            const consultasExistentes = await agendamentoRepository
+                .buscarConsultasDoMedicoNaData(dados.id_medico, data);
+
+            Agendamento.validarIntervaloEntreConsultas(
+                data,
+                hora,
+                consultasExistentes
+            );
+
+            agendamento.data = data;
+            agendamento.hora = hora;
+
+            await agendamentoRepository.atualizar(agendamento);
+
+            return res.json({
+                message: 'Consulta reagendada com sucesso.'
             });
+        } catch (error) {
+            return res.status(400).json({ message: error.message });
+        }
+    },
+
+    // Editar
+    editar: async (req, res) => {
+        try {
+            const id = req.params.id;
+            const dados = await agendamentoRepository.buscarPorId(id);
+
+            if (!dados) {
+                return res.status(404).json({
+                    message: 'Agendamento não encontrado.'
+                });
+            }
+
+            if (
+                req.user.tipo === 'cliente' &&
+                Number(dados.id_cliente) !== Number(req.user.id)
+            ) {
+                return res.status(403).json({
+                    message: 'Você não pode editar essa consulta.'
+                });
+            }
+
+            if (
+                req.user.tipo === 'medico' &&
+                Number(dados.id_medico) !== Number(req.user.id)
+            ) {
+                return res.status(403).json({
+                    message: 'Você não pode editar essa consulta.'
+                });
+            }
+
+            const agendamento = Agendamento.criarExistente(dados);
+
+            if (req.body.data) {
+                agendamento.data = req.body.data;
+            }
+
+            if (req.body.hora) {
+                agendamento.hora = req.body.hora;
+            }
+
+            await agendamentoRepository.atualizar(agendamento);
+
+            return res.json({
+                message: 'Agendamento atualizado com sucesso.'
+            });
+        } catch (error) {
+            return res.status(400).json({ message: error.message });
         }
     }
 };
