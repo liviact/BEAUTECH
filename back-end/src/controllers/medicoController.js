@@ -4,9 +4,9 @@ import medicoRepository from '../repositories/medicoRepository.js';
 
 const medicoController = {
 
-    criar: async (req,res)=>{
+    criar: async (req, res) => {
 
-        try{
+        try {
 
             const {
                 nome,
@@ -17,68 +17,68 @@ const medicoController = {
             } = req.body;
 
             const existe =
-            await medicoRepository.buscarPorEmail(email);
+                await medicoRepository.buscarPorEmail(email);
 
-            if(existe){
+            if (existe) {
                 return res.status(400).json({
-                    message:'Email já cadastrado'
+                    message: 'Email já cadastrado'
                 });
             }
 
             const hash =
-            await bcrypt.hash(senha,10);
+                await bcrypt.hash(senha, 10);
 
             const id =
-            await medicoRepository.criar({
-                nome,
-                email,
-                senha:hash,
-                crm,
-                especializacao
-            });
+                await medicoRepository.criar({
+                    nome,
+                    email,
+                    senha: hash,
+                    crm,
+                    especializacao
+                });
 
             const token = jwt.sign(
                 {
                     id,
-                    tipo:'medico'
+                    tipo: 'medico'
                 },
                 process.env.JWT_SECRET,
                 {
-                    expiresIn:'1d'
+                    expiresIn: '1d'
                 }
             );
 
             return res.status(201).json({
-                message:'Médico cadastrado',
+                message: 'Médico cadastrado',
                 token
             });
 
-        }catch(error){
+        } catch (error) {
             res.status(500).json({
-                error:error.message
+                error: error.message
             });
         }
     },
 
-    listar: async(req,res)=>{
+    listar: async (req, res) => {
 
         const result =
-        await medicoRepository.listar();
+            await medicoRepository.listar();
 
         res.json(result);
     },
 
-    buscarPorId: async(req,res)=>{
+    buscarPorId: async (req, res) => {
 
         const result =
-        await medicoRepository.buscarPorId(
-            req.params.id
-        );
+            await medicoRepository.buscarPorId(
+                req.params.id
+            );
 
         res.json(result);
     },
 
-    atualizar: async(req,res)=>{
+    atualizar: async (req, res) => {
 
         await medicoRepository.atualizar(
             req.params.id,
@@ -86,19 +86,72 @@ const medicoController = {
         );
 
         res.json({
-            message:'Atualizado'
+            message: 'Atualizado'
         });
     },
 
-    deletar: async(req,res)=>{
+    deletar: async (req, res) => {
 
         await medicoRepository.deletar(
             req.params.id
         );
 
         res.json({
-            message:'Removido'
+            message: 'Removido'
         });
+    },
+
+    listarProcedimentos: async (req, res) => {
+        try {
+            const procedimentos = await medicoRepository.listarProcedimentos(
+                req.params.id
+            );
+
+            return res.json(procedimentos);
+        } catch (error) {
+            return res.status(500).json({
+                error: error.message
+            });
+        }
+    },
+
+    adicionarProcedimento: async (req, res) => {
+        try {
+            if (req.user.tipo !== 'medico') {
+                return res.status(403).json({
+                    message: 'Somente médicos podem cadastrar procedimentos.'
+                });
+            }
+
+            const idMedico = Number(req.params.id);
+
+            if (idMedico !== Number(req.user.id)) {
+                return res.status(403).json({
+                    message: 'Você não pode alterar os procedimentos de outro médico.'
+                });
+            }
+
+            const { id_procedimento } = req.body;
+
+            if (!id_procedimento) {
+                return res.status(400).json({
+                    message: 'Informe o procedimento.'
+                });
+            }
+
+            await medicoRepository.adicionarProcedimento(
+                idMedico,
+                id_procedimento
+            );
+
+            return res.status(201).json({
+                message: 'Procedimento adicionado ao médico.'
+            });
+        } catch (error) {
+            return res.status(500).json({
+                error: error.message
+            });
+        }
     }
 };
 
