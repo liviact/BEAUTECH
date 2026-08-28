@@ -9,15 +9,17 @@ const agendamentoRepository = {
                 id_medico,
                 data,
                 hora,
+                tipo_atendimento,
                 id_procedimento,
                 status
             )
-            VALUES(?,?,?,?,?,?)`,
+            VALUES(?,?,?,?,?,?,?)`,
             [
                 agendamento.idCliente,
                 agendamento.idMedico,
                 agendamento.data,
                 agendamento.hora,
+                agendamento.tipoAtendimento || 'Procedimento',
                 agendamento.idProcedimento,
                 agendamento.status
             ]
@@ -31,12 +33,15 @@ const agendamentoRepository = {
             SELECT
                 a.*,
                 c.nome AS cliente,
-                u.nome AS medico
+                u.nome AS medico,
+                p.nome AS procedimento
             FROM agendamentos a
             INNER JOIN clientes c
                 ON c.id_cliente = a.id_cliente
             INNER JOIN usuarios u
                 ON u.id_usuario = a.id_medico
+            LEFT JOIN procedimentos p
+                ON p.id_procedimento = a.id_procedimento
         `);
 
         return rows;
