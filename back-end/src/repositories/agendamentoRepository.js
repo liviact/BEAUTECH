@@ -1,9 +1,7 @@
 import { connection } from "../configs/Database.js";
 
 const agendamentoRepository = {
-
     criar: async (agendamento) => {
-
         const [result] = await connection.execute(
             `INSERT INTO agendamentos
             (
@@ -11,7 +9,7 @@ const agendamentoRepository = {
                 id_medico,
                 data,
                 hora,
-                tipo_atendimento,
+                id_procedimento,
                 status
             )
             VALUES(?,?,?,?,?,?)`,
@@ -20,7 +18,7 @@ const agendamentoRepository = {
                 agendamento.idMedico,
                 agendamento.data,
                 agendamento.hora,
-                agendamento.tipoAtendimento,
+                agendamento.idProcedimento,
                 agendamento.status
             ]
         );
@@ -29,12 +27,11 @@ const agendamentoRepository = {
     },
 
     selecionar: async () => {
-
         const [rows] = await connection.execute(`
             SELECT
                 a.*,
-                c.nome as cliente,
-                u.nome as medico
+                c.nome AS cliente,
+                u.nome AS medico
             FROM agendamentos a
             INNER JOIN clientes c
                 ON c.id_cliente = a.id_cliente
@@ -46,19 +43,65 @@ const agendamentoRepository = {
     },
 
     buscarPorId: async (id) => {
-
         const [rows] = await connection.execute(
             `SELECT *
-         FROM agendamentos
-         WHERE id_agendamento = ?`,
+             FROM agendamentos
+             WHERE id_agendamento = ?`,
             [id]
         );
 
         return rows[0];
     },
 
-    atualizar: async (agendamento) => {
+    // Agenda completa do médico
+    buscarConsultasDoMedico: async (idMedico) => {
+        const [rows] = await connection.execute(
+            `SELECT
+                a.*,
+                c.nome AS cliente
+             FROM agendamentos a
+             INNER JOIN clientes c
+                ON c.id_cliente = a.id_cliente
+             WHERE a.id_medico = ?
+             ORDER BY a.data, a.hora`,
+            [idMedico]
+        );
 
+        return rows;
+    },
+
+    // Consultas do médico em uma data
+    buscarConsultasDoMedicoNaData: async (idMedico, data) => {
+        const [rows] = await connection.execute(
+            `SELECT
+                id_agendamento,
+                id_medico,
+                data,
+                hora,
+                status
+             FROM agendamentos
+             WHERE id_medico = ?
+             AND data = ?
+             AND status IN ('pendente', 'aceito')
+             ORDER BY hora`,
+            [idMedico, data]
+        );
+
+        return rows;
+    },
+
+    atualizarStatus: async (id, status) => {
+        const [result] = await connection.execute(
+            `UPDATE agendamentos
+             SET status = ?
+             WHERE id_agendamento = ?`,
+            [status, id]
+        );
+
+        return result;
+    },
+
+    atualizar: async (agendamento) => {
         const atual = await agendamentoRepository.buscarPorId(agendamento.id);
 
         if (!atual) {
@@ -67,16 +110,16 @@ const agendamentoRepository = {
 
         const [result] = await connection.execute(
             `UPDATE agendamentos
-        SET
-            data=?,
-            hora=?,
-            tipo_atendimento=?,
-            status=?
-        WHERE id_agendamento=?`,
+             SET
+                data = ?,
+                hora = ?,
+                id_procedimento = ?,
+                status = ?
+             WHERE id_agendamento = ?`,
             [
                 agendamento.data ?? atual.data,
                 agendamento.hora ?? atual.hora,
-                agendamento.tipoAtendimento ?? atual.tipo_atendimento,
+                agendamento.idProcedimento ?? atual.id_procedimento,
                 agendamento.status ?? atual.status,
                 agendamento.id
             ]
@@ -86,35 +129,13 @@ const agendamentoRepository = {
     },
 
     deletar: async (id) => {
-
         const [result] = await connection.execute(
             `DELETE FROM agendamentos
-            WHERE id_agendamento=?`,
+             WHERE id_agendamento = ?`,
             [id]
         );
 
         return result;
-    },
-
-    buscarConsultasDoMedicoNaData: async (idMedico, data) => {
-        const [rows] = await connection.execute(
-            `
-        SELECT
-            id_agendamento,
-            id_medico,
-            data,
-            hora,
-            status
-        FROM agendamentos
-        WHERE id_medico = ?
-        AND data = ?
-        AND status IN ('pendente', 'aceito')
-        ORDER BY hora
-        `,
-            [idMedico, data]
-        );
-
-        return rows;
     }
 };
 
