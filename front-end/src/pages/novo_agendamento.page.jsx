@@ -7,13 +7,16 @@ import Input from '../components/shared/input.jsx';
 import Button from '../components/shared/button.jsx';
 
 import {
-  criarAgendamento,
-  listarMedicos
+  criarAgendamento
 } from '../services/agendamentoService.js';
 
 import {
-  listarProcedimentosMedico
+  listarMedicos
 } from '../services/medicoService.js';
+
+import {
+  listarProcedimentos
+} from '../services/procedimentoService.js';
 
 import {
   obterUsuario
@@ -49,23 +52,10 @@ export default function NovoAgendamento() {
 
   }, []);
 
-  // Carrega os procedimentos do médico
+  // Carrega todos os procedimentos cadastrados na tabela procedimentos
   useEffect(() => {
 
-    if (!form.id_medico) {
-      setProcedimentos([]);
-      return;
-    }
-
-    setProcedimentos([]);
-    setForm(atual => ({
-      ...atual,
-      id_procedimento: ''
-    }));
-
-    listarProcedimentosMedico(
-      form.id_medico
-    )
+    listarProcedimentos()
       .then(setProcedimentos)
       .catch(err =>
         setErro(
@@ -74,7 +64,7 @@ export default function NovoAgendamento() {
         )
       );
 
-  }, [form.id_medico]);
+  }, []);
 
   function handleChange(e) {
 
@@ -176,14 +166,13 @@ export default function NovoAgendamento() {
               name="id_procedimento"
               value={form.id_procedimento}
               onChange={handleChange}
-              disabled={!form.id_medico}
               required
             >
 
               <option value="">
-                {form.id_medico
+                {procedimentos.length > 0
                   ? 'Selecione'
-                  : 'Selecione primeiro o médico'}
+                  : 'Nenhum procedimento disponível'}
               </option>
 
               {procedimentos.map(p => (
