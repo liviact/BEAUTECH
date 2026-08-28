@@ -1,5 +1,5 @@
 export class Agendamento {
-    constructor(idCliente, idMedico, data, hora, idProcedimento, status = 'pendente', id = null) {
+    constructor(idCliente, idMedico, data, hora, idProcedimento, status = 'pendente', id = null, tipoAtendimento = 'Procedimento') {
         this.id = id;
         this.idCliente = idCliente;
         this.idMedico = idMedico;
@@ -7,6 +7,7 @@ export class Agendamento {
         this.hora = hora;
         this.idProcedimento = idProcedimento;
         this.status = status;
+        this.tipoAtendimento = tipoAtendimento;
     }
 
     // Criação do agendamento
@@ -17,7 +18,9 @@ export class Agendamento {
             dados.data,
             dados.hora,
             dados.id_procedimento,
-            'pendente'
+            'pendente',
+            null,
+            dados.tipo_atendimento || 'Procedimento'
         );
         agendamento.validarCriacao();
         return agendamento;
@@ -39,7 +42,9 @@ export class Agendamento {
 
             dados.status,
 
-            dados.id_agendamento
+            dados.id_agendamento,
+
+            dados.tipo_atendimento || 'Procedimento'
 
         );
     }
