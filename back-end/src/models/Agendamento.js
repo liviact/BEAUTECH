@@ -23,6 +23,27 @@ export class Agendamento {
         return agendamento;
     }
 
+    static criarExistente(dados) {
+
+        return new Agendamento(
+
+            dados.id_cliente,
+
+            dados.id_medico,
+
+            dados.data,
+
+            dados.hora,
+
+            dados.id_procedimento,
+
+            dados.status,
+
+            dados.id_agendamento
+
+        );
+    }
+
     // Data e horário devem ser futuros
     validarDataFutura() {
         const dataHoraConsulta = Agendamento.criarDataHora(this.data, this.hora);
