@@ -7,50 +7,37 @@ export async function listarAgendamentos() {
 }
 
 export async function listarAgendaMedico() {
-  const response = await api.get(
-    '/agendamentos/agenda-medico'
-  );
+  const response = await api.get('/agendamentos/agenda-medico');
 
   return response.data;
 }
 
 export async function criarAgendamento(dados) {
-  const response = await api.post(
-    '/agendamentos',
-    dados
-  );
+  const response = await api.post('/agendamentos', dados);
 
   return response.data;
 }
 
 export async function aceitarAgendamento(id) {
-  const response = await api.put(
-    `/agendamentos/${id}/aceitar`
-  );
+  const response = await api.put(`/agendamentos/${id}/aceitar`);
 
   return response.data;
 }
 
 export async function recusarAgendamento(id) {
-  const response = await api.put(
-    `/agendamentos/${id}/recusar`
-  );
+  const response = await api.put(`/agendamentos/${id}/recusar`);
 
   return response.data;
 }
 
 export async function cancelarAgendamento(id) {
-  const response = await api.put(
-    `/agendamentos/${id}/cancelar`
-  );
+  const response = await api.put(`/agendamentos/${id}/cancelar`);
 
   return response.data;
 }
 
 export async function realizarAgendamento(id) {
-  const response = await api.put(
-    `/agendamentos/${id}/realizar`
-  );
+  const response = await api.put(`/agendamentos/${id}/realizar`);
 
   return response.data;
 }
@@ -65,24 +52,7 @@ export async function reagendarAgendamento(id, dados) {
 }
 
 export async function atualizarAgendamento(id, dados) {
-  const response = await api.put(
-    `/agendamentos/${id}`,
-    dados
-  );
-
-  return response.data;
-}
-
-export async function excluirAgendamento(id) {
-  const response = await api.delete(
-    `/agendamentos/${id}`
-  );
-
-  return response.data;
-}
-
-export async function listarMedicos() {
-  const response = await api.get('/medicos');
+  const response = await api.put(`/agendamentos/${id}`, dados);
 
   return response.data;
 }
