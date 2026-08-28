@@ -1,26 +1,39 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import Navbar from '../components/layout/navbar.jsx';
 import Card from '../components/shared/card.jsx';
 import Input from '../components/shared/input.jsx';
 import Button from '../components/shared/button.jsx';
-import { criarAgendamento, listarMedicos } from '../services/agendamentoService.js';
-import { listarProcedimentosMedico } from '../services/medicoService.js';
-import { obterUsuario } from '../storage/usuario.storage.js';
+
+import {
+  criarAgendamento,
+  listarMedicos
+} from '../services/agendamentoService.js';
+
+import {
+  listarProcedimentosMedico
+} from '../services/medicoService.js';
+
+import {
+  obterUsuario
+} from '../storage/usuario.storage.js';
 
 export default function NovoAgendamento() {
+
   const navigate = useNavigate();
   const sessao = obterUsuario() || {};
+
   const [medicos, setMedicos] = useState([]);
   const [procedimentos, setProcedimentos] = useState([]);
+  const [erro, setErro] = useState('');
+
   const [form, setForm] = useState({
     id_medico: '',
     id_procedimento: '',
     data: '',
     hora: ''
   });
-
-  const [erro, setErro] = useState('');
 
   // Carrega os médicos
   useEffect(() => {
@@ -44,7 +57,15 @@ export default function NovoAgendamento() {
       return;
     }
 
-    listarProcedimentosMedico(form.id_medico)
+    setProcedimentos([]);
+    setForm(atual => ({
+      ...atual,
+      id_procedimento: ''
+    }));
+
+    listarProcedimentosMedico(
+      form.id_medico
+    )
       .then(setProcedimentos)
       .catch(err =>
         setErro(
@@ -65,11 +86,15 @@ export default function NovoAgendamento() {
   }
 
   async function handleSubmit(e) {
+
     e.preventDefault();
     setErro('');
 
-    if (sessao.tipo !== 'cliente') {setErro('A criação de agendamentos é destinada ao cliente.');
-return;
+    if (sessao.tipo !== 'cliente') {
+      setErro(
+        'A criação de agendamentos é destinada ao cliente.'
+      );
+      return;
     }
 
     try {
@@ -93,7 +118,6 @@ return;
       );
 
     }
-
   }
 
   return (
@@ -101,7 +125,6 @@ return;
       <Navbar />
 
       <div className="container">
-
         <Card>
 
           <h1>Novo Agendamento</h1>
@@ -116,7 +139,10 @@ return;
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="form">
+          <form
+            onSubmit={handleSubmit}
+            className="form"
+          >
 
             <label>Médico</label>
 
@@ -133,7 +159,10 @@ return;
 
               {medicos.map(m => (
 
-                <option key={m.id_usuario}value={m.id_usuario}>
+                <option
+                  key={m.id_usuario}
+                  value={m.id_usuario}
+                >
                   {m.nome} — {m.especializacao || 'Especialista'}
                 </option>
 
@@ -142,7 +171,7 @@ return;
             </select>
 
             <label>Procedimento</label>
-{/*O campo fica desabilitado enquanto nenhum médico estiver selecionado*/}
+
             <select
               name="id_procedimento"
               value={form.id_procedimento}
@@ -157,12 +186,16 @@ return;
                   : 'Selecione primeiro o médico'}
               </option>
 
-{/* Mostra somente os procedimentos retornados para o médico selecionado */}
-              {procedimentos.map(p => ( 
-                <option key={p.id_procedimento} value={p.id_procedimento}>
+              {procedimentos.map(p => (
+
+                <option
+                  key={p.id_procedimento}
+                  value={p.id_procedimento}
+                >
                   {p.nome}
                 </option>
- ))}
+
+              ))}
 
             </select>
 
@@ -175,7 +208,7 @@ return;
               onChange={handleChange}
               required
             />
-            
+
             <label>Hora</label>
 
             <Input
@@ -185,8 +218,13 @@ return;
               onChange={handleChange}
               required
             />
-            <Button type="submit">Confirmar agendamento</Button>
+
+            <Button type="submit">
+              Confirmar agendamento
+            </Button>
+
           </form>
+
         </Card>
       </div>
     </>
