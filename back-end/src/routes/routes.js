@@ -6,6 +6,7 @@ import clienteRoutes from './clienteRoutes.js';
 import agendamentoRoutes from './agendamentoRoutes.js';
 import atendimentoRoutes from './atendimentoRoutes.js';
 import protocoloRoutes from './protocoloRoutes.js';
+import procedimentoRoutes from './procedimentoRoutes.js';
 
 const router = express.Router();
 
@@ -20,5 +21,7 @@ router.use('/agendamentos', agendamentoRoutes);
 router.use('/atendimentos', atendimentoRoutes);
 
 router.use('/protocolos', protocoloRoutes);
+
+router.use('/procedimentos', procedimentoRoutes);
 
 export default router;
