@@ -7,6 +7,7 @@ import Perfil from './pages/perfil.page.jsx';
 import EditarPerfil from './pages/editar_perfil.page.jsx';
 import Agendamentos from './pages/agendamentos.page.jsx';
 import NovoAgendamento from './pages/novo_agendamento.page.jsx';
+import Reagendamento from './pages/reagendamento.page.jsx';
 import LoginMedico from './pages/loginMedico.jsx';
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
       <Route path="/perfil/editar" element={<EditarPerfil />} />
       <Route path="/agendamentos" element={<Agendamentos />} />
       <Route path="/agendamentos/novo" element={<NovoAgendamento />} />
+      <Route path="/agendamentos/reagendar/:id" element={<Reagendamento />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
