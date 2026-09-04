@@ -343,13 +343,27 @@ const agendamentoController = {
 
             const agendamento = Agendamento.criarExistente(dados);
 
-            if (req.body.data) {
-                agendamento.data = req.body.data;
-            }
+            const novaData = req.body.data || agendamento.data;
+            const novaHora = req.body.hora || agendamento.hora;
 
-            if (req.body.hora) {
-                agendamento.hora = req.body.hora;
-            }
+            // Valida data, dia e horário.
+            agendamento.validarNovoHorario(novaData, novaHora);
+
+            const consultasExistentes = await agendamentoRepository
+                .buscarConsultasDoMedicoNaData(
+                    agendamento.idMedico,
+                    novaData
+                );
+
+            Agendamento.validarIntervaloEntreConsultas(
+                novaData,
+                novaHora,
+                consultasExistentes,
+                id
+            );
+
+            agendamento.data = novaData;
+            agendamento.hora = novaHora;
 
             await agendamentoRepository.atualizar(agendamento);
 
@@ -357,7 +371,10 @@ const agendamentoController = {
                 message: 'Agendamento atualizado com sucesso.'
             });
         } catch (error) {
-            return res.status(400).json({ message: error.message });
+            console.error(error);
+            return res.status(400).json({
+                message: error.message
+            });
         }
     }
 };
