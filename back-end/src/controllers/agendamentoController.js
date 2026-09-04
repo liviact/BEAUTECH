@@ -270,22 +270,29 @@ const agendamentoController = {
 
             const { data, hora } = req.body;
 
-            const agendamento = Agendamento.criarExistente(dados);
-            agendamento.validarReagendamento();
-
             if (!data || !hora) {
                 return res.status(400).json({
                     message: 'Data e horário são obrigatórios.'
                 });
             }
 
+            const agendamento = Agendamento.criarExistente(dados);
+
+            // Valida se a consulta atual pode ser reagendada.
+            agendamento.validarReagendamento();
+
+            // Valida data, dia e horário do novo agendamento.
+            agendamento.validarNovoHorario(data, hora);
+
             const consultasExistentes = await agendamentoRepository
                 .buscarConsultasDoMedicoNaData(dados.id_medico, data);
 
+            // Ignora a própria consulta durante a validação.
             Agendamento.validarIntervaloEntreConsultas(
                 data,
                 hora,
-                consultasExistentes
+                consultasExistentes,
+                id
             );
 
             agendamento.data = data;
@@ -297,7 +304,10 @@ const agendamentoController = {
                 message: 'Consulta reagendada com sucesso.'
             });
         } catch (error) {
-            return res.status(400).json({ message: error.message });
+            console.error(error);
+            return res.status(400).json({
+                message: error.message
+            });
         }
     },
 
