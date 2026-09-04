@@ -105,10 +105,9 @@ const medicoRepository = {
 
         return result;
     },
-
-    listarProcedimentos: async (idMedico) => {
-        const [rows] = await connection.execute(
-            `
+listarProcedimentos: async (idMedico) => {
+    const [rows] = await connection.execute(
+        `
         SELECT
             p.id_procedimento,
             p.nome,
@@ -119,27 +118,38 @@ const medicoRepository = {
         WHERE mp.id_medico = ?
         ORDER BY p.nome
         `,
-            [idMedico]
-        );
+        [idMedico]
+    );
 
-        return rows;
-    },
+    return rows;
+},
 
     adicionarProcedimento: async (idMedico, idProcedimento) => {
-        const [result] = await connection.execute(
-            `
+    const [result] = await connection.execute(
+        `
         INSERT INTO medico_procedimentos
         (
             id_medico,
             id_procedimento
         )
-        VALUES (?, ?)
+        SELECT ?, ?
+        WHERE NOT EXISTS (
+            SELECT 1
+            FROM medico_procedimentos
+            WHERE id_medico = ?
+            AND id_procedimento = ?
+        )
         `,
-            [idMedico, idProcedimento]
-        );
+        [
+            idMedico,
+            idProcedimento,
+            idMedico,
+            idProcedimento
+        ]
+    );
 
-        return result;
-    }
+    return result;
+}
 };
 
 export default medicoRepository;
