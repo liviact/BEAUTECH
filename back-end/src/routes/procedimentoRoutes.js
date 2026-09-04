@@ -4,7 +4,9 @@ import authMiddleware from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
-router.get('/', authMiddleware, procedimentoController.listar);
+// Pode ser acessada sem token para carregar os procedimentos no cadastro.
+router.get('/', procedimentoController.listar);
+// Continua protegida.
 router.get('/:id', authMiddleware, procedimentoController.buscarPorId);
 
 export default router;
