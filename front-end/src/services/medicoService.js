@@ -30,10 +30,8 @@ export async function atualizarMedico(id, dados) {
   return response.data;
 }
 
-export async function listarProcedimentosMedico(idMedico) {
-  const response = await api.get(
-    `/medicos/${idMedico}/procedimentos`
-  );
+export async function listarProcedimentosMedico(id) {
+  const response = await api.get(`/medicos/${id}/procedimentos`);
 
   return response.data;
 }

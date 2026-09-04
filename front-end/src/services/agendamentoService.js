@@ -43,12 +43,9 @@ export async function realizarAgendamento(id) {
 }
 
 export async function reagendarAgendamento(id, dados) {
-  const response = await api.post(
-    `/agendamentos/${id}/reagendar`,
-    dados
-  );
+    const response = await api.post(`/agendamentos/${id}/reagendar`, dados);
 
-  return response.data;
+    return response.data;
 }
 
 export async function atualizarAgendamento(id, dados) {
