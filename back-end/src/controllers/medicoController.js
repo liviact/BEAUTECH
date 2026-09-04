@@ -5,60 +5,75 @@ import medicoRepository from '../repositories/medicoRepository.js';
 const medicoController = {
 
     criar: async (req, res) => {
+    try {
+        const {
+            nome,
+            email,
+            senha,
+            crm,
+            especializacao,
+            procedimentos = []
+        } = req.body;
 
-        try {
+        const existe =
+            await medicoRepository.buscarPorEmail(email);
 
-            const {
-                nome,
-                email,
-                senha,
-                crm,
-                especializacao
-            } = req.body;
-
-            const existe =
-                await medicoRepository.buscarPorEmail(email);
-
-            if (existe) {
-                return res.status(400).json({
-                    message: 'Email já cadastrado'
-                });
-            }
-
-            const hash =
-                await bcrypt.hash(senha, 10);
-
-            const id =
-                await medicoRepository.criar({
-                    nome,
-                    email,
-                    senha: hash,
-                    crm,
-                    especializacao
-                });
-
-            const token = jwt.sign(
-                {
-                    id,
-                    tipo: 'medico'
-                },
-                process.env.JWT_SECRET,
-                {
-                    expiresIn: '1d'
-                }
-            );
-
-            return res.status(201).json({
-                message: 'Médico cadastrado',
-                token
-            });
-
-        } catch (error) {
-            res.status(500).json({
-                error: error.message
+        if (existe) {
+            return res.status(400).json({
+                message: 'Email já cadastrado'
             });
         }
-    },
+
+        if (!Array.isArray(procedimentos) || procedimentos.length === 0) {
+            return res.status(400).json({
+                message: 'Selecione pelo menos um procedimento.'
+            });
+        }
+
+        const hash =
+            await bcrypt.hash(senha, 10);
+
+        const id =
+            await medicoRepository.criar({
+                nome,
+                email,
+                senha: hash,
+                crm,
+                especializacao
+            });
+
+        for (const idProcedimento of procedimentos) {
+            await medicoRepository.adicionarProcedimento(
+                id,
+                idProcedimento
+            );
+        }
+
+        const token = jwt.sign(
+            {
+                id,
+                tipo: 'medico'
+            },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: '1d'
+            }
+        );
+
+        return res.status(201).json({
+            message: 'Médico cadastrado',
+            token,
+            id_medico: id
+        });
+
+    } catch (error) {
+        console.error('Erro ao cadastrar médico:', error);
+
+        return res.status(500).json({
+            error: error.message
+        });
+    }
+},
 
     listar: async (req, res) => {
 
@@ -148,6 +163,12 @@ const medicoController = {
                 message: 'Procedimento adicionado ao médico.'
             });
         } catch (error) {
+            if (error.code === 'ER_DUP_ENTRY') {
+                return res.status(409).json({
+                    message: 'Esse procedimento já está cadastrado para o médico.'
+                });
+            }
+
             return res.status(500).json({
                 error: error.message
             });
