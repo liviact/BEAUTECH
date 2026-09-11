@@ -6,6 +6,12 @@ export async function listarAgendamentos() {
   return response.data;
 }
 
+
+export async function buscarAgendamento(id) {
+  const response = await api.get(`/agendamentos/${id}`);
+  return response.data;
+}
+
 export async function listarAgendaMedico() {
   const response = await api.get('/agendamentos/agenda-medico');
 
