@@ -7,6 +7,7 @@ const router = express.Router();
 router.post('/', authMiddleware, agendamentoController.criar);
 router.get('/', authMiddleware, agendamentoController.selecionar);
 router.get('/agenda-medico', authMiddleware, agendamentoController.agendaMedico);
+router.get('/:id', authMiddleware, agendamentoController.buscarPorId);
 router.put('/:id/aceitar', authMiddleware, agendamentoController.aceitar);
 router.put('/:id/recusar', authMiddleware, agendamentoController.recusar);
 router.put('/:id/cancelar', authMiddleware, agendamentoController.cancelar);
