@@ -2,21 +2,13 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/layout/navbar.jsx';
 import Card from '../components/shared/card.jsx';
-import {
-  listarAgendamentos,
-  cancelarAgendamento,
-  aceitarAgendamento,
-  recusarAgendamento,
-  realizarAgendamento
-} from '../services/agendamentoService.js';
+import {listarAgendamentos,cancelarAgendamento, reagendarAgendamento,aceitarAgendamento,recusarAgendamento,realizarAgendamento} from '../services/agendamentoService.js';
 import { obterUsuario } from '../storage/usuario.storage.js';
 
 function formatarData(data) {
   if (!data) return '';
-
   const texto = String(data).slice(0, 10);
   const [ano, mes, dia] = texto.split('-');
-
   return `${dia}/${mes}/${ano}`;
 }
 
@@ -26,51 +18,26 @@ function formatarHora(hora) {
 
 // Calcula quantas horas faltam para a consulta
 function horasAteConsulta(data, hora) {
-  const [ano, mes, dia] = String(data)
-    .slice(0, 10)
-    .split('-')
-    .map(Number);
-
-  const [horas, minutos] = String(hora)
-    .slice(0, 5)
-    .split(':')
-    .map(Number);
-
-  const consulta = new Date(
-    ano,
-    mes - 1,
-    dia,
-    horas,
-    minutos
-  );
-
+  const [ano, mes, dia] = String(data).slice(0, 10).split('-').map(Number);
+  const [horas, minutos] = String(hora).slice(0, 5).split(':').map(Number);
+  const consulta = new Date(ano, mes - 1, dia, horas, minutos);
   return (consulta.getTime() - Date.now()) / (1000 * 60 * 60);
 }
 
 export default function Agendamentos() {
   const navigate = useNavigate();
   const sessao = obterUsuario() || {};
-
   const [agendamentos, setAgendamentos] = useState([]);
   const [erro, setErro] = useState('');
   const [carregando, setCarregando] = useState(true);
-
   async function carregar() {
     try {
       setCarregando(true);
-      setErro('');
-
       const dados = await listarAgendamentos();
 
       const meus = sessao.tipo === 'cliente'
-        ? dados.filter(
-            item =>
-              Number(item.id_cliente) === Number(sessao.id)
-          )
-        : dados.filter(
-            item =>
-              Number(item.id_medico) === Number(sessao.id)
-          );
+        ? dados.filter(item => Number(item.id_cliente) === Number(sessao.id))
+        : dados.filter(item => Number(item.id_medico) === Number(sessao.id));
 
       setAgendamentos(meus);
     } catch (err) {
@@ -88,10 +55,7 @@ export default function Agendamentos() {
   }, []);
 
   async function cancelar(id) {
-    const confirmar = window.confirm(
-      'Deseja cancelar esta consulta?'
-    );
-
+    const confirmar = window.confirm('Deseja cancelar esta consulta?');
     if (!confirmar) return;
 
     try {
@@ -105,11 +69,8 @@ export default function Agendamentos() {
     }
   }
 
-  // Abre a página de reagendamento
   function reagendar(agendamento) {
-    navigate(
-      `/agendamentos/reagendar/${agendamento.id_agendamento}`
-    );
+    navigate(`/agendamentos/${agendamento.id_agendamento}/reagendar`);
   }
 
   async function aceitar(id) {
@@ -149,13 +110,7 @@ export default function Agendamentos() {
   }
 
   function podeCancelar(agendamento) {
-    if (
-      !['pendente', 'aceito'].includes(
-        agendamento.status
-      )
-    ) {
-      return false;
-    }
+    if (!['pendente', 'aceito'].includes(agendamento.status)) return false;
 
     return horasAteConsulta(
       agendamento.data,
@@ -193,14 +148,14 @@ export default function Agendamentos() {
             </p>
           </div>
 
-          {sessao.tipo === 'cliente' && (
-            <Link
-              to="/agendamentos/novo"
-              className="btn-link compact"
-            >
-              Novo agendamento
-            </Link>
-          )}
+          <div className="page-header-actions">
+            {sessao.tipo === 'cliente' && (
+              <Link to="/agendamentos/novo" className="btn-link compact">
+                Novo agendamento
+              </Link>
+            )}
+            <button type="button" className="btn-secondary page-back-button" onClick={() => navigate('/dashboard')}>← Voltar</button>
+          </div>
         </div>
 
         {erro && (
@@ -256,19 +211,15 @@ export default function Agendamentos() {
                         <button
                           className="btn-danger-small"
                           onClick={() =>
-                            cancelar(
-                              agendamento.id_agendamento
-                            )
+                            cancelar(agendamento.id_agendamento)
                           }
                         >
                           Cancelar
                         </button>
 
                         <button
-                          className="btn-link compact"
-                          onClick={() =>
-                            reagendar(agendamento)
-                          }
+                          className="btn-reagendar"
+                          onClick={() => reagendar(agendamento)}
                         >
                           Reagendar
                         </button>
@@ -279,8 +230,7 @@ export default function Agendamentos() {
                     agendamento.status === 'aceito' &&
                     !podeCancelar(agendamento) && (
                       <p className="muted">
-                        O cancelamento não está disponível
-                        porque faltam menos de 24 horas.
+                        O cancelamento não está disponível porque faltam menos de 24 horas.
                       </p>
                     )}
 
@@ -290,9 +240,7 @@ export default function Agendamentos() {
                         <button
                           className="btn"
                           onClick={() =>
-                            aceitar(
-                              agendamento.id_agendamento
-                            )
+                            aceitar(agendamento.id_agendamento)
                           }
                         >
                           Aceitar
@@ -301,9 +249,7 @@ export default function Agendamentos() {
                         <button
                           className="btn-danger-small"
                           onClick={() =>
-                            recusar(
-                              agendamento.id_agendamento
-                            )
+                            recusar(agendamento.id_agendamento)
                           }
                         >
                           Recusar
@@ -316,9 +262,7 @@ export default function Agendamentos() {
                       <button
                         className="btn"
                         onClick={() =>
-                          realizar(
-                            agendamento.id_agendamento
-                          )
+                          realizar(agendamento.id_agendamento)
                         }
                       >
                         Marcar como realizada
