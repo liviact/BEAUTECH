@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import Navbar from '../components/layout/navbar.jsx';
 import Card from '../components/shared/card.jsx';
@@ -11,7 +11,10 @@ import {
 } from '../services/agendamentoService.js';
 
 import {
-  listarMedicos,
+  listarMedicos
+} from '../services/medicoService.js';
+
+import {
   listarProcedimentosMedico
 } from '../services/medicoService.js';
 
@@ -20,22 +23,32 @@ import {
 } from '../storage/usuario.storage.js';
 
 export default function NovoAgendamento() {
+
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const sessao = obterUsuario() || {};
+  const medicoSelecionado = searchParams.get('medico') || '';
 
   const [medicos, setMedicos] = useState([]);
   const [procedimentos, setProcedimentos] = useState([]);
   const [erro, setErro] = useState('');
 
   const [form, setForm] = useState({
-    id_medico: '',
+    id_medico: medicoSelecionado,
     id_procedimento: '',
     data: '',
     hora: ''
   });
 
+  useEffect(() => {
+    if (medicoSelecionado) {
+      setForm(atual => ({ ...atual, id_medico: medicoSelecionado }));
+    }
+  }, [medicoSelecionado]);
+
   // Carrega os médicos
   useEffect(() => {
+
     listarMedicos()
       .then(setMedicos)
       .catch(err =>
@@ -44,40 +57,37 @@ export default function NovoAgendamento() {
           'Não foi possível carregar os médicos.'
         )
       );
+
   }, []);
 
-  // Carrega os procedimentos do médico selecionado
+  // Carrega somente os procedimentos vinculados ao médico selecionado
   useEffect(() => {
-    if (!form.id_medico) {
-      setProcedimentos([]);
-      return;
-    }
-
     setProcedimentos([]);
+    setForm((atual) => ({ ...atual, id_procedimento: '' }));
 
-    setForm(atual => ({
-      ...atual,
-      id_procedimento: ''
-    }));
+    if (!form.id_medico) return;
 
     listarProcedimentosMedico(form.id_medico)
       .then(setProcedimentos)
       .catch(err =>
         setErro(
           err.response?.data?.message ||
-          'Não foi possível carregar os procedimentos do médico.'
+          'Não foi possível carregar os procedimentos deste médico.'
         )
       );
   }, [form.id_medico]);
 
   function handleChange(e) {
+
     setForm(atual => ({
       ...atual,
       [e.target.name]: e.target.value
     }));
+
   }
 
   async function handleSubmit(e) {
+
     e.preventDefault();
     setErro('');
 
@@ -89,6 +99,7 @@ export default function NovoAgendamento() {
     }
 
     try {
+
       await criarAgendamento({
         id_cliente: sessao.id,
         id_medico: form.id_medico,
@@ -98,12 +109,15 @@ export default function NovoAgendamento() {
       });
 
       navigate('/agendamentos');
+
     } catch (err) {
+
       setErro(
         err.response?.data?.message ||
         err.response?.data?.error ||
         'Erro ao criar agendamento.'
       );
+
     }
   }
 
@@ -112,12 +126,18 @@ export default function NovoAgendamento() {
       <Navbar />
 
       <div className="container">
-        <Card>
-          <h1>Novo Agendamento</h1>
+        <div className="page-header">
+          <div>
+            <span className="eyebrow">BEAUTECH</span>
+            <h1>Novo Agendamento</h1>
+            <p className="muted">
+              Escolha o profissional, procedimento, data e horário.
+            </p>
+          </div>
+          <button type="button" className="btn-secondary page-back-button" onClick={() => navigate('/agendamentos')}>← Voltar aos agendamentos</button>
+        </div>
 
-          <p className="muted">
-            Escolha o profissional, procedimento, data e horário.
-          </p>
+        <Card>
 
           {erro && (
             <div className="alert error">
@@ -129,7 +149,14 @@ export default function NovoAgendamento() {
             onSubmit={handleSubmit}
             className="form"
           >
+
             <label>Médico</label>
+
+            {medicoSelecionado && (
+              <div className="selected-doctor-hint">
+                Médico selecionado no catálogo. Você pode trocar se desejar.
+              </div>
+            )}
 
             <select
               name="id_medico"
@@ -137,18 +164,22 @@ export default function NovoAgendamento() {
               onChange={handleChange}
               required
             >
+
               <option value="">
                 Selecione
               </option>
 
               {medicos.map(m => (
+
                 <option
                   key={m.id_usuario}
                   value={m.id_usuario}
                 >
                   {m.nome} — {m.especializacao || 'Especialista'}
                 </option>
+
               ))}
+
             </select>
 
             <label>Procedimento</label>
@@ -157,25 +188,29 @@ export default function NovoAgendamento() {
               name="id_procedimento"
               value={form.id_procedimento}
               onChange={handleChange}
+              disabled={!form.id_medico || procedimentos.length === 0}
               required
-              disabled={!form.id_medico}
             >
+
               <option value="">
                 {!form.id_medico
-                  ? 'Selecione primeiro o médico'
+                  ? 'Selecione um médico primeiro'
                   : procedimentos.length > 0
                     ? 'Selecione'
-                    : 'Nenhum procedimento disponível'}
+                    : 'Este médico ainda não possui procedimentos'}
               </option>
 
               {procedimentos.map(p => (
+
                 <option
                   key={p.id_procedimento}
                   value={p.id_procedimento}
                 >
                   {p.nome}
                 </option>
+
               ))}
+
             </select>
 
             <label>Data</label>
@@ -184,7 +219,6 @@ export default function NovoAgendamento() {
               name="data"
               type="date"
               value={form.data}
-              min={new Date().toISOString().split('T')[0]}
               onChange={handleChange}
               required
             />
@@ -195,8 +229,6 @@ export default function NovoAgendamento() {
               name="hora"
               type="time"
               value={form.hora}
-              min="07:00"
-              max="17:00"
               onChange={handleChange}
               required
             />
@@ -204,7 +236,9 @@ export default function NovoAgendamento() {
             <Button type="submit">
               Confirmar agendamento
             </Button>
+
           </form>
+
         </Card>
       </div>
     </>
