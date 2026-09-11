@@ -6,5 +6,5 @@ export default function Navbar() {
   const usuario = obterUsuario() || {};
   function sair() { removerUsuario(); navigate('/'); }
 
-  return <nav className="navbar"><Link to="/dashboard" className="logo">BEAUTECH</Link><div className="links"><Link to="/dashboard">Início</Link><Link to="/agendamentos">Agendamentos</Link><Link to="/perfil">Perfil</Link><span className="role">{usuario.tipo === 'medico' ? 'Médico' : 'Cliente'}</span><button onClick={sair} className="btn-sair">Sair</button></div></nav>;
+  return <nav className="navbar"><Link to="/dashboard" className="logo">BEAUTECH</Link><div className="links"><Link to="/dashboard">Início</Link><Link to="/agendamentos">{usuario.tipo === 'medico' ? 'Agenda' : 'Agendamentos'}</Link><Link to="/medicos">Médicos</Link>{usuario.tipo === 'medico' && <Link to="/meus-procedimentos">Procedimentos</Link>}<Link to="/perfil">Perfil</Link><span className="role">{usuario.tipo === 'medico' ? 'Médico' : 'Cliente'}</span><button onClick={sair} className="btn-sair">Sair</button></div></nav>;
 }

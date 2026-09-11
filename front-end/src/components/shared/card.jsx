@@ -1,3 +1,3 @@
-export default function Card({ children }) {
-  return <div className="card">{children}</div>
+export default function Card({ children, className = '' }) {
+  return <div className={`card ${className}`.trim()}>{children}</div>;
 }
