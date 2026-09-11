@@ -1,187 +1,91 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/layout/navbar.jsx';
-import Input from '../components/shared/input.jsx';
-import Button from '../components/shared/button.jsx';
 import Card from '../components/shared/card.jsx';
 import { obterUsuario } from '../storage/usuario.storage.js';
 import { buscarCliente, atualizarCliente } from '../services/clienteService.js';
+import { buscarMedico, atualizarMedico } from '../services/medicoService.js';
 
 export default function EditarPerfil() {
   const navigate = useNavigate();
   const sessao = obterUsuario() || {};
-
-  const [form, setForm] = useState({
-    nome: '',
-    telefone: '',
-    cpf: '',
-    tipo_pele: '',
-    endereco: ''
-  });
-  const [mensagem, setMensagem] = useState('');
+  const medico = sessao.tipo === 'medico';
+  const [form, setForm] = useState({ nome:'', email:'', cpf:'', telefone:'', data_nascimento:'', endereco:'', tipo_pele:'', crm:'', especializacao:'', foto:null });
+  const [preview, setPreview] = useState('');
   const [erro, setErro] = useState('');
+  const [mensagem, setMensagem] = useState('');
   const [carregando, setCarregando] = useState(true);
   const [salvando, setSalvando] = useState(false);
 
-  // A página de edição é exclusiva para clientes.
   useEffect(() => {
-    if (!sessao.id || sessao.tipo !== 'cliente') {
-      navigate('/perfil', { replace: true });
-      return;
-    }
-
-    async function carregarPerfil() {
+    if (!sessao.id) { navigate('/', { replace: true }); return; }
+    const carregar = async () => {
       try {
-        const dados = await buscarCliente(sessao.id);
-
+        const dados = medico ? await buscarMedico(sessao.id) : await buscarCliente(sessao.id);
         setForm({
-          nome: dados.nome || '',
-          telefone: dados.telefone || '',
-          cpf: dados.cpf || '',
-          tipo_pele: dados.tipo_pele || '',
-          endereco: dados.endereco || ''
+          nome: dados.nome || '', email: dados.email || '', cpf: dados.cpf || '', telefone: dados.telefone || '',
+          data_nascimento: dados.data_nascimento ? String(dados.data_nascimento).slice(0,10) : '',
+          endereco: dados.endereco || '', tipo_pele: dados.tipo_pele || '', crm: dados.crm || '', especializacao: dados.especializacao || '', foto: null
         });
-      } catch (err) {
-        setErro(
-          err.response?.data?.message ||
-          'Erro ao carregar os dados do perfil.'
-        );
-      } finally {
-        setCarregando(false);
-      }
+      } catch (err) { setErro(err.response?.data?.message || 'Erro ao carregar o perfil.'); }
+      finally { setCarregando(false); }
+    };
+    carregar();
+  }, [sessao.id, medico, navigate]);
+
+  function alterar(e) {
+    const { name, value, files } = e.target;
+    if (name === 'foto') {
+      const arquivo = files?.[0] || null;
+      setForm((atual) => ({ ...atual, foto: arquivo }));
+      if (arquivo) setPreview(URL.createObjectURL(arquivo));
+    } else {
+      setForm((atual) => ({ ...atual, [name]: name === 'cpf' ? value.replace(/\D/g,'') : value }));
     }
-
-    carregarPerfil();
-  }, [sessao.id, sessao.tipo, navigate]);
-
-  function handleChange(e) {
-    setForm((atual) => ({
-      ...atual,
-      [e.target.name]: e.target.value
-    }));
   }
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    setErro('');
-    setMensagem('');
-    setSalvando(true);
-
+  async function enviar(e) {
+    e.preventDefault(); setErro(''); setMensagem(''); setSalvando(true);
     try {
-      await atualizarCliente(sessao.id, {
-        ...form,
-        cpf: form.cpf.replace(/\D/g, '')
-      });
-
+      const dados = { ...form, cpf: form.cpf.replace(/\D/g,'') };
+      if (medico) await atualizarMedico(sessao.id, dados);
+      else await atualizarCliente(sessao.id, dados);
       setMensagem('Perfil atualizado com sucesso!');
-
-      setTimeout(() => {
-        navigate('/perfil');
-      }, 700);
-    } catch (err) {
-      setErro(
-        err.response?.data?.message ||
-        err.response?.data?.error ||
-        'Erro ao atualizar perfil.'
-      );
-    } finally {
-      setSalvando(false);
-    }
+      setTimeout(() => navigate('/perfil'), 700);
+    } catch (err) { setErro(err.response?.data?.message || err.response?.data?.error || 'Erro ao atualizar perfil.'); }
+    finally { setSalvando(false); }
   }
 
-  if (sessao.tipo !== 'cliente') {
-    return null;
-  }
+  if (carregando) return <><Navbar /><div className="container"><Card><p>Carregando seus dados...</p></Card></div></>;
 
   return (
     <>
       <Navbar />
-
       <div className="container">
         <div className="page-header">
           <div>
+            <span className="eyebrow">MINHA CONTA</span>
             <h1>Editar Perfil</h1>
-            <p className="muted">
-              Altere seus dados pessoais e salve as modificações.
-            </p>
+            <p className="muted">Atualize seus dados pessoais.</p>
           </div>
+          <button type="button" className="btn-secondary page-back-button" onClick={() => navigate('/perfil')}>← Voltar ao perfil</button>
         </div>
-
         <Card>
           {mensagem && <div className="alert success">{mensagem}</div>}
           {erro && <div className="alert error">{erro}</div>}
-
-          {carregando ? (
-            <p className="muted">Carregando seus dados...</p>
-          ) : (
-            <form onSubmit={handleSubmit} className="form grid-form">
-              <div>
-                <label htmlFor="nome">Nome</label>
-                <Input
-                  id="nome"
-                  name="nome"
-                  value={form.nome}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div>
-                <label htmlFor="telefone">Telefone</label>
-                <Input
-                  id="telefone"
-                  name="telefone"
-                  value={form.telefone}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div>
-                <label htmlFor="cpf">CPF</label>
-                <Input
-                  id="cpf"
-                  name="cpf"
-                  value={form.cpf}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div>
-                <label htmlFor="tipo_pele">Tipo de pele</label>
-                <Input
-                  id="tipo_pele"
-                  name="tipo_pele"
-                  value={form.tipo_pele}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div className="full">
-                <label htmlFor="endereco">Endereço</label>
-                <Input
-                  id="endereco"
-                  name="endereco"
-                  value={form.endereco}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <Button type="submit" disabled={salvando}>
-                {salvando ? 'Salvando...' : 'Salvar alterações'}
-              </Button>
-
-              <button
-                type="button"
-                className="btn-link btn-cancelar"
-                onClick={() => navigate('/perfil')}
-              >
-                Cancelar
-              </button>
-            </form>
-          )}
+          <form onSubmit={enviar} className="form grid-form">
+            <div><label>Nome</label><input className="input" name="nome" value={form.nome} onChange={alterar} required /></div>
+            <div><label>E-mail</label><input className="input" name="email" type="email" value={form.email} onChange={alterar} required /></div>
+            <div><label>CPF</label><input className="input" name="cpf" value={form.cpf} onChange={alterar} required /></div>
+            <div><label>Telefone</label><input className="input" name="telefone" value={form.telefone} onChange={alterar} required /></div>
+            <div><label>Data de nascimento</label><input className="input" name="data_nascimento" type="date" value={form.data_nascimento} onChange={alterar} required /></div>
+            <div><label>Nova foto de perfil</label><input className="input" name="foto" type="file" accept="image/png,image/jpeg,image/webp" onChange={alterar} /></div>
+            <div className="full"><label>Endereço</label><input className="input" name="endereco" value={form.endereco} onChange={alterar} required /></div>
+            {medico ? <><div><label>CRM</label><input className="input" name="crm" value={form.crm} onChange={alterar} required /></div><div><label>Especialização</label><input className="input" name="especializacao" value={form.especializacao} onChange={alterar} required /></div></> : <div className="full"><label>Tipo de pele</label><input className="input" name="tipo_pele" value={form.tipo_pele} onChange={alterar} /></div>}
+            {preview && <div className="full"><img className="profile-photo edit-preview" src={preview} alt="Nova foto" /></div>}
+            <button className="btn" type="submit" disabled={salvando}>{salvando ? 'Salvando...' : 'Salvar alterações'}</button>
+            <button type="button" className="btn-link btn-cancelar" onClick={() => navigate('/perfil')}>Cancelar</button>
+          </form>
         </Card>
       </div>
     </>
