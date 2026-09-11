@@ -1,5 +1,4 @@
 import express from 'express';
-
 import authRoutes from './authRoutes.js';
 import medicoRoutes from './medicoRoutes.js';
 import clienteRoutes from './clienteRoutes.js';
@@ -11,17 +10,11 @@ import procedimentoRoutes from './procedimentoRoutes.js';
 const router = express.Router();
 
 router.use(authRoutes);
-
 router.use('/medicos', medicoRoutes);
-
 router.use('/clientes', clienteRoutes);
-
 router.use('/agendamentos', agendamentoRoutes);
-
 router.use('/atendimentos', atendimentoRoutes);
-
 router.use('/protocolos', protocoloRoutes);
-
 router.use('/procedimentos', procedimentoRoutes);
 
 export default router;

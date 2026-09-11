@@ -1,5 +1,6 @@
 import { Agendamento } from "../models/Agendamento.js";
 import agendamentoRepository from "../repositories/agendamentoRepository.js";
+import { connection } from "../configs/Database.js";
 
 const agendamentoController = {
     // Criar agendamento
@@ -16,6 +17,36 @@ const agendamentoController = {
             if (Number(req.user.id) !== Number(id_cliente)) {
                 return res.status(403).json({
                     message: 'Você não pode criar agendamento para outro cliente.'
+                });
+            }
+
+            const [usuarios] = await connection.execute(
+                `SELECT id_usuario, nivel_acesso, ativo
+                 FROM usuarios
+                 WHERE id_usuario IN (?, ?)`,
+                [id_cliente, id_medico]
+            );
+
+            const cliente = usuarios.find((usuario) => Number(usuario.id_usuario) === Number(id_cliente));
+            const medico = usuarios.find((usuario) => Number(usuario.id_usuario) === Number(id_medico));
+
+            if (!cliente || cliente.nivel_acesso !== 'cliente' || !cliente.ativo) {
+                return res.status(400).json({ message: 'Cliente inválido ou inativo.' });
+            }
+
+            if (!medico || medico.nivel_acesso !== 'medico' || !medico.ativo) {
+                return res.status(400).json({ message: 'Médico inválido ou inativo.' });
+            }
+
+            const [vinculo] = await connection.execute(
+                `SELECT 1 FROM medico_procedimentos
+                 WHERE id_medico = ? AND id_procedimento = ? LIMIT 1`,
+                [id_medico, id_procedimento]
+            );
+
+            if (!vinculo.length) {
+                return res.status(400).json({
+                    message: 'O procedimento selecionado não está disponível para este médico.'
                 });
             }
 
@@ -50,10 +81,52 @@ const agendamentoController = {
         }
     },
 
+    // Buscar um agendamento específico
+    buscarPorId: async (req, res) => {
+        try {
+            const dados = await agendamentoRepository.buscarPorId(req.params.id);
+
+            if (!dados) {
+                return res.status(404).json({
+                    message: 'Agendamento não encontrado.'
+                });
+            }
+
+            const usuarioId = Number(req.user.id);
+
+            const pertenceAoUsuario =
+                (req.user.tipo === 'cliente' && Number(dados.id_cliente) === usuarioId) ||
+                (req.user.tipo === 'medico' && Number(dados.id_medico) === usuarioId);
+
+            if (!pertenceAoUsuario) {
+                return res.status(403).json({
+                    message: 'Você não pode acessar essa consulta.'
+                });
+            }
+
+            const [dadosComNomes] = await connection.execute(
+                `SELECT a.*, c.nome AS cliente, m.nome AS medico, p.nome AS procedimento
+                 FROM agendamentos a
+                 INNER JOIN usuarios c ON c.id_usuario = a.id_cliente
+                 INNER JOIN usuarios m ON m.id_usuario = a.id_medico
+                 INNER JOIN procedimentos p ON p.id_procedimento = a.id_procedimento
+                 WHERE a.id_agendamento = ? LIMIT 1`,
+                [req.params.id]
+            );
+
+            return res.json(dadosComNomes[0] || dados);
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({
+                message: 'Erro ao buscar o agendamento.'
+            });
+        }
+    },
+
     // Listar
     selecionar: async (req, res) => {
         try {
-            const agendamentos = await agendamentoRepository.selecionar();
+            const agendamentos = await agendamentoRepository.selecionarPorUsuario(req.user);
             return res.json(agendamentos);
         } catch (error) {
             console.error(error);

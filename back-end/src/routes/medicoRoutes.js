@@ -1,15 +1,15 @@
 import express from 'express';
 import medicoController from '../controllers/medicoController.js';
 import authMiddleware from '../middlewares/authMiddleware.js';
+import uploadPerfil from '../middlewares/uploadImage.middleware.js';
 
 const router = express.Router();
 
-router.post('/', medicoController.criar);
-router.get('/', authMiddleware, medicoController.listar);
-router.get('/:id/procedimentos', authMiddleware, medicoController.listarProcedimentos);
+router.get('/', medicoController.listar);
+router.get('/:id', medicoController.buscarPorId);
+router.get('/:id/procedimentos', medicoController.listarProcedimentos);
 router.post('/:id/procedimentos', authMiddleware, medicoController.adicionarProcedimento);
-router.get('/:id', authMiddleware, medicoController.buscarPorId);
-router.put('/:id', authMiddleware, medicoController.atualizar);
-router.delete('/:id', authMiddleware, medicoController.deletar);
+router.delete('/:id/procedimentos/:id_procedimento', authMiddleware, medicoController.removerProcedimento);
+router.put('/:id', authMiddleware, uploadPerfil, medicoController.atualizar);
 
 export default router;
