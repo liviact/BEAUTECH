@@ -1,116 +1,54 @@
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import clienteRepository from '../repositories/clienteRepository.js';
+import usuarioRepository from '../repositories/usuarioRepository.js';
+
+function semSenha(usuario) {
+    if (!usuario) return usuario;
+    const { senha, ...dados } = usuario;
+    void senha;
+    return dados;
+}
 
 const clienteController = {
-
-    criar: async (req, res) => {
-
-        try {
-
-            const existe =
-                await clienteRepository.buscarPorCpf(
-                    req.body.cpf
-                );
-
-            if (existe) {
-                return res.status(400).json({
-                    message: 'CPF já cadastrado'
-                });
-            }
-
-            const senhaHash =
-                await bcrypt.hash(
-                    req.body.senha,
-                    10
-                );
-
-            const id =
-                await clienteRepository.criar({
-                    ...req.body,
-                    senha: senhaHash
-                });
-
-            const token = jwt.sign(
-                {
-                    id,
-                    tipo: 'cliente'
-                },
-                process.env.JWT_SECRET,
-                {
-                    expiresIn: '1d'
-                }
-            );
-
-            res.status(201).json({
-                message: 'Cliente criado',
-                token
-            });
-
-        } catch (error) {
-
-            res.status(500).json({
-                error: error.message
-            });
-        }
-    },
-
     listar: async (req, res) => {
-
-        const result =
-            await clienteRepository.listar();
-
-        res.json(result);
+        try {
+            return res.json(await usuarioRepository.listarClientes());
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
     },
 
     buscarPorId: async (req, res) => {
-
-        const result =
-            await clienteRepository.buscarPorId(
-                req.params.id
-            );
-
-        res.json(result);
+        try {
+            const usuario = await usuarioRepository.buscarPorId(req.params.id);
+            if (!usuario || usuario.nivel_acesso !== 'cliente') {
+                return res.status(404).json({ message: 'Cliente não encontrado.' });
+            }
+            return res.json(semSenha(usuario));
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
     },
 
     atualizar: async (req, res) => {
-
-        // Somente o próprio cliente pode alterar o próprio perfil.
-        if (
-            !req.user ||
-            req.user.tipo !== 'cliente' ||
-            String(req.user.id) !== String(req.params.id)
-        ) {
-            return res.status(403).json({
-                message: 'Você só pode editar o seu próprio perfil.'
-            });
+        if (req.user.tipo !== 'cliente' || Number(req.user.id) !== Number(req.params.id)) {
+            return res.status(403).json({ message: 'Você só pode editar o seu próprio perfil.' });
         }
-
         try {
-            await clienteRepository.atualizar(
-                req.params.id,
-                req.body
-            );
-
-            res.json({
-                message: 'Perfil atualizado com sucesso.'
-            });
+            const dados = { ...req.body };
+            if (req.file) dados.foto_perfil = `/uploads/perfil/${req.file.filename}`;
+            if (dados.cpf) dados.cpf = String(dados.cpf).replace(/\D/g, '');
+            await usuarioRepository.atualizarCliente(req.params.id, dados);
+            return res.json({ message: 'Perfil atualizado com sucesso.' });
         } catch (error) {
-            res.status(500).json({
-                error: error.message
-            });
+            return res.status(400).json({ message: error.message });
         }
     },
 
-    deletar: async (req, res) => {
-
-        await clienteRepository.deletar(
-            req.params.id
-        );
-
-        res.json({
-            message: 'Removido'
-        });
+    desativar: async (req, res) => {
+        if (req.user.tipo !== 'cliente' || Number(req.user.id) !== Number(req.params.id)) {
+            return res.status(403).json({ message: 'Você não pode alterar este usuário.' });
+        }
+        await usuarioRepository.alterarAtivo(req.params.id, false);
+        return res.json({ message: 'Usuário desativado com sucesso.' });
     }
 };
 
