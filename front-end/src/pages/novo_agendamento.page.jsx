@@ -11,19 +11,15 @@ import {
 } from '../services/agendamentoService.js';
 
 import {
-  listarMedicos
+  listarMedicos,
+  listarProcedimentosMedico
 } from '../services/medicoService.js';
-
-import {
-  listarProcedimentos
-} from '../services/procedimentoService.js';
 
 import {
   obterUsuario
 } from '../storage/usuario.storage.js';
 
 export default function NovoAgendamento() {
-
   const navigate = useNavigate();
   const sessao = obterUsuario() || {};
 
@@ -40,7 +36,6 @@ export default function NovoAgendamento() {
 
   // Carrega os médicos
   useEffect(() => {
-
     listarMedicos()
       .then(setMedicos)
       .catch(err =>
@@ -49,34 +44,40 @@ export default function NovoAgendamento() {
           'Não foi possível carregar os médicos.'
         )
       );
-
   }, []);
 
-  // Carrega todos os procedimentos cadastrados na tabela procedimentos
+  // Carrega os procedimentos do médico selecionado
   useEffect(() => {
+    if (!form.id_medico) {
+      setProcedimentos([]);
+      return;
+    }
 
-    listarProcedimentos()
+    setProcedimentos([]);
+
+    setForm(atual => ({
+      ...atual,
+      id_procedimento: ''
+    }));
+
+    listarProcedimentosMedico(form.id_medico)
       .then(setProcedimentos)
       .catch(err =>
         setErro(
           err.response?.data?.message ||
-          'Não foi possível carregar os procedimentos.'
+          'Não foi possível carregar os procedimentos do médico.'
         )
       );
-
-  }, []);
+  }, [form.id_medico]);
 
   function handleChange(e) {
-
     setForm(atual => ({
       ...atual,
       [e.target.name]: e.target.value
     }));
-
   }
 
   async function handleSubmit(e) {
-
     e.preventDefault();
     setErro('');
 
@@ -88,7 +89,6 @@ export default function NovoAgendamento() {
     }
 
     try {
-
       await criarAgendamento({
         id_cliente: sessao.id,
         id_medico: form.id_medico,
@@ -98,15 +98,12 @@ export default function NovoAgendamento() {
       });
 
       navigate('/agendamentos');
-
     } catch (err) {
-
       setErro(
         err.response?.data?.message ||
         err.response?.data?.error ||
         'Erro ao criar agendamento.'
       );
-
     }
   }
 
@@ -116,7 +113,6 @@ export default function NovoAgendamento() {
 
       <div className="container">
         <Card>
-
           <h1>Novo Agendamento</h1>
 
           <p className="muted">
@@ -133,7 +129,6 @@ export default function NovoAgendamento() {
             onSubmit={handleSubmit}
             className="form"
           >
-
             <label>Médico</label>
 
             <select
@@ -142,22 +137,18 @@ export default function NovoAgendamento() {
               onChange={handleChange}
               required
             >
-
               <option value="">
                 Selecione
               </option>
 
               {medicos.map(m => (
-
                 <option
                   key={m.id_usuario}
                   value={m.id_usuario}
                 >
                   {m.nome} — {m.especializacao || 'Especialista'}
                 </option>
-
               ))}
-
             </select>
 
             <label>Procedimento</label>
@@ -167,25 +158,24 @@ export default function NovoAgendamento() {
               value={form.id_procedimento}
               onChange={handleChange}
               required
+              disabled={!form.id_medico}
             >
-
               <option value="">
-                {procedimentos.length > 0
-                  ? 'Selecione'
-                  : 'Nenhum procedimento disponível'}
+                {!form.id_medico
+                  ? 'Selecione primeiro o médico'
+                  : procedimentos.length > 0
+                    ? 'Selecione'
+                    : 'Nenhum procedimento disponível'}
               </option>
 
               {procedimentos.map(p => (
-
                 <option
                   key={p.id_procedimento}
                   value={p.id_procedimento}
                 >
                   {p.nome}
                 </option>
-
               ))}
-
             </select>
 
             <label>Data</label>
@@ -194,6 +184,7 @@ export default function NovoAgendamento() {
               name="data"
               type="date"
               value={form.data}
+              min={new Date().toISOString().split('T')[0]}
               onChange={handleChange}
               required
             />
@@ -204,6 +195,8 @@ export default function NovoAgendamento() {
               name="hora"
               type="time"
               value={form.hora}
+              min="07:00"
+              max="17:00"
               onChange={handleChange}
               required
             />
@@ -211,9 +204,7 @@ export default function NovoAgendamento() {
             <Button type="submit">
               Confirmar agendamento
             </Button>
-
           </form>
-
         </Card>
       </div>
     </>
