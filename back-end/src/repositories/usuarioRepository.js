@@ -4,9 +4,23 @@ const usuarioRepository = {
     criar: async (usuario) => {
         const [result] = await connection.execute(
             `INSERT INTO usuarios
-            (nome, email, senha, cpf, telefone, data_nascimento, endereco,
-             foto_perfil, data_cadastro, nivel_acesso, ativo, tipo_pele, crm, especializacao)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURDATE(), ?, TRUE, ?, ?, ?)`,
+        (
+            nome,
+            email,
+            senha,
+            cpf,
+            telefone,
+            data_nascimento,
+            endereco,
+            foto_perfil,
+            data_cadastro,
+            nivel_acesso,
+            ativo,
+            tipo_pele,
+            crm,
+            especializacao
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURDATE(), ?, TRUE, ?, NULLIF(?, ''), NULLIF(?, ''))`,
             [
                 usuario.nome,
                 usuario.email,
@@ -17,11 +31,12 @@ const usuarioRepository = {
                 usuario.endereco,
                 usuario.foto_perfil,
                 usuario.nivel_acesso,
-                usuario.tipo_pele ?? null,
-                usuario.crm ?? null,
-                usuario.especializacao ?? null
+                usuario.tipo_pele || null,
+                usuario.crm || null,
+                usuario.especializacao || null
             ]
         );
+
         return result.insertId;
     },
 

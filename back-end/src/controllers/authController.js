@@ -111,11 +111,25 @@ const authController = {
             const senha = await bcrypt.hash(req.body.senha, 10);
             const foto = `/uploads/perfil/${req.file.filename}`;
 
+            console.log('DADOS DO CADASTRO:', {
+                nivel_acesso: req.body.nivel_acesso,
+                crm: req.body.nivel_acesso === 'medico' ? req.body.crm : null,
+                especializacao: req.body.nivel_acesso === 'medico'
+                    ? req.body.especializacao
+                    : null
+            });
+
             const id = await usuarioRepository.criar({
                 ...req.body,
                 cpf,
                 senha,
-                foto_perfil: foto
+                foto_perfil: foto,
+                crm: req.body.nivel_acesso === 'medico'
+                    ? (req.body.crm || null)
+                    : null,
+                especializacao: req.body.nivel_acesso === 'medico'
+                    ? (req.body.especializacao || null)
+                    : null
             });
 
             const usuario = await usuarioRepository.buscarPorId(id);
