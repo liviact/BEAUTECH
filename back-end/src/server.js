@@ -3,6 +3,7 @@ import cors from 'cors';
 import path from 'path';
 import 'dotenv/config';
 import routes from './routes/routes.js';
+import { ensureAdmin } from './configs/ensureAdmin.js';
 
 const app = express();
 
@@ -26,4 +27,15 @@ app.use((error, req, res, next) => {
 });
 
 const port = process.env.SERVER_PORT || 8000;
-app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
+
+async function iniciar() {
+    try {
+        await ensureAdmin();
+        app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
+    } catch (error) {
+        console.error('Não foi possível preparar o administrador:', error.message);
+        app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
+    }
+}
+
+iniciar();
