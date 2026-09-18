@@ -145,7 +145,7 @@ export default function ReagendarAgendamento() {
               <h2>{agendamento.procedimento || agendamento.tipo_atendimento}</h2>
 
               <div className="appointment-summary-row">
-                <span>📅</span>
+                <span className="emoji-icon">📅</span>
                 <div>
                   <small>Data atual</small>
                   <strong>{formatarData(agendamento.data)}</strong>
@@ -153,7 +153,7 @@ export default function ReagendarAgendamento() {
               </div>
 
               <div className="appointment-summary-row">
-                <span>🕐</span>
+                <span className="emoji-icon">🕐</span>
                 <div>
                   <small>Horário atual</small>
                   <strong>{formatarHora(agendamento.hora)}</strong>
@@ -161,7 +161,7 @@ export default function ReagendarAgendamento() {
               </div>
 
               <div className="appointment-summary-row">
-                <span>👨‍⚕️</span>
+                <span className="emoji-icon">👨‍⚕️</span>
                 <div>
                   <small>Médico</small>
                   <strong>{agendamento.medico || 'Profissional BEAUTECH'}</strong>

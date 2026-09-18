@@ -39,17 +39,25 @@ export default function Perfil() {
           <button type="button" className="btn-secondary page-back-button" onClick={() => navigate('/dashboard')}>← Voltar ao dashboard</button>
         </div>
         {erro && <div className="alert error">{erro}</div>}
-        <Card>
-          {usuario?.foto_perfil && <img className="profile-photo" src={urlFoto(usuario.foto_perfil)} alt={`Foto de ${usuario.nome}`} />}
-          <p><strong>Nome:</strong> {usuario?.nome || 'Carregando...'}</p>
-          <p><strong>E-mail:</strong> {usuario?.email || '—'}</p>
-          <p><strong>CPF:</strong> {usuario?.cpf || '—'}</p>
-          <p><strong>Telefone:</strong> {usuario?.telefone || '—'}</p>
-          <p><strong>Data de nascimento:</strong> {usuario?.data_nascimento ? String(usuario.data_nascimento).slice(0, 10) : '—'}</p>
-          <p><strong>Endereço:</strong> {usuario?.endereco || '—'}</p>
-          {sessao.tipo === 'cliente' ? <p><strong>Tipo de pele:</strong> {usuario?.tipo_pele || '—'}</p> : <><p><strong>CRM:</strong> {usuario?.crm || '—'}</p><p><strong>Especialização:</strong> {usuario?.especializacao || '—'}</p></>}
-          <p><strong>Status:</strong> {usuario?.ativo ? 'Ativo' : 'Inativo'}</p>
-          <Link to="/perfil/editar" className="btn-link">Editar Perfil</Link>
+        <Card className="profile-card-centered">
+          <div className="profile-content-centered">
+            {usuario?.foto_perfil ? (
+              <img className="profile-photo" src={urlFoto(usuario.foto_perfil)} alt={`Foto de ${usuario.nome}`} />
+            ) : (
+              <div className="profile-photo profile-photo-placeholder">BT</div>
+            )}
+            <div className="profile-information">
+              <p><strong>Nome:</strong> {usuario?.nome || 'Carregando...'}</p>
+              <p><strong>E-mail:</strong> {usuario?.email || '—'}</p>
+              <p><strong>CPF:</strong> {usuario?.cpf || '—'}</p>
+              <p><strong>Telefone:</strong> {usuario?.telefone || '—'}</p>
+              <p><strong>Data de nascimento:</strong> {usuario?.data_nascimento ? String(usuario.data_nascimento).slice(0, 10) : '—'}</p>
+              <p><strong>Endereço:</strong> {usuario?.endereco || '—'}</p>
+              {sessao.tipo === 'cliente' ? <p><strong>Tipo de pele:</strong> {usuario?.tipo_pele || '—'}</p> : <><p><strong>CRM:</strong> {usuario?.crm || '—'}</p><p><strong>Especialização:</strong> {usuario?.especializacao || '—'}</p></>}
+              <p><strong>Status:</strong> {usuario?.ativo ? 'Ativo' : 'Inativo'}</p>
+            </div>
+            <Link to="/perfil/editar" className="btn-link profile-edit-button">Editar</Link>
+          </div>
         </Card>
       </div>
     </>
