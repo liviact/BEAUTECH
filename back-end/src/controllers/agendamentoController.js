@@ -67,7 +67,7 @@ const agendamentoController = {
                 consultasExistentes
             );
 
-            const resultado = await agendamentoRepository.criar(agendamento);
+            const resultado = await agendamentoRepository.criarComDisponibilidade(agendamento);
 
             return res.status(201).json({
                 message: 'Solicitação de agendamento enviada para análise do médico.',
