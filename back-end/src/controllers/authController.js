@@ -31,7 +31,7 @@ function validarCadastro(dados) {
         if (!dados[campo]) throw new Error(`O campo ${campo} é obrigatório.`);
     }
 
-    if (!['cliente', 'medico'].includes(dados.nivel_acesso)) {
+    if (dados.nivel_acesso !== 'cliente') {
         throw new Error('Tipo de usuário inválido.');
     }
 
@@ -42,24 +42,17 @@ function validarCadastro(dados) {
     const cpf = String(dados.cpf).replace(/\D/g, '');
     if (cpf.length !== 11) throw new Error('O CPF deve possuir 11 números.');
 
-    if (dados.nivel_acesso === 'medico') {
-        if (!dados.crm) throw new Error('O CRM é obrigatório para médicos.');
-        if (!dados.especializacao) throw new Error('A especialização é obrigatória para médicos.');
-    }
 }
 
 const authController = {
     login: async (req, res) => {
         try {
-            const { email, senha, nivel_acesso } = req.body;
+            const { email, senha } = req.body;
 
             if (!email || !senha) {
                 return res.status(400).json({ message: 'E-mail e senha são obrigatórios.' });
             }
 
-            if (nivel_acesso && !['cliente', 'medico'].includes(nivel_acesso)) {
-                return res.status(400).json({ message: 'Tipo de acesso inválido.' });
-            }
 
             const usuario = await usuarioRepository.buscarPorEmail(email);
 
@@ -67,9 +60,6 @@ const authController = {
                 return res.status(401).json({ message: 'E-mail ou senha inválidos.' });
             }
 
-            if (nivel_acesso && usuario.nivel_acesso !== nivel_acesso) {
-                return res.status(401).json({ message: 'O e-mail não pertence ao tipo de acesso selecionado.' });
-            }
 
             if (!usuario.ativo) {
                 return res.status(403).json({ message: 'Este usuário está inativo. Entre em contato com a clínica.' });
