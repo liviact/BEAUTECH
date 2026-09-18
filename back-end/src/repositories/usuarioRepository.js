@@ -72,6 +72,17 @@ const usuarioRepository = {
         return rows[0];
     },
 
+    listarTodos: async () => {
+        const [rows] = await connection.execute(
+            `SELECT id_usuario, nome, email, cpf, telefone, data_nascimento,
+                    endereco, foto_perfil, data_cadastro, nivel_acesso, ativo,
+                    tipo_pele, crm, especializacao
+             FROM usuarios
+             ORDER BY nivel_acesso, nome`
+        );
+        return rows;
+    },
+
     listarClientes: async () => {
         const [rows] = await connection.execute(
             `SELECT id_usuario, nome, email, cpf, telefone, data_nascimento,
