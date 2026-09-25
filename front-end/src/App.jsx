@@ -1,23 +1,49 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Login from './pages/login.page.jsx';
-import Cadastro from './pages/cadastro.page.jsx';
+import Auth from './pages/auth.page.jsx';
+import Landing from './pages/landing.page.jsx';
+import AdminPage from './pages/admin.page.jsx';
+import Medicos from './pages/medicos.page.jsx';
+import MedicoPerfil from './pages/medico-perfil.page.jsx';
 import Dashboard from './pages/dashboard.page.jsx';
 import Perfil from './pages/perfil.page.jsx';
 import EditarPerfil from './pages/editar_perfil.page.jsx';
 import Agendamentos from './pages/agendamentos.page.jsx';
 import NovoAgendamento from './pages/novo_agendamento.page.jsx';
-import LoginMedico from './pages/loginMedico.jsx';
+import ReagendarAgendamento from './pages/reagendar_agendamento.page.jsx';
+import MeusProcedimentos from './pages/meus_procedimentos.page.jsx';
+import Calendario from './pages/calendario.page.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
 
 export default function App() {
-  return <Routes>
-    <Route path="/" element={<Login />} />
-    <Route path="/cadastro" element={<Cadastro />} />
-    <Route path="/login-medico" element={<LoginMedico />} />
-    <Route path="/dashboard" element={<Dashboard />} />
-    <Route path="/perfil" element={<Perfil />} />
-    <Route path="/perfil/editar" element={<EditarPerfil />} />
-    <Route path="/agendamentos" element={<Agendamentos />} />
-    <Route path="/agendamentos/novo" element={<NovoAgendamento />} />
-    <Route path="*" element={<Navigate to="/" replace />} />
-  </Routes>;
+  return (
+    <Routes>
+      <Route path="/" element={<Landing />} />
+      <Route path="/login" element={<Auth />} />
+      <Route path="/cadastro" element={<Auth />} />
+      <Route path="/medicos" element={<Medicos />} />
+      <Route path="/medicos/:id" element={<MedicoPerfil />} />
+
+      <Route element={<ProtectedRoute allowedRoles={['admin']} />}><Route path="/admin" element={<AdminPage />} /></Route>
+
+      <Route element={<ProtectedRoute />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/perfil" element={<Perfil />} />
+        <Route path="/perfil/editar" element={<EditarPerfil />} />
+        <Route path="/agendamentos" element={<Agendamentos />} />
+        <Route path="/calendario" element={<Calendario />} />
+      </Route>
+
+      <Route element={<ProtectedRoute allowedRoles={['cliente']} />}>
+        <Route path="/agendamentos/novo" element={<NovoAgendamento />} />
+        <Route path="/agendamentos/:id/reagendar" element={<ReagendarAgendamento />} />
+      </Route>
+
+      <Route element={<ProtectedRoute allowedRoles={['medico']} />}>
+        <Route path="/meus-procedimentos" element={<MeusProcedimentos />} />
+      </Route>
+
+      <Route path="/login-medico" element={<Navigate to="/login" replace />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  );
 }

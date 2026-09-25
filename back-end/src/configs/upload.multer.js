@@ -5,10 +5,8 @@ import fs from 'fs';
 
 const baseUploadDir = path.resolve(process.cwd(), 'uploads');
 
-const verificaDir = (dir) => {
-    if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-    }
+function verificaDir(dir) {
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 }
 
 const createMulter = ({ pasta, tiposPermitidos, tamanhoArquivo }) => {
@@ -16,27 +14,26 @@ const createMulter = ({ pasta, tiposPermitidos, tamanhoArquivo }) => {
     verificaDir(pastaFinal);
 
     const storage = multer.diskStorage({
-        destination: (req, file, cb) => {
-            cb(null, pastaFinal);
-        },
+        destination: (req, file, cb) => cb(null, pastaFinal),
         filename: (req, file, cb) => {
             const hash = crypto.randomBytes(12).toString('hex');
-            cb(null, `${hash}-${file.originalname}`);
+            const extensao = path.extname(file.originalname).toLowerCase();
+            cb(null, `${hash}${extensao}`);
         }
     });
 
     const fileFilter = (req, file, cb) => {
         if (!tiposPermitidos.includes(file.mimetype)) {
-            return cb(new Error("Tipo de arquivo não permitido"));
+            return cb(new Error('Tipo de arquivo não permitido'));
         }
         cb(null, true);
-    }
+    };
 
     return multer({
         storage,
-        limits: { fileSize: tamanhoArquivo }, 
+        limits: { fileSize: tamanhoArquivo },
         fileFilter
     });
-}
+};
 
 export default createMulter;

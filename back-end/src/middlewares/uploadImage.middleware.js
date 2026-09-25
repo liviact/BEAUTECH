@@ -1,9 +1,9 @@
-import createMulter from "../configs/upload.multer.js";
+import createMulter from '../configs/upload.multer.js';
 
-const uploadImage = createMulter({
-    pasta: 'imagens', 
-    tiposPermitidos: ['image/png', 'image/jpeg'],
-    tamanhoArquivo: 10 * 1024 * 1024
-}).single('imagem');  
+const uploadPerfil = createMulter({
+    pasta: 'perfil',
+    tiposPermitidos: ['image/png', 'image/jpeg', 'image/webp'],
+    tamanhoArquivo: 5 * 1024 * 1024
+}).single('foto');
 
-export default uploadImage;
+export default uploadPerfil;
