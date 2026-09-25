@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { obterUsuario } from '../storage/usuario.storage.js';
 import { listarMedicos } from '../services/medicoService.js';
 import MedicoCard from '../components/medico/MedicoCard.jsx';
+import Navbar from '../components/layout/navbar.jsx';
 
 export default function Medicos() {
   const navigate = useNavigate();
@@ -18,12 +19,16 @@ export default function Medicos() {
     });
   }, []);
 
-  const filtrados = medicos.filter((medico) =>
-    `${medico.nome} ${medico.especializacao || ''}`.toLowerCase().includes(busca.toLowerCase())
-  );
+  const filtrados = medicos
+    .filter((medico) => !(usuario?.tipo === 'medico' && Number(medico.id_usuario) === Number(usuario.id)))
+    .filter((medico) =>
+      `${medico.nome} ${medico.especializacao || ''}`.toLowerCase().includes(busca.toLowerCase())
+    );
 
   return (
-    <main className="catalog-page">
+    <>
+      <Navbar />
+      <main className="catalog-page">
       <header className="catalog-header">
         <div>
           <Link to="/" className="catalog-logo">BEAUTECH</Link>
@@ -47,6 +52,7 @@ export default function Medicos() {
           {filtrados.map((medico) => <MedicoCard key={medico.id_usuario} medico={medico} />)}
         </section>
       )}
-    </main>
+      </main>
+    </>
   );
 }

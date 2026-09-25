@@ -15,6 +15,7 @@ export default function MeusProcedimentos() {
   const sessao = obterUsuario() || {};
   const [procedimentos, setProcedimentos] = useState([]);
   const [selecionados, setSelecionados] = useState([]);
+  const [busca, setBusca] = useState('');
   const [originais, setOriginais] = useState([]);
   const [erro, setErro] = useState('');
   const [sucesso, setSucesso] = useState('');
@@ -116,8 +117,24 @@ export default function MeusProcedimentos() {
                 <strong>{selecionados.length} selecionado(s)</strong>
               </div>
 
+              <div className="procedure-search">
+                <label htmlFor="buscar-procedimento">Buscar</label>
+                <input
+                  id="buscar-procedimento"
+                  className="input"
+                  type="search"
+                  value={busca}
+                  onChange={(e) => setBusca(e.target.value)}
+                  placeholder="Digite o nome do procedimento"
+                />
+              </div>
+
               <div className="procedure-selection-grid">
-                {procedimentos.map((procedimento) => {
+                {procedimentos.filter((procedimento) => {
+                  const termo = busca.trim().toLowerCase();
+                  if (!termo) return true;
+                  return procedimento.nome?.toLowerCase().includes(termo) || procedimento.descricao?.toLowerCase().includes(termo);
+                }).map((procedimento) => {
                   const marcado = selecionados.includes(Number(procedimento.id_procedimento));
                   return (
                     <label key={procedimento.id_procedimento} className={`procedure-option ${marcado ? 'selected' : ''}`}>
@@ -134,6 +151,14 @@ export default function MeusProcedimentos() {
                   );
                 })}
               </div>
+
+              {procedimentos.filter((procedimento) => {
+                const termo = busca.trim().toLowerCase();
+                if (!termo) return true;
+                return procedimento.nome?.toLowerCase().includes(termo) || procedimento.descricao?.toLowerCase().includes(termo);
+              }).length === 0 && (
+                <p className="muted procedure-no-results">Nenhum procedimento encontrado.</p>
+              )}
 
               <div className="procedure-selection-actions">
                 <button type="button" className="btn-secondary" onClick={() => navigate('/dashboard')}>
