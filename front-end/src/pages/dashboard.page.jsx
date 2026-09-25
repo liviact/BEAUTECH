@@ -16,11 +16,13 @@ export default function Dashboard() {
     <>
       <Navbar />
       <div className="container">
-        <section className="hero">
-          <p className="eyebrow">BEAUTECH</p>
-          <h1>Olá, {usuario.nome || 'seja bem-vindo'}!</h1>
-          <p>Você está na área {usuario.tipo === 'medico' ? 'profissional' : 'do cliente'}.</p>
-        </section>
+        <Link to="/perfil" className="profile-hero-card">
+          <section className="hero">
+            <p className="eyebrow">BEAUTECH</p>
+            <h1>Olá, {usuario.nome || 'seja bem-vindo'}!</h1>
+            <p>Você está na área {usuario.tipo === 'medico' ? 'profissional' : 'do cliente'}.</p>
+          </section>
+        </Link>
 
         <div className="acoes">
           {usuario.tipo === 'cliente' && <Link to="/agendamentos/novo" className="card-acao"><strong>Novo Agendamento</strong><span>Marque seu atendimento.</span></Link>}

@@ -1,38 +1,38 @@
 * { box-sizing: border-box; }
-body { margin: 0; font-family: Inter, Arial, sans-serif; background: #f7f3f7; color: #29242d; }
+body { margin: 0; font-family: Inter, Arial, sans-serif; background: #fffdf3; color: #29242d; }
 a { color: inherit; }
 button, input, select { font: inherit; }
-.navbar { min-height: 70px; padding: 0 5%; display: flex; justify-content: space-between; align-items: center; background: #7c3aed; color: #fff; box-shadow: 0 4px 16px rgba(0,0,0,.08); }
+.navbar { min-height: 70px; padding: 0 5%; display: flex; justify-content: space-between; align-items: center; background: #fffdf3; color: #29242d; box-shadow: none; border: 0; }
 .logo { font-size: 22px; font-weight: 800; text-decoration: none; letter-spacing: .5px; }
 .links { display: flex; gap: 18px; align-items: center; }
 .links a { text-decoration: none; color: #fff; font-weight: 600; }
-.btn-sair { border: 0; padding: 9px 15px; border-radius: 9px; background: #fff; color: #7c3aed; font-weight: 700; cursor: pointer; }
+.btn-sair { border: 0; padding: 9px 15px; border-radius: 9px; background: #fff; color: #cd75ba; font-weight: 700; cursor: pointer; }
 .role { padding: 6px 10px; border: 1px solid rgba(255,255,255,.4); border-radius: 999px; font-size: 13px; }
 .container { max-width: 1100px; margin: 0 auto; padding: 44px 20px; }
 .hero { background: linear-gradient(135deg, #fff, #f0e5ff); border-radius: 22px; padding: 42px; box-shadow: 0 10px 35px rgba(75,40,100,.08); }
 h1 { margin: 0 0 10px; font-size: 36px; }
 h2 { margin: 5px 0; font-size: 28px; }
 .hero p, .muted { color: #756d7c; }
-.eyebrow { display: block; color: #7c3aed !important; font-weight: 800; letter-spacing: 2px; font-size: 12px; }
+.eyebrow { display: block; color: #cd75ba !important; font-weight: 800; letter-spacing: 2px; font-size: 12px; }
 .acoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 25px 0 40px; }
 .card-acao, .card { background: #fff; border-radius: 18px; padding: 22px; box-shadow: 0 6px 22px rgba(45,30,55,.07); }
 .card-acao { text-decoration: none; display: flex; flex-direction: column; gap: 8px; transition: transform .15s; }
 .card-acao:hover { transform: translateY(-2px); }
 .card-acao span { color: #7a7180; font-size: 14px; }
-.auth-layout { min-height: 100vh; display: grid; place-items: center; padding: 35px 16px; background: radial-gradient(circle at top left, #eadcff, #f8f6fa 52%, #eee7f3); }
+.auth-layout { min-height: 100vh; display: grid; place-items: center; padding: 35px 16px; background: radial-gradient(circle at top left, #fffdf3, #fffdf3 52%, #fffdf3); }
 .auth-panel { width: min(100%, 760px); background: rgba(255,255,255,.98); padding: 38px; border-radius: 28px; box-shadow: 0 22px 70px rgba(45,25,70,.14); }
 .brand { display: flex; flex-direction: column; margin-bottom: 22px; }
-.brand strong, .catalog-logo { color: #7c3aed; font-size: 25px; font-weight: 800; text-decoration: none; }
+.brand strong, .catalog-logo { color: #cd75ba; font-size: 25px; font-weight: 800; text-decoration: none; }
 .brand span { color: #817789; font-size: 14px; }
 .auth-title { margin-bottom: 18px; }
 .auth-title p { color: #756d7c; margin: 5px 0; }
-.role-switch, .mode-switch { display: flex; gap: 8px; background: #f1edf5; padding: 5px; border-radius: 12px; margin-bottom: 12px; }
+.role-switch, .mode-switch { display: flex; gap: 8px; background: #f9eaf5; padding: 5px; border-radius: 12px; margin-bottom: 12px; }
 .role-switch button, .mode-switch button { flex: 1; border: 0; background: transparent; padding: 11px; border-radius: 9px; cursor: pointer; color: #756d7c; font-weight: 700; }
-.role-switch button.active, .mode-switch button.active { background: #fff; color: #7c3aed; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+.role-switch button.active, .mode-switch button.active { background: #fff; color: #cd75ba; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
 .form { display: flex; flex-direction: column; gap: 9px; margin-top: 18px; }
 .form label { font-weight: 700; font-size: 14px; }
 .input, .form select { width: 100%; padding: 13px 14px; border: 1px solid #ddd5e5; border-radius: 10px; font-size: 15px; background: #fff; color: #27232b; }
-.btn { width: 100%; padding: 13px 16px; border: 0; border-radius: 10px; background: #7c3aed; color: #fff; font-weight: 700; cursor: pointer; }
+.btn { width: 100%; padding: 13px 16px; border: 0; border-radius: 10px; background: #cd75ba; color: #fff; font-weight: 700; cursor: pointer; }
 .btn:disabled { opacity: .65; cursor: not-allowed; }
 .grid-form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .grid-form > div { display: flex; flex-direction: column; gap: 8px; }
@@ -42,10 +42,10 @@ h2 { margin: 5px 0; font-size: 28px; }
 .alert.success { background: #edfff4; color: #176b3a; }
 .photo-upload { display: flex; align-items: center; gap: 18px; padding: 15px; border: 1px dashed #d8cce2; border-radius: 14px; background: #fbf9fc; }
 .photo-upload small { display: block; margin-top: 6px; color: #82788a; }
-.photo-preview { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; background: #ede5f4; display: grid; place-items: center; color: #7c3aed; font-weight: 800; flex: 0 0 auto; }
+.photo-preview { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; background: #ede5f4; display: grid; place-items: center; color: #cd75ba; font-weight: 800; flex: 0 0 auto; }
 .photo-preview img { width: 100%; height: 100%; object-fit: cover; }
-.catalog-link { width: 100%; border: 0; background: transparent; color: #7c3aed; font-weight: 800; cursor: pointer; padding: 15px 0 0; }
-.btn-link { display: inline-block; margin-top: 22px; background: #7c3aed; color: #fff; text-decoration: none; padding: 11px 16px; border-radius: 10px; font-weight: 700; border: 0; cursor: pointer; }
+.catalog-link { width: 100%; border: 0; background: transparent; color: #cd75ba; font-weight: 800; cursor: pointer; padding: 15px 0 0; }
+.btn-link { display: inline-block; margin-top: 22px; background: #cd75ba; color: #fff; text-decoration: none; padding: 11px 16px; border-radius: 10px; font-weight: 700; border: 0; cursor: pointer; }
 .btn-link.compact { margin-top: 0; white-space: nowrap; }
 .btn-cancelar { cursor: pointer; text-align: center; }
 .page-header, .section-heading { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 22px; }
@@ -59,22 +59,22 @@ h2 { margin: 5px 0; font-size: 28px; }
 .doctor-card:hover { transform: translateY(-4px); box-shadow: 0 14px 35px rgba(45,30,55,.13); }
 .doctor-photo-wrap { height: 260px; background: linear-gradient(135deg,#eee5f5,#ddd0e9); }
 .doctor-photo { width: 100%; height: 100%; object-fit: cover; display: block; }
-.doctor-photo-placeholder { display: grid; place-items: center; font-size: 45px; font-weight: 900; color: #7c3aed; }
+.doctor-photo-placeholder { display: grid; place-items: center; font-size: 45px; font-weight: 900; color: #cd75ba; }
 .doctor-card-body { padding: 20px; }
 .doctor-label { color: #8b7b95; font-size: 10px; letter-spacing: 1.4px; font-weight: 800; }
 .doctor-card h3 { margin: 7px 0 4px; font-size: 21px; }
 .doctor-card p { margin: 0 0 16px; color: #756d7c; }
-.doctor-profile-button { width: 100%; border: 1px solid #e1d6e8; background: #fff; color: #7c3aed; padding: 10px; border-radius: 10px; font-weight: 800; cursor: pointer; }
+.doctor-profile-button { width: 100%; border: 1px solid #e1d6e8; background: #fff; color: #cd75ba; padding: 10px; border-radius: 10px; font-weight: 800; cursor: pointer; }
 .catalog-page { min-height: 100vh; max-width: 1150px; margin: 0 auto; padding: 42px 22px 60px; }
 .catalog-header { display: flex; justify-content: space-between; gap: 25px; align-items: flex-end; margin-bottom: 28px; }
 .catalog-header h1 { margin-top: 7px; }
 .catalog-header p { color: #756d7c; }
 .catalog-toolbar { margin-bottom: 25px; max-width: 600px; }
 .empty-card { background: #fff; padding: 30px; border-radius: 18px; text-align: center; box-shadow: 0 6px 22px rgba(45,30,55,.07); }
-.back-link { color: #7c3aed; text-decoration: none; font-weight: 800; display: inline-block; margin-bottom: 22px; }
+.back-link { color: #cd75ba; text-decoration: none; font-weight: 800; display: inline-block; margin-bottom: 22px; }
 .doctor-detail { background: #fff; border-radius: 24px; padding: 28px; display: grid; grid-template-columns: 340px 1fr; gap: 35px; box-shadow: 0 10px 35px rgba(45,30,55,.08); }
 .doctor-detail > img { width: 100%; height: 380px; object-fit: cover; border-radius: 18px; }
-.doctor-detail h2 { color: #7c3aed; font-size: 22px; margin: 8px 0 20px; }
+.doctor-detail h2 { color: #cd75ba; font-size: 22px; margin: 8px 0 20px; }
 .doctor-detail li { margin: 7px 0; color: #5f5665; }
 @media (max-width: 800px) { .acoes, .doctor-grid { grid-template-columns: 1fr; } .grid-form { grid-template-columns: 1fr; } .grid-form > div, .grid-form > .btn, .grid-form > .full { grid-column: auto; } .navbar { padding: 12px 16px; align-items: flex-start; } .links { gap: 10px; flex-wrap: wrap; justify-content: flex-end; } .links a { font-size: 13px; } .hero { padding: 28px; } .page-header, .section-heading, .catalog-header { align-items: flex-start; flex-direction: column; } .doctor-detail { grid-template-columns: 1fr; } .doctor-detail > img { height: 300px; } }
 @media (max-width: 560px) { .auth-panel { padding: 25px 18px; } .photo-upload { align-items: flex-start; flex-direction: column; } .catalog-page { padding: 28px 16px; } }
@@ -83,9 +83,9 @@ h2 { margin: 5px 0; font-size: 28px; }
 /* Ações dos cards de médicos */
 .doctor-card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .doctor-profile-button, .doctor-schedule-button { min-height: 44px; transition: transform .15s, box-shadow .15s, background .15s; }
-.doctor-profile-button:hover { background: #f7f1ff; transform: translateY(-1px); }
-.doctor-schedule-button { width: 100%; border: 0; background: #7c3aed; color: #fff; padding: 10px 12px; border-radius: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 5px 14px rgba(124,58,237,.18); }
-.doctor-schedule-button:hover { background: #6d28d9; transform: translateY(-1px); box-shadow: 0 8px 18px rgba(124,58,237,.25); }
+.doctor-profile-button:hover { background: #fff0fa; transform: translateY(-1px); }
+.doctor-schedule-button { width: 100%; border: 0; background: #cd75ba; color: #fff; padding: 10px 12px; border-radius: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 5px 14px rgba(124,58,237,.18); }
+.doctor-schedule-button:hover { background: #b65c9f; transform: translateY(-1px); box-shadow: 0 8px 18px rgba(124,58,237,.25); }
 
 /* Reagendamento */
 .reschedule-page { max-width: 1000px; }
@@ -93,7 +93,7 @@ h2 { margin: 5px 0; font-size: 28px; }
 .appointment-summary { position: sticky; top: 24px; }
 .appointment-summary h2 { margin: 8px 0 24px; }
 .appointment-summary-row { display: flex; align-items: center; gap: 13px; padding: 13px 0; border-top: 1px solid #eee7f1; }
-.appointment-summary-row > span { width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; background: #f4edfb; font-size: 18px; }
+.appointment-summary-row > span { width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; background: #fde7f7; font-size: 18px; }
 .appointment-summary-row small { display: block; color: #8a8190; margin-bottom: 3px; }
 .appointment-summary-row strong { display: block; color: #312a35; }
 .reschedule-actions { display: grid; grid-template-columns: .7fr 1.3fr; gap: 10px; margin-top: 10px; }
@@ -101,29 +101,29 @@ h2 { margin: 5px 0; font-size: 28px; }
 .btn-secondary { width: 100%; padding: 13px 16px; border: 1px solid #ded4e5; border-radius: 10px; background: #fff; color: #5d5364; font-weight: 700; cursor: pointer; }
 .btn-secondary:hover { background: #f8f4fa; }
 .btn-secondary:disabled { opacity: .65; cursor: not-allowed; }
-.btn-reagendar { display: inline-flex; align-items: center; justify-content: center; min-width: 112px; margin-top: 9px; padding: 9px 14px; border: 1px solid #7c3aed; border-radius: 10px; background: #fff; color: #7c3aed; font-weight: 800; cursor: pointer; transition: background .15s, color .15s, transform .15s, box-shadow .15s; }
-.btn-reagendar:hover { background: #7c3aed; color: #fff; transform: translateY(-1px); box-shadow: 0 5px 14px rgba(124,58,237,.18); }
-.selected-doctor-hint { padding: 9px 11px; margin-bottom: 2px; border-radius: 9px; background: #f4edfb; color: #6d5c78; font-size: 13px; }
+.btn-reagendar { display: inline-flex; align-items: center; justify-content: center; min-width: 112px; margin-top: 9px; padding: 9px 14px; border: 1px solid #cd75ba; border-radius: 10px; background: #fff; color: #cd75ba; font-weight: 800; cursor: pointer; transition: background .15s, color .15s, transform .15s, box-shadow .15s; }
+.btn-reagendar:hover { background: #cd75ba; color: #fff; transform: translateY(-1px); box-shadow: 0 5px 14px rgba(124,58,237,.18); }
+.selected-doctor-hint { padding: 9px 11px; margin-bottom: 2px; border-radius: 9px; background: #fde7f7; color: #6d5c78; font-size: 13px; }
 @media (max-width: 800px) { .doctor-card-actions, .reschedule-layout, .reschedule-actions { grid-template-columns: 1fr; } .appointment-summary { position: static; } }
 
 /* Procedimentos do médico */
 .doctor-procedures { margin: 12px 0 17px; }
 .doctor-procedures-title { display: block; font-size: 12px; font-weight: 800; color: #51485a; margin-bottom: 7px; }
 .doctor-procedure-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.doctor-procedure-tags span { padding: 5px 8px; border-radius: 999px; background: #f3ecfa; color: #684d78; font-size: 11px; font-weight: 700; }
+.doctor-procedure-tags span { padding: 5px 8px; border-radius: 999px; background: #f3ecfa; color: #8f557f; font-size: 11px; font-weight: 700; }
 .doctor-procedures small { color: #8a8190; font-size: 12px; }
 .doctor-card-actions.single-action { grid-template-columns: 1fr; }
-.doctor-detail-schedule { margin-top: 18px; border: 0; background: #7c3aed; color: #fff; padding: 12px 18px; border-radius: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 5px 14px rgba(124,58,237,.18); transition: transform .15s, background .15s, box-shadow .15s; }
-.doctor-detail-schedule:hover { background: #6d28d9; transform: translateY(-1px); box-shadow: 0 8px 18px rgba(124,58,237,.25); }
+.doctor-detail-schedule { margin-top: 18px; border: 0; background: #cd75ba; color: #fff; padding: 12px 18px; border-radius: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 5px 14px rgba(124,58,237,.18); transition: transform .15s, background .15s, box-shadow .15s; }
+.doctor-detail-schedule:hover { background: #b65c9f; transform: translateY(-1px); box-shadow: 0 8px 18px rgba(124,58,237,.25); }
 .procedures-page { max-width: 1100px; }
 .procedure-selection-header { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; margin-bottom: 24px; }
 .procedure-selection-header h2 { margin-top: 0; }
-.procedure-selection-header > strong { background: #f3ecfa; color: #7c3aed; padding: 9px 13px; border-radius: 999px; white-space: nowrap; }
+.procedure-selection-header > strong { background: #f3ecfa; color: #cd75ba; padding: 9px 13px; border-radius: 999px; white-space: nowrap; }
 .procedure-selection-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 .procedure-option { display: flex; gap: 12px; align-items: flex-start; padding: 15px; border: 1px solid #e2d9e7; border-radius: 13px; cursor: pointer; transition: border .15s, background .15s, transform .15s; }
 .procedure-option:hover { background: #fbf9fd; transform: translateY(-1px); }
-.procedure-option.selected { border-color: #a98bd0; background: #f8f3fc; }
-.procedure-option input { margin-top: 3px; accent-color: #7c3aed; }
+.procedure-option.selected { border-color: #a98bd0; background: #fff0fa; }
+.procedure-option input { margin-top: 3px; accent-color: #cd75ba; }
 .procedure-option strong { display: block; margin-bottom: 4px; }
 .procedure-option small { display: block; color: #7b7280; line-height: 1.4; }
 .procedure-selection-actions { display: grid; grid-template-columns: .5fr 1.5fr; gap: 10px; margin-top: 24px; }
@@ -159,7 +159,7 @@ body {
 }
 .theme-toggle:hover { background: rgba(255,255,255,.2); transform: translateY(-1px); }
 .auth-theme-toggle { position: absolute; top: 22px; right: 22px; z-index: 2; }
-.auth-theme-toggle .theme-toggle { background: #fff; color: #7c3aed; border-color: #e2d7ea; }
+.auth-theme-toggle .theme-toggle { background: #fff; color: #cd75ba; border-color: #e2d7ea; }
 .auth-layout { position: relative; }
 
 .btn, .btn-link, .btn-secondary, .btn-reagendar, .btn-danger-small,
@@ -185,36 +185,36 @@ body {
 .appointment-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; min-width: 220px; }
 .appointment-actions > .btn { width: 220px; }
 .appointment-actions .muted { max-width: 280px; text-align: right; }
-.status { display: inline-flex; align-items: center; justify-content: center; min-height: 32px; padding: 6px 11px; border-radius: 999px; background: #f3ecfa; color: #684d78; font-size: 12px; font-weight: 800; }
+.status { display: inline-flex; align-items: center; justify-content: center; min-height: 32px; padding: 6px 11px; border-radius: 999px; background: #f3ecfa; color: #8f557f; font-size: 12px; font-weight: 800; }
 .status-aceito { background: #eaf8ef; color: #247342; }
 .status-pendente { background: #fff6df; color: #87640b; }
 .status-cancelado, .status-recusado { background: #fff0f0; color: #a12626; }
 .status-realizado, .status-concluido { background: #edf2ff; color: #465f9e; }
 
-.appointment-tabs { display: flex; justify-content: center; gap: 8px; margin: 0 auto 22px; padding: 5px; max-width: 520px; background: #f1edf5; border-radius: 14px; }
+.appointment-tabs { display: flex; justify-content: center; gap: 8px; margin: 0 auto 22px; padding: 5px; max-width: 520px; background: #f9eaf5; border-radius: 14px; }
 .appointment-tabs button { flex: 1; min-height: 44px; border: 0; border-radius: 10px; background: transparent; color: #756d7c; font-weight: 800; cursor: pointer; }
-.appointment-tabs button.active { background: #fff; color: #7c3aed; box-shadow: 0 3px 12px rgba(45,30,55,.1); }
+.appointment-tabs button.active { background: #fff; color: #cd75ba; box-shadow: 0 3px 12px rgba(45,30,55,.1); }
 
 /* Calendário */
 .calendar-layout { display: grid; grid-template-columns: 1.35fr .65fr; gap: 22px; align-items: start; }
 .calendar-card, .calendar-details { padding: 24px; }
 .calendar-heading { display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; gap: 10px; margin-bottom: 18px; }
 .calendar-heading h2 { text-align: center; font-size: 23px; }
-.calendar-nav { width: 44px; padding: 0; border: 1px solid #ded4e5; border-radius: 12px; background: #fff; color: #7c3aed; font-size: 28px; cursor: pointer; }
+.calendar-nav { width: 44px; padding: 0; border: 1px solid #ded4e5; border-radius: 12px; background: #fff; color: #cd75ba; font-size: 28px; cursor: pointer; }
 .calendar-weekdays, .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px; }
 .calendar-weekdays { margin-bottom: 7px; }
 .calendar-weekdays strong { text-align: center; color: #8a8190; font-size: 12px; }
 .calendar-day { min-height: 76px; padding: 9px; border: 1px solid #eee7f1; border-radius: 12px; background: #fff; color: #312a35; cursor: pointer; text-align: left; }
 .calendar-day:hover { border-color: #cdb8df; background: #fbf8fd; }
-.calendar-day.selected { border: 2px solid #7c3aed; background: #f8f3fc; }
-.calendar-day.today span { font-weight: 900; color: #7c3aed; }
+.calendar-day.selected { border: 2px solid #cd75ba; background: #fff0fa; }
+.calendar-day.today span { font-weight: 900; color: #cd75ba; }
 .calendar-day span { display: block; font-weight: 800; }
 .calendar-day small { display: block; margin-top: 9px; color: #756d7c; font-size: 10px; line-height: 1.2; }
 .calendar-day.empty { background: transparent; border-color: transparent; cursor: default; }
 .calendar-details h2 { margin: 6px 0 22px; }
 .calendar-events { display: flex; flex-direction: column; gap: 10px; }
 .calendar-event { display: grid; grid-template-columns: 64px 1fr; gap: 12px; padding: 13px; border: 1px solid #eee7f1; border-radius: 13px; }
-.calendar-event-time { display: grid; place-items: center; min-height: 45px; border-radius: 10px; background: #f4edfb; color: #7c3aed; font-weight: 900; }
+.calendar-event-time { display: grid; place-items: center; min-height: 45px; border-radius: 10px; background: #fde7f7; color: #cd75ba; font-weight: 900; }
 .calendar-event strong, .calendar-event span, .calendar-event small { display: block; }
 .calendar-event span { margin: 4px 0 7px; color: #756d7c; font-size: 13px; }
 .calendar-event small { width: fit-content; }
@@ -222,11 +222,11 @@ body {
 
 /* Modo escuro — mantém a identidade roxa da BEAUTECH */
 body.dark { background: #17131b; color: #eee8f2; }
-body.dark .navbar { background: #24152f; box-shadow: 0 4px 20px rgba(0,0,0,.35); }
-body.dark .btn-sair { background: #f5eff8; color: #6d28d9; }
-body.dark .theme-toggle { border-color: #684b78; background: #33213e; }
+body.dark .navbar { background: #17131b; color: #f5f1f7; box-shadow: none; border: 0; }
+body.dark .btn-sair { background: #f5eff8; color: #b65c9f; }
+body.dark .theme-toggle { border-color: #8f557f; background: #33213e; }
 body.dark .container, body.dark .catalog-page { color: #eee8f2; }
-body.dark .hero { background: linear-gradient(135deg, #241e2b, #30213b); box-shadow: 0 12px 35px rgba(0,0,0,.25); }
+body.dark .hero { background: linear-gradient(135deg, #2b2028, #382531); box-shadow: 0 12px 35px rgba(0,0,0,.25); }
 body.dark .card, body.dark .card-acao, body.dark .doctor-card, body.dark .empty-card,
 body.dark .doctor-detail, body.dark .auth-panel, body.dark .calendar-day, body.dark .calendar-event { background: #211c25; color: #eee8f2; box-shadow: 0 8px 28px rgba(0,0,0,.24); }
 body.dark .card-acao span, body.dark .muted, body.dark .catalog-header p, body.dark .doctor-card p,
@@ -234,31 +234,31 @@ body.dark .calendar-day small, body.dark .calendar-event span { color: #b9aebe; 
 body.dark .input, body.dark .form select { background: #18151b; color: #f2edf4; border-color: #514455; }
 body.dark .input::placeholder { color: #887b8d; }
 body.dark .role-switch, body.dark .mode-switch, body.dark .appointment-tabs { background: #302936; }
-body.dark .role-switch button.active, body.dark .mode-switch button.active, body.dark .appointment-tabs button.active { background: #211c25; color: #c9a9ed; }
+body.dark .role-switch button.active, body.dark .mode-switch button.active, body.dark .appointment-tabs button.active { background: #211c25; color: #f0b8df; }
 body.dark .photo-upload, body.dark .selected-doctor-hint { background: #2a2230; border-color: #56455f; }
 body.dark .photo-preview { background: #35263d; }
-body.dark .btn-secondary, body.dark .doctor-profile-button, body.dark .btn-reagendar, body.dark .calendar-nav { background: #211c25; color: #c9a9ed; border-color: #594964; }
+body.dark .btn-secondary, body.dark .doctor-profile-button, body.dark .btn-reagendar, body.dark .calendar-nav { background: #211c25; color: #f0b8df; border-color: #594964; }
 body.dark .btn-secondary:hover, body.dark .doctor-profile-button:hover { background: #302536; }
-body.dark .doctor-procedure-tags span, body.dark .procedure-selection-header > strong, body.dark .appointment-summary-row > span, body.dark .calendar-event-time { background: #33253d; color: #c9a9ed; }
+body.dark .doctor-procedure-tags span, body.dark .procedure-selection-header > strong, body.dark .appointment-summary-row > span, body.dark .calendar-event-time { background: #33253d; color: #f0b8df; }
 body.dark .procedure-option { border-color: #514455; background: #211c25; }
-body.dark .procedure-option:hover, body.dark .procedure-option.selected { background: #302536; border-color: #8b67a6; }
-body.dark .doctor-label, body.dark .procedure-selection-header h2 { color: #c9a9ed; }
+body.dark .procedure-option:hover, body.dark .procedure-option.selected { background: #302536; border-color: #c77ab1; }
+body.dark .doctor-label, body.dark .procedure-selection-header h2 { color: #f0b8df; }
 body.dark .doctor-photo-wrap { background: #33253c; }
 body.dark .appointment-summary-row { border-color: #3b313f; }
 body.dark .appointment-summary-row strong { color: #eee8f2; }
 body.dark .calendar-day { border-color: #3f3544; }
 body.dark .calendar-day:hover { background: #2b2330; border-color: #7d5b91; }
-body.dark .calendar-day.selected { background: #352640; border-color: #a477c2; }
+body.dark .calendar-day.selected { background: #352640; border-color: #d58cc5; }
 body.dark .calendar-day.empty { background: transparent; border-color: transparent; }
 body.dark .calendar-event { border-color: #3f3544; }
-body.dark .status { background: #33253d; color: #d2b9e3; }
+body.dark .status { background: #33253d; color: #efc5e1; }
 body.dark .status-aceito { background: #183322; color: #9be0b1; }
 body.dark .status-pendente { background: #3b3119; color: #ead18a; }
 body.dark .status-cancelado, body.dark .status-recusado { background: #3a2024; color: #f0a5a5; }
 body.dark .status-realizado, body.dark .status-concluido { background: #202c48; color: #b5c8f4; }
 body.dark .alert.error { background: #3a2024; color: #f2aaaa; }
 body.dark .alert.success { background: #183322; color: #a8e2bb; }
-body.dark .auth-theme-toggle .theme-toggle { background: #211c25; color: #c9a9ed; border-color: #594964; }
+body.dark .auth-theme-toggle .theme-toggle { background: #211c25; color: #f0b8df; border-color: #594964; }
 
 @media (max-width: 900px) {
   .calendar-layout { grid-template-columns: 1fr; }
@@ -282,28 +282,28 @@ body.dark .auth-theme-toggle .theme-toggle { background: #211c25; color: #c9a9ed
   .calendar-day small { margin-top: 5px; overflow: hidden; white-space: nowrap; }
 }
 .catalog-theme-button { display: flex; justify-content: flex-end; margin-bottom: 12px; }
-.catalog-theme-button .theme-toggle { background: #fff; color: #7c3aed; border-color: #e2d7ea; }
-body.dark .catalog-theme-button .theme-toggle { background: #211c25; color: #c9a9ed; border-color: #594964; }
+.catalog-theme-button .theme-toggle { background: #fff; color: #cd75ba; border-color: #e2d7ea; }
+body.dark .catalog-theme-button .theme-toggle { background: #211c25; color: #f0b8df; border-color: #594964; }
 
 /* Landing e administração */
-.nav-cta { background: #fff; color: #7c3aed !important; padding: 8px 14px; border-radius: 10px; }
-.auth-page { min-height: calc(100vh - 70px); padding: 40px 16px; display: grid; place-items: center; background: radial-gradient(circle at top left, #eadcff, #f8f6fa 52%, #eee7f3); }
+.nav-cta { background: #fff; color: #cd75ba !important; padding: 8px 14px; border-radius: 10px; }
+.auth-page { min-height: calc(100vh - 70px); padding: 40px 16px; display: grid; place-items: center; background: radial-gradient(circle at top left, #fffdf3, #fffdf3 52%, #fffdf3); }
 .landing-page { max-width: 1150px; margin: 0 auto; padding: 42px 22px 70px; }
-.landing-hero { min-height: 470px; display: grid; grid-template-columns: 1.4fr .6fr; gap: 30px; align-items: center; padding: 55px; border-radius: 30px; background: linear-gradient(135deg,#fff,#efe3fb); box-shadow: 0 15px 45px rgba(75,40,100,.1); }
+.landing-hero { min-height: 470px; display: grid; grid-template-columns: 1.4fr .6fr; gap: 30px; align-items: center; padding: 55px; border-radius: 30px; background: linear-gradient(135deg,#fff,#f3bfee); box-shadow: 0 15px 45px rgba(75,40,100,.1); }
 .landing-copy h1 { max-width: 650px; font-size: clamp(42px,6vw,72px); line-height: .98; margin: 14px 0 20px; }
 .landing-copy p { max-width: 600px; font-size: 18px; line-height: 1.7; color: #756d7c; }
 .landing-actions { display:flex; gap:12px; align-items:center; margin-top:28px; }
 .landing-actions .btn-link,.landing-actions .btn-secondary { margin-top:0; min-width:130px; text-align:center; }
 .landing-highlight { min-height: 270px; padding: 30px; border-radius: 24px; background: rgba(124,58,237,.1); display:flex; flex-direction:column; justify-content:center; gap:12px; }
 .landing-highlight strong { font-size:24px; } .landing-highlight span { color:#756d7c; line-height:1.6; }
-.landing-icon { width:58px;height:58px;border-radius:18px;display:grid;place-items:center;background:#7c3aed;color:#fff;font-size:28px; }
+.landing-icon { width:58px;height:58px;border-radius:18px;display:grid;place-items:center;background:#cd75ba;color:#fff;font-size:28px; }
 .landing-values,.landing-team { margin-top:55px; }
-.value-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; } .value-grid h3 { margin:8px 0; } .value-number { color:#7c3aed;font-weight:900; }
+.value-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; } .value-grid h3 { margin:8px 0; } .value-number { color:#cd75ba;font-weight:900; }
 .auth-panel { max-height:none; }
 .admin-grid { display:grid;grid-template-columns:1.25fr .75fr;gap:22px;margin:24px 0;align-items:start; }
-.admin-stats { display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0; } .admin-stats strong { padding:20px;border-radius:16px;background:#f4edf9;color:#7c3aed;font-size:30px;display:flex;flex-direction:column;gap:4px; } .admin-stats span {font-size:12px;color:#756d7c;}
+.admin-stats { display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0; } .admin-stats strong { padding:20px;border-radius:16px;background:#f4edf9;color:#cd75ba;font-size:30px;display:flex;flex-direction:column;gap:4px; } .admin-stats span {font-size:12px;color:#756d7c;}
 .admin-users { display:flex;flex-direction:column;gap:10px; } .admin-user {display:flex;justify-content:space-between;align-items:center;gap:15px;padding:15px;border:1px solid #eee7f1;border-radius:14px;} .admin-user div{display:flex;flex-direction:column;gap:4px;} .admin-user span,.admin-user small{color:#756d7c;} .admin-user button{width:auto;min-width:100px;}
-body.dark .landing-hero {background:linear-gradient(135deg,#241e2b,#30213b);} body.dark .landing-copy p,body.dark .landing-highlight span,body.dark .admin-user span,body.dark .admin-user small {color:#b9aebe;} body.dark .landing-highlight{background:#33213e;} body.dark .admin-stats strong{background:#33253d;color:#c9a9ed;} body.dark .admin-user{border-color:#3f3544;} body.dark .auth-page{background:#17131b;} body.dark .nav-cta{background:#f5eff8;color:#6d28d9!important;}
+body.dark .landing-hero {background:linear-gradient(135deg,#2b2028,#382531);} body.dark .landing-copy p,body.dark .landing-highlight span,body.dark .admin-user span,body.dark .admin-user small {color:#b9aebe;} body.dark .landing-highlight{background:#33213e;} body.dark .admin-stats strong{background:#33253d;color:#f0b8df;} body.dark .admin-user{border-color:#3f3544;} body.dark .auth-page{background:#17131b;} body.dark .nav-cta{background:#f5eff8;color:#b65c9f!important;}
 @media(max-width:900px){.landing-hero,.admin-grid{grid-template-columns:1fr}.value-grid{grid-template-columns:1fr}.landing-hero{padding:32px}.landing-copy h1{font-size:48px}.admin-user{align-items:flex-start;}}
 
 .procedure-search { margin: 0 0 20px; }
@@ -318,7 +318,7 @@ body.dark .procedure-no-results { border-color: #514455; }
   display: block;
   width: fit-content;
   margin: 14px auto 0;
-  color: #7c3aed;
+  color: #cd75ba;
   text-decoration: none;
   font-weight: 800;
   text-align: center;
@@ -328,7 +328,7 @@ body.dark .procedure-no-results { border-color: #514455; }
 .profile-card-centered { display: flex; justify-content: center; text-align: center; }
 .profile-content-centered { width: min(100%, 620px); display: flex; flex-direction: column; align-items: center; }
 .profile-content-centered .profile-photo { margin: 0 auto 24px; width: 150px; height: 150px; }
-.profile-photo-placeholder { display: grid; place-items: center; background: #eee5f5; color: #7c3aed; font-size: 38px; font-weight: 900; }
+.profile-photo-placeholder { display: grid; place-items: center; background: #eee5f5; color: #cd75ba; font-size: 38px; font-weight: 900; }
 .profile-information { width: min(100%, 500px); text-align: center; }
 .profile-information p { margin: 12px 0; padding-bottom: 10px; border-bottom: 1px solid #eee7f1; }
 .profile-information p:last-child { border-bottom: 0; }
@@ -337,7 +337,7 @@ body.dark .procedure-no-results { border-color: #514455; }
 .doctor-more-button {
   border: 0;
   background: transparent;
-  color: #7c3aed;
+  color: #cd75ba;
   padding: 7px 0 0;
   font-weight: 800;
   cursor: pointer;
@@ -350,8 +350,8 @@ body.dark .procedure-no-results { border-color: #514455; }
 .appointment-status-actions .btn-reagendar { min-width: auto; width: auto; min-height: 32px; padding: 5px 9px; margin-top: 0; border-radius: 8px; font-size: 11px; }
 
 body.dark .profile-information p { border-color: #3b313f; }
-body.dark .profile-photo-placeholder { background: #33253c; color: #c9a9ed; }
-body.dark .doctor-more-button { color: #c9a9ed; }
+body.dark .profile-photo-placeholder { background: #33253c; color: #f0b8df; }
+body.dark .doctor-more-button { color: #f0b8df; }
 
 @media (max-width: 700px) {
   .appointment-status-actions { justify-content: flex-start; }
@@ -431,7 +431,7 @@ body.dark .profile-information p { border-color: #514356; }
   padding: 8px 12px;
   border-radius: 999px;
   background: #f3ecfa;
-  color: #684d78;
+  color: #8f557f;
   border: 1px solid #e2d5eb;
   font-size: 13px;
   font-weight: 700;
@@ -534,7 +534,7 @@ body.dark .navbar-hamburger {
     flex-direction: column;
     align-items: stretch;
     gap: 6px;
-    background: #6d28d9;
+    background: #b65c9f;
     border-radius: 14px;
     box-shadow: 0 10px 25px rgba(0,0,0,.18);
   }
@@ -561,3 +561,824 @@ body.dark .navbar-hamburger {
     border: 1px solid #4e3860;
   }
 }
+
+/* =========================================================
+   BEAUTECH — Identidade visual moderna / Paleta rosa-lilás
+   ========================================================= */
+:root {
+  --bt-rose: #cd75ba;
+  --bt-pink: #da8ecb;
+  --bt-lilac: #e6a7dd;
+  --bt-soft: #f3bfee;
+  --bt-pale: #ffd8ff;
+  --bt-cream: #fffdf3;
+  --bt-ink: #3f2940;
+  --bt-muted: #806b7f;
+  --bt-white: #ffffff;
+  --bt-border: rgba(205,117,186,.22);
+  --bt-shadow: 0 18px 45px rgba(116,62,108,.12);
+  --bt-shadow-hover: 0 24px 55px rgba(116,62,108,.18);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background:
+    radial-gradient(circle at 8% 8%, rgba(255,216,255,.65), transparent 27%),
+    radial-gradient(circle at 92% 18%, rgba(243,191,238,.42), transparent 25%),
+    linear-gradient(180deg, #fffdf3 0%, #fff 34%, #fff 100%);
+  color: var(--bt-ink);
+}
+
+/* Cabeçalho: transição suave em vez de corte entre roxo e branco */
+.navbar {
+  position: relative;
+  z-index: 50;
+  min-height: 76px;
+  padding: 0 5%;
+  background:
+    linear-gradient(180deg,
+      #cd75ba 0%,
+      #d684c2 32%,
+      #e6a7dd 66%,
+      rgba(243,191,238,.94) 84%,
+      rgba(255,216,255,.72) 100%);
+  color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,.55);
+  box-shadow:
+    0 12px 28px rgba(145,77,133,.14),
+    0 28px 55px rgba(230,167,221,.20);
+}
+
+.navbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -30px;
+  height: 45px;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255,216,255,.52), rgba(255,253,243,0));
+  filter: blur(9px);
+}
+
+.logo {
+  font-size: 23px;
+  letter-spacing: 1.5px;
+  text-shadow: 0 2px 12px rgba(94,36,83,.18);
+}
+
+.links { gap: 8px; }
+.links a,
+.btn-sair,
+.theme-toggle,
+.nav-cta {
+  border-radius: 12px;
+  transition: transform .18s ease, background .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.links a {
+  padding: 10px 13px;
+  color: #fff;
+  font-size: 14px;
+}
+.links a:hover {
+  background: rgba(255,255,255,.18);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.18);
+  transform: translateY(-1px);
+}
+
+.nav-cta {
+  background: #fff !important;
+  color: var(--bt-rose) !important;
+  font-weight: 800 !important;
+  box-shadow: 0 8px 20px rgba(105,49,95,.15);
+}
+.nav-cta:hover { background: #fffdf3 !important; transform: translateY(-2px); }
+
+.btn-sair {
+  padding: 10px 14px;
+  background: rgba(255,255,255,.94);
+  color: var(--bt-rose);
+  box-shadow: 0 8px 18px rgba(105,49,95,.12);
+}
+.btn-sair:hover { transform: translateY(-1px); background: #fffdf3; }
+
+.role {
+  border: 1px solid rgba(255,255,255,.48);
+  background: rgba(255,255,255,.13);
+  backdrop-filter: blur(10px);
+  color: #fff;
+}
+
+.theme-toggle {
+  min-height: 40px;
+  padding: 9px 12px;
+  border: 1px solid rgba(255,255,255,.35);
+  background: rgba(255,255,255,.13);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  backdrop-filter: blur(10px);
+}
+.theme-toggle:hover { background: rgba(255,255,255,.22); transform: translateY(-1px); }
+
+.container { padding-top: 50px; }
+.hero {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.96), rgba(255,216,255,.72)),
+    var(--bt-white);
+  border: 1px solid var(--bt-border);
+  box-shadow: var(--bt-shadow);
+  backdrop-filter: blur(12px);
+}
+
+.eyebrow { color: var(--bt-rose) !important; }
+h1, h2 { color: var(--bt-ink); }
+
+.card,
+.card-acao,
+.empty-card,
+.doctor-card,
+.doctor-detail,
+.auth-panel {
+  border: 1px solid var(--bt-border);
+  box-shadow: var(--bt-shadow);
+}
+.card:hover,
+.card-acao:hover,
+.doctor-card:hover { box-shadow: var(--bt-shadow-hover); }
+
+.card-acao {
+  background: linear-gradient(145deg, #fff, #fff8ff);
+}
+.card-acao:hover { border-color: rgba(205,117,186,.42); }
+.card-acao span { color: var(--bt-muted); }
+
+/* Botões: caixas sólidas, limpas e consistentes */
+.btn,
+.btn-link,
+.doctor-schedule-button,
+.profile-edit-button,
+.btn-reagendar,
+.btn-primary,
+.page-back-button {
+  background: linear-gradient(135deg, #cd75ba, #da8ecb) !important;
+  color: #fff !important;
+  border: 1px solid rgba(171,78,150,.18) !important;
+  border-radius: 12px;
+  font-weight: 800;
+  box-shadow: 0 9px 22px rgba(205,117,186,.24);
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+}
+
+.btn:hover,
+.btn-link:hover,
+.doctor-schedule-button:hover,
+.profile-edit-button:hover,
+.btn-reagendar:hover,
+.btn-primary:hover,
+.page-back-button:hover {
+  filter: saturate(1.05) brightness(1.03);
+  transform: translateY(-2px);
+  box-shadow: 0 13px 28px rgba(205,117,186,.30);
+}
+
+.btn-secondary,
+.doctor-profile-button {
+  background: #fff !important;
+  color: var(--bt-rose) !important;
+  border: 1px solid rgba(205,117,186,.34) !important;
+  border-radius: 12px;
+  font-weight: 800;
+  box-shadow: 0 6px 16px rgba(116,62,108,.08);
+  transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+}
+.btn-secondary:hover,
+.doctor-profile-button:hover {
+  background: var(--bt-pale) !important;
+  color: #9b4f8d !important;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(116,62,108,.12);
+}
+
+.input, .form select {
+  border: 1px solid rgba(205,117,186,.25);
+  background: rgba(255,255,255,.92);
+  color: var(--bt-ink);
+  border-radius: 12px;
+  box-shadow: inset 0 1px 2px rgba(116,62,108,.03);
+  transition: border-color .18s, box-shadow .18s;
+}
+.input:focus, .form select:focus {
+  outline: none;
+  border-color: var(--bt-pink);
+  box-shadow: 0 0 0 4px rgba(218,142,203,.16);
+}
+
+.role-switch, .mode-switch {
+  background: rgba(243,191,238,.38);
+  border: 1px solid rgba(205,117,186,.14);
+}
+.role-switch button.active, .mode-switch button.active {
+  color: var(--bt-rose);
+  background: #fff;
+  box-shadow: 0 5px 15px rgba(116,62,108,.10);
+}
+
+.auth-layout,
+.auth-page {
+  background:
+    radial-gradient(circle at 10% 10%, rgba(255,216,255,.9), transparent 30%),
+    radial-gradient(circle at 90% 85%, rgba(230,167,221,.45), transparent 28%),
+    linear-gradient(135deg, #fffdf3, #fff);
+}
+.auth-panel {
+  background: rgba(255,255,255,.88);
+  backdrop-filter: blur(18px);
+}
+.brand strong, .catalog-logo { color: var(--bt-rose); }
+
+.photo-upload {
+  border-color: rgba(205,117,186,.32);
+  background: linear-gradient(135deg, #fff, #fff7ff);
+}
+.photo-preview {
+  background: linear-gradient(135deg, var(--bt-pale), var(--bt-soft));
+  color: #a04f91;
+}
+
+.doctor-photo-wrap {
+  background: linear-gradient(135deg, var(--bt-pale), var(--bt-soft));
+}
+.doctor-photo-placeholder { color: var(--bt-rose); }
+.doctor-label { color: #a15c96; }
+.doctor-profile-button { width: 100%; }
+
+.doctor-detail-procedure-list span {
+  background: linear-gradient(135deg, #fff0ff, #f3bfee);
+  color: #7f4b75;
+  border: 1px solid rgba(205,117,186,.24);
+}
+
+.appointment-summary-row > span {
+  background: linear-gradient(135deg, #fff0ff, var(--bt-pale));
+}
+
+.back-link,
+.catalog-link,
+.doctor-more-button { color: var(--bt-rose); }
+
+.alert.success { background: #f4fff9; border: 1px solid #c9eedb; }
+.alert.error { background: #fff5f7; border: 1px solid #f2cbd5; }
+
+/* Hamburger seguindo a nova identidade */
+.navbar-hamburger {
+  border: 1px solid rgba(255,255,255,.42);
+  background: rgba(255,255,255,.16);
+  border-radius: 12px;
+  box-shadow: 0 7px 18px rgba(105,49,95,.12);
+}
+
+@media (max-width: 800px) {
+  .navbar .links {
+    background: linear-gradient(145deg, rgba(205,117,186,.98), rgba(230,167,221,.98));
+    border: 1px solid rgba(255,255,255,.30);
+    backdrop-filter: blur(16px);
+  }
+}
+
+/* Tema escuro: mantém a paleta, sem perder contraste */
+body.dark {
+  background:
+    radial-gradient(circle at 8% 8%, rgba(205,117,186,.12), transparent 28%),
+    linear-gradient(180deg, #20151f, #171117);
+  color: #fff4fd;
+}
+body.dark .navbar {
+  background: linear-gradient(180deg, #a95698 0%, #9c5b91 42%, #704e6d 78%, rgba(55,37,53,.96) 100%);
+  box-shadow: 0 14px 32px rgba(0,0,0,.28);
+}
+body.dark .navbar::after { background: linear-gradient(180deg, rgba(105,65,100,.42), transparent); }
+body.dark .hero,
+body.dark .card,
+body.dark .card-acao,
+body.dark .doctor-card,
+body.dark .doctor-detail,
+body.dark .empty-card,
+body.dark .auth-panel {
+  background: rgba(39,27,37,.94);
+  border-color: rgba(230,167,221,.18);
+  box-shadow: 0 20px 48px rgba(0,0,0,.24);
+}
+body.dark .card-acao { background: linear-gradient(145deg, #30202d, #261b25); }
+body.dark .input,
+body.dark .form select {
+  background: #211820;
+  color: #fff4fd;
+  border-color: rgba(230,167,221,.26);
+}
+body.dark .btn-secondary,
+body.dark .doctor-profile-button {
+  background: #2b2029 !important;
+  color: #f3bfee !important;
+  border-color: rgba(230,167,221,.30) !important;
+}
+body.dark .doctor-detail-procedure-list span {
+  background: #3a2737;
+  color: #ffd8ff;
+  border-color: rgba(230,167,221,.24);
+}
+body.dark .auth-layout,
+body.dark .auth-page {
+  background:
+    radial-gradient(circle at 10% 10%, rgba(205,117,186,.20), transparent 30%),
+    radial-gradient(circle at 90% 85%, rgba(230,167,221,.12), transparent 28%),
+    #1b141b;
+}
+
+
+/* =========================================================
+   BEAUTECH — Fundo rosa claro, visual simples e sem degradês
+   ========================================================= */
+body {
+  background: #ffd8ff !important;
+  color: #3f2940;
+}
+
+/* Cabeçalho integrado ao mesmo fundo, sem linha divisória */
+.navbar {
+  background: #ffd8ff !important;
+  color: #3f2940 !important;
+  border-bottom: 0 !important;
+  box-shadow: none !important;
+}
+
+.navbar::after {
+  display: none !important;
+}
+
+.logo {
+  color: #cd75ba !important;
+  text-shadow: none !important;
+}
+
+.links a {
+  color: #3f2940 !important;
+}
+
+.links a:hover {
+  background: rgba(205,117,186,.14) !important;
+  box-shadow: none !important;
+}
+
+.role {
+  color: #8f4f82 !important;
+  border-color: rgba(205,117,186,.30) !important;
+  background: rgba(255,255,255,.35) !important;
+  backdrop-filter: none !important;
+}
+
+.theme-toggle {
+  background: #cd75ba !important;
+  color: #fff !important;
+  border: 1px solid #cd75ba !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+.theme-toggle:hover {
+  background: #da8ecb !important;
+  transform: none !important;
+}
+
+.nav-cta {
+  background: #cd75ba !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+
+.nav-cta:hover {
+  background: #da8ecb !important;
+  transform: none !important;
+}
+
+.btn-sair {
+  background: #cd75ba !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+
+.btn-sair:hover {
+  background: #da8ecb !important;
+  transform: none !important;
+}
+
+/* Conteúdo continua na mesma base do cabeçalho */
+.container,
+.catalog-page,
+.landing-page {
+  background: transparent !important;
+}
+
+/* Cards limpos, sem degradê */
+.hero {
+  background: #fff !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.card-acao {
+  background: #fff !important;
+}
+
+.card-acao:hover {
+  background: #fff !important;
+}
+
+/* Botões sólidos, sem degradê */
+.btn,
+.btn-link,
+.doctor-schedule-button,
+.profile-edit-button,
+.btn-reagendar,
+.btn-primary,
+.page-back-button {
+  background: #cd75ba !important;
+  color: #fff !important;
+  border-color: #cd75ba !important;
+  box-shadow: none !important;
+}
+
+.btn:hover,
+.btn-link:hover,
+.doctor-schedule-button:hover,
+.profile-edit-button:hover,
+.btn-reagendar:hover,
+.btn-primary:hover,
+.page-back-button:hover {
+  background: #da8ecb !important;
+  box-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+.navbar-hamburger {
+  background: #cd75ba !important;
+  border-color: #cd75ba !important;
+  box-shadow: none !important;
+}
+
+.navbar-hamburger span {
+  background: #fff !important;
+}
+
+/* Mantém o modo escuro disponível sem alterar o visual claro */
+body.dark {
+  background: #20151f !important;
+}
+
+body.dark .navbar {
+  background: #20151f !important;
+  color: #fff4fd !important;
+  box-shadow: none !important;
+  border-bottom: 0 !important;
+}
+
+body.dark .navbar::after {
+  display: none !important;
+}
+
+body.dark .links a {
+  color: #fff4fd !important;
+}
+
+body.dark .links a:hover {
+  background: rgba(230,167,221,.14) !important;
+}
+
+body.dark .navbar-hamburger {
+  background: #cd75ba !important;
+  border-color: #cd75ba !important;
+}
+
+@media (max-width: 800px) {
+  .navbar .links {
+    background: #ffd8ff !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+
+  body.dark .navbar .links {
+    background: #2b2029 !important;
+    border: 1px solid #76558a !important;
+  }
+}
+
+/* Ajuste final de identidade: fundo creme e contraste completo no modo escuro */
+body {
+  background: #fffdf3 !important;
+}
+
+.navbar,
+body.dark .navbar {
+  border-bottom: 0 !important;
+  box-shadow: none !important;
+}
+
+body.dark {
+  background: #17131b !important;
+  color: #f7f2fa !important;
+}
+
+/* Todos os textos principais ficam claros no modo escuro */
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark h4,
+body.dark h5,
+body.dark h6,
+body.dark p,
+body.dark span,
+body.dark li,
+body.dark label,
+body.dark strong,
+body.dark small,
+body.dark dt,
+body.dark dd,
+body.dark td,
+body.dark th,
+body.dark legend,
+body.dark .card-acao span,
+body.dark .muted,
+body.dark .page-header,
+body.dark .section-heading,
+body.dark .catalog-header p,
+body.dark .landing-copy p,
+body.dark .landing-highlight span,
+body.dark .doctor-card p,
+body.dark .doctor-card h3,
+body.dark .doctor-detail p,
+body.dark .doctor-detail li,
+body.dark .calendar-day,
+body.dark .calendar-day small,
+body.dark .calendar-event span,
+body.dark .appointment-summary-row strong,
+body.dark .appointment-summary-row small,
+body.dark .procedure-option small,
+body.dark .auth-title p,
+body.dark .brand span,
+body.dark .form label {
+  color: #f2eaf5 !important;
+}
+
+body.dark .eyebrow,
+body.dark .doctor-label,
+body.dark .catalog-logo,
+body.dark .brand strong,
+body.dark .back-link,
+body.dark .catalog-link,
+body.dark .doctor-more-button {
+  color: #f3bfee !important;
+}
+
+body.dark input,
+body.dark textarea,
+body.dark select,
+body.dark option,
+body.dark .input,
+body.dark .form select {
+  color: #fff !important;
+}
+
+body.dark input::placeholder,
+body.dark textarea::placeholder,
+body.dark .input::placeholder {
+  color: #cdbfd1 !important;
+}
+
+/* Botões continuam rosa nos dois temas */
+body.dark .btn,
+body.dark .btn-link,
+body.dark .doctor-schedule-button,
+body.dark .profile-edit-button,
+body.dark .btn-reagendar,
+body.dark .btn-primary,
+body.dark .page-back-button,
+body.dark .theme-toggle,
+body.dark .nav-cta,
+body.dark .btn-sair,
+body.dark .navbar-hamburger {
+  background: #cd75ba !important;
+  color: #fff !important;
+  border-color: #cd75ba !important;
+}
+
+/* Cabeçalho integrado ao fundo da página */
+.navbar { border-bottom: 0 !important; }
+body { background: #fffdf3; }
+body.dark { background: #17131b; }
+body.dark .navbar .logo, body.dark .links a { color: #f5f1f7; }
+
+/* =========================================================
+   AJUSTE FINAL — cabeçalho integrado ao fundo creme
+   ========================================================= */
+body {
+  background: #fffdf3 !important;
+}
+
+.navbar {
+  background: #fffdf3 !important;
+  color: #29242d !important;
+  border: 0 !important;
+  border-bottom: 0 !important;
+  box-shadow: none !important;
+}
+
+.navbar::after {
+  display: none !important;
+}
+
+body.dark {
+  background: #17131b !important;
+}
+
+body.dark .navbar {
+  background: #17131b !important;
+  color: #f5f1f7 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Ajuste final: cabeçalho e páginas de autenticação com a mesma base creme */
+body:not(.dark) {
+  background: #fffdf3 !important;
+}
+
+body:not(.dark) .navbar {
+  background: #fffdf3 !important;
+  color: #3f2940 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+body:not(.dark) .auth-page,
+body:not(.dark) .auth-layout {
+  background: #fffdf3 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Criar e modo escuro seguem o mesmo visual dos links do cabeçalho */
+body:not(.dark) .nav-cta,
+body:not(.dark) .theme-toggle {
+  background: transparent !important;
+  color: #3f2940 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+body:not(.dark) .nav-cta:hover,
+body:not(.dark) .theme-toggle:hover {
+  background: rgba(205,117,186,.10) !important;
+  color: #9b4f8d !important;
+  transform: none !important;
+}
+
+body.dark .navbar {
+  background: #17131b !important;
+  color: #f7f2fa !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+body.dark .auth-page,
+body.dark .auth-layout {
+  background: #17131b !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+body.dark .nav-cta,
+body.dark .theme-toggle {
+  background: transparent !important;
+  color: #f7f2fa !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+body.dark .nav-cta:hover,
+body.dark .theme-toggle:hover {
+  background: rgba(230,167,221,.10) !important;
+  color: #ffd8ff !important;
+  transform: none !important;
+}
+
+/* =========================================================
+   AJUSTE FINAL — modo escuro com contraste real
+   ========================================================= */
+body.dark .hero {
+  background: #211820 !important;
+  color: #f7f2fa !important;
+  border-color: #4d3b4d !important;
+  box-shadow: none !important;
+}
+
+body.dark .card,
+body.dark .card-acao,
+body.dark .doctor-card,
+body.dark .doctor-detail,
+body.dark .empty-card,
+body.dark .auth-panel {
+  background: #211820 !important;
+  color: #f7f2fa !important;
+  border-color: #4d3b4d !important;
+  box-shadow: none !important;
+}
+
+body.dark .card-acao span,
+body.dark .hero p,
+body.dark .muted,
+body.dark .doctor-card p,
+body.dark .doctor-detail p,
+body.dark .empty-card p {
+  color: #e6dce9 !important;
+}
+
+body.dark .hero h1,
+body.dark .hero h2,
+body.dark .card h2,
+body.dark .card h3,
+body.dark .card-acao h2,
+body.dark .card-acao h3,
+body.dark .doctor-card h2,
+body.dark .doctor-card h3,
+body.dark .doctor-detail h2,
+body.dark .empty-card h2,
+body.dark .empty-card h3 {
+  color: #ffffff !important;
+}
+
+body.dark .eyebrow,
+body.dark .hero .eyebrow {
+  color: #f3bfee !important;
+}
+
+/* Contraste dos textos da dashboard no modo escuro */
+body.dark .container,
+body.dark .container * {
+  --text-dark-mode: #f7f2fa;
+}
+
+body.dark .calendar-day,
+body.dark .calendar-event,
+body.dark .procedure-option,
+body.dark .appointment-summary-row,
+body.dark .selected-doctor-hint {
+  color: #f7f2fa !important;
+}
+
+body.dark .calendar-day small,
+body.dark .calendar-event span,
+body.dark .appointment-summary-row small,
+body.dark .appointment-summary-row strong,
+body.dark .procedure-option small {
+  color: #e6dce9 !important;
+}
+
+
+/* Ajuste final da identidade: rosa no lugar do roxo */
+:root {
+  --bt-rose: #cd75ba;
+  --bt-rose-light: #f3bfee;
+  --bt-rose-soft: #ffd8ff;
+  --bt-cream: #fffdf3;
+}
+
+/* Calendário: interação em rosa */
+.calendar-day:hover { border-color: #da8ecb !important; background: #fff4fb !important; }
+.calendar-day.selected { border-color: #cd75ba !important; background: #fde7f7 !important; }
+.calendar-day.today span { color: #cd75ba !important; }
+
+/* Landing/login: elimina os últimos detalhes roxos */
+.landing-hero { background: linear-gradient(135deg, #fffdf3, #f3bfee) !important; }
+.landing-highlight { background: #f3bfee !important; }
+.landing-icon { background: #cd75ba !important; }
+.auth-layout, .auth-page { background: #fffdf3 !important; }
+
+/* Saudação: o bloco inteiro funciona como acesso ao perfil */
+a.profile-hero-card { display: block; text-decoration: none; color: inherit; cursor: pointer; }
+a.profile-hero-card:hover { transform: translateY(-1px); }
+
+/* Modo escuro: rosa como destaque e contraste forte */
+body.dark .calendar-day:hover { background: #33222d !important; border-color: #da8ecb !important; }
+body.dark .calendar-day.selected { background: #412838 !important; border-color: #e6a7dd !important; }
+body.dark .calendar-day.today span { color: #f3bfee !important; }
+body.dark .landing-hero { background: linear-gradient(135deg, #241b22, #35242f) !important; }
+body.dark .landing-highlight { background: #382531 !important; }
+body.dark .landing-icon { background: #cd75ba !important; }
+body.dark .auth-layout, body.dark .auth-page { background: #17131b !important; }
+body.dark a.profile-hero-card .hero { background: #211820 !important; border-color: #4d3b4d !important; }
+body.dark a.profile-hero-card:hover .hero { border-color: rgba(230,167,221,.42) !important; }
