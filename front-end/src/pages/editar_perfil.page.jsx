@@ -5,12 +5,13 @@ import Card from '../components/shared/card.jsx';
 import { obterUsuario } from '../storage/usuario.storage.js';
 import { buscarCliente, atualizarCliente } from '../services/clienteService.js';
 import { buscarMedico, atualizarMedico } from '../services/medicoService.js';
+import EnderecoFields from '../components/shared/EnderecoFields.jsx';
 
 export default function EditarPerfil() {
   const navigate = useNavigate();
   const sessao = obterUsuario() || {};
   const medico = sessao.tipo === 'medico';
-  const [form, setForm] = useState({ nome:'', email:'', cpf:'', telefone:'', data_nascimento:'', endereco:'', tipo_pele:'', crm:'', especializacao:'', foto:null });
+  const [form, setForm] = useState({ nome:'', email:'', cpf:'', telefone:'', data_nascimento:'', cep:'', logradouro:'', numero:'', complemento:'', bairro:'', cidade:'', uf:'', tipo_pele:'', crm:'', especializacao:'', biografia:'', foto:null });
   const [preview, setPreview] = useState('');
   const [erro, setErro] = useState('');
   const [mensagem, setMensagem] = useState('');
@@ -25,7 +26,7 @@ export default function EditarPerfil() {
         setForm({
           nome: dados.nome || '', email: dados.email || '', cpf: dados.cpf || '', telefone: dados.telefone || '',
           data_nascimento: dados.data_nascimento ? String(dados.data_nascimento).slice(0,10) : '',
-          endereco: dados.endereco || '', tipo_pele: dados.tipo_pele || '', crm: dados.crm || '', especializacao: dados.especializacao || '', foto: null
+          cep: dados.cep || '', logradouro: dados.logradouro || '', numero: dados.numero || '', complemento: dados.complemento || '', bairro: dados.bairro || '', cidade: dados.cidade || '', uf: dados.uf || '', tipo_pele: dados.tipo_pele || '', crm: dados.crm || '', especializacao: dados.especializacao || '', biografia: dados.biografia || '', foto: null
         });
       } catch (err) { setErro(err.response?.data?.message || 'Erro ao carregar o perfil.'); }
       finally { setCarregando(false); }
@@ -80,8 +81,9 @@ export default function EditarPerfil() {
             <div><label>Telefone</label><input className="input" name="telefone" value={form.telefone} onChange={alterar} required /></div>
             <div><label>Data de nascimento</label><input className="input" name="data_nascimento" type="date" value={form.data_nascimento} onChange={alterar} required /></div>
             <div><label>Nova foto de perfil</label><input className="input" name="foto" type="file" accept="image/png,image/jpeg,image/webp" onChange={alterar} /></div>
-            <div className="full"><label>Endereço</label><input className="input" name="endereco" value={form.endereco} onChange={alterar} required /></div>
-            {medico ? <><div><label>CRM</label><input className="input" name="crm" value={form.crm} onChange={alterar} required /></div><div><label>Especialização</label><input className="input" name="especializacao" value={form.especializacao} onChange={alterar} required /></div></> : <div className="full"><label>Tipo de pele</label><input className="input" name="tipo_pele" value={form.tipo_pele} onChange={alterar} /></div>}
+            <EnderecoFields form={form} setForm={setForm} />
+            {medico ? <><div><label>CRM</label><input className="input" name="crm" value={form.crm} onChange={alterar} required /></div><div><label>Especialização</label><input className="input" name="especializacao" value={form.especializacao} onChange={alterar} required /></div>
+            <div className="full"><label>Biografia</label><textarea className="input" name="biografia" value={form.biografia} onChange={alterar} rows="4" placeholder="Ex.: Médica por amor, formada na Unicamp..."></textarea></div></> : <div className="full"><label>Tipo de pele</label><input className="input" name="tipo_pele" value={form.tipo_pele} onChange={alterar} /></div>}
             {preview && <div className="full"><img className="profile-photo edit-preview" src={preview} alt="Nova foto" /></div>}
             <button className="btn" type="submit" disabled={salvando}>{salvando ? 'Salvando...' : 'Salvar alterações'}</button>
             <button type="button" className="btn-link btn-cancelar" onClick={() => navigate('/perfil')}>Cancelar</button>
