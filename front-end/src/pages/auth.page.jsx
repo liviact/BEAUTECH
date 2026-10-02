@@ -3,8 +3,9 @@ import { useSearchParams, useNavigate, Link } from 'react-router-dom';
 import Navbar from '../components/layout/navbar.jsx';
 import { cadastrar, login } from '../services/authService.js';
 import { salvarSessao } from '../storage/usuario.storage.js';
+import EnderecoFields from '../components/shared/EnderecoFields.jsx';
 
-const inicial = { nome: '', email: '', senha: '', cpf: '', telefone: '', data_nascimento: '', endereco: '', tipo_pele: '', foto: null };
+const inicial = { nome: '', email: '', senha: '', cpf: '', telefone: '', data_nascimento: '', cep:'', logradouro:'', numero:'', complemento:'', bairro:'', cidade:'', uf:'', tipo_pele: '', foto: null };
 
 function mascaraCpf(valor) { return valor.replace(/\D/g, '').slice(0, 11); }
 
@@ -68,7 +69,7 @@ export default function Auth() {
                 <div><label>Telefone *</label><input className="input" name="telefone" value={form.telefone} onChange={alterar} required /></div>
                 <div><label>Nascimento *</label><input className="input" name="data_nascimento" type="date" value={form.data_nascimento} onChange={alterar} required /></div>
                 <div><label>Senha *</label><input className="input" name="senha" type="password" minLength={6} value={form.senha} onChange={alterar} required /></div>
-                <div className="full"><label>Endereço *</label><input className="input" name="endereco" value={form.endereco} onChange={alterar} required /></div>
+                <EnderecoFields form={form} setForm={setForm} />
                 <div className="full"><label>Tipo de pele</label><input className="input" name="tipo_pele" value={form.tipo_pele} onChange={alterar} /></div>
               </div>
             </> : <>

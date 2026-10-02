@@ -117,6 +117,9 @@ export default function Calendario() {
                 ))}
               </div>
             )}
+            {sessao.tipo === 'cliente' && selecionada >= chaveData(`${hoje.getFullYear()}-${String(hoje.getMonth()+1).padStart(2,'0')}-${String(hoje.getDate()).padStart(2,'0')}`) && (
+              <button className="btn calendar-all-button" onClick={() => navigate(`/agendamentos/novo?data=${selecionada}`)}>Agendar neste dia</button>
+            )}
             <button className="btn-link calendar-all-button" onClick={() => navigate('/agendamentos')}>Ver histórico e agendamentos</button>
           </Card>
         </div>

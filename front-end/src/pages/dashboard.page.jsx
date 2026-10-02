@@ -8,24 +8,27 @@ import MedicoCard from '../components/medico/MedicoCard.jsx';
 export default function Dashboard() {
   const usuario = obterUsuario() || {};
   const [medicos, setMedicos] = useState([]);
-  if (usuario.tipo === 'admin') return <Navigate to="/admin" replace />;
-
   useEffect(() => { listarMedicos().then(setMedicos).catch(() => setMedicos([])); }, []);
+
+  if (usuario.tipo === 'admin') return <Navigate to="/admin" replace />;
 
   return (
     <>
       <Navbar />
       <div className="container">
-        <section className="hero">
-          <p className="eyebrow">BEAUTECH</p>
-          <h1>Olá, {usuario.nome || 'seja bem-vindo'}!</h1>
-          <p>Você está na área {usuario.tipo === 'medico' ? 'profissional' : 'do cliente'}.</p>
-        </section>
+        <Link to="/perfil" className="profile-hero-card">
+          <section className="hero">
+            <p className="eyebrow">BEAUTECH</p>
+            <h1>Olá, {usuario.nome || 'seja bem-vindo'}!</h1>
+            <p>Você está na área {usuario.tipo === 'medico' ? 'profissional' : 'do cliente'}.</p>
+          </section>
+        </Link>
 
         <div className="acoes">
           {usuario.tipo === 'cliente' && <Link to="/agendamentos/novo" className="card-acao"><strong>Novo Agendamento</strong><span>Marque seu atendimento.</span></Link>}
           <Link to="/agendamentos" className="card-acao"><strong>{usuario.tipo === 'medico' ? 'Minha Agenda' : 'Meus Agendamentos'}</strong><span>Acompanhe suas consultas e histórico.</span></Link>
           <Link to="/calendario" className="card-acao"><strong>Calendário</strong><span>Visualize consultas por data.</span></Link>
+          <Link to="/prontuarios" className="card-acao"><strong>Prontuários</strong><span>Consulte os registros dos atendimentos.</span></Link>
           {usuario.tipo === 'medico' && <Link to="/meus-procedimentos" className="card-acao"><strong>Meus Procedimentos</strong><span>Escolha os procedimentos que você realiza.</span></Link>}
           <Link to="/perfil" className="card-acao"><strong>Meu Perfil</strong><span>Consulte e atualize seus dados.</span></Link>
         </div>

@@ -31,7 +31,7 @@ export default function MedicoCard({ medico }) {
             <>
               <div className="doctor-procedure-tags">
                 {exibidos.map((procedimento) => (
-                  <span key={procedimento}>{procedimento}</span>
+                  <span key={procedimento.nome}>{procedimento.nome} · R$ {Number(procedimento.preco||0).toFixed(2).replace('.',',')}</span>
                 ))}
               </div>
               {procedimentos.length > 3 && (
