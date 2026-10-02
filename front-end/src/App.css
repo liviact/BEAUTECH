@@ -1382,3 +1382,120 @@ body.dark .landing-icon { background: #cd75ba !important; }
 body.dark .auth-layout, body.dark .auth-page { background: #17131b !important; }
 body.dark a.profile-hero-card .hero { background: #211820 !important; border-color: #4d3b4d !important; }
 body.dark a.profile-hero-card:hover .hero { border-color: rgba(230,167,221,.42) !important; }
+
+/* Novas funções — endereço, horários, preços, notificações e prontuários */
+.address-fields { margin-top: 2px; }
+.address-grid { display:grid; grid-template-columns:1fr 1.4fr 1fr; gap:14px; }
+.address-grid > div { display:flex; flex-direction:column; gap:7px; }
+.address-grid .address-wide { grid-column: span 2; }
+.field-hint,.field-error { font-size:12px; }
+.field-hint { color:#8a8190; }.field-error{color:#a12626;}
+.admin-hours-card { margin: 24px 0; }
+.admin-hours-form { display:grid; grid-template-columns:1fr 1fr auto; gap:14px; align-items:end; }
+.admin-hours-form > div { display:flex; flex-direction:column; gap:7px; }
+.admin-hours-form .btn { width:auto; min-width:170px; }
+.price-field { width:100%; margin-top:10px; display:flex; flex-direction:column; gap:6px; }
+.procedure-price-option { flex-direction:column; cursor:default; }
+.procedure-check { display:flex; gap:12px; align-items:flex-start; cursor:pointer; }
+.procedure-check input { margin-top:3px; accent-color:#cd75ba; }
+.booking-layout { display:grid; grid-template-columns:.8fr 1.2fr; gap:20px; }
+.booking-times-card { grid-column:1 / -1; }
+.booking-section-title { margin-top:25px; }
+.booking-price { display:flex; justify-content:space-between; align-items:center; margin-top:14px; padding:12px 14px; border-radius:12px; background:#fff0fa; color:#756d7c; }
+.booking-price strong { color:#cd75ba; font-size:18px; }
+.booking-calendar-card .calendar-heading { margin-top:18px; }
+.booking-calendar-grid .calendar-day { min-height:62px; }
+.booking-calendar-grid .calendar-day:disabled { opacity:.42; cursor:not-allowed; }
+.selected-date-label { margin-top:15px; text-align:center; color:#756d7c; }
+.selected-date-label strong { color:#cd75ba; }
+.time-slot-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(95px,1fr)); gap:10px; margin-top:18px; }
+.time-slot { min-height:48px; border:1px solid #ded4e5; border-radius:11px; background:#fff; color:#5d5364; font-weight:800; cursor:pointer; }
+.time-slot:hover:not(:disabled),.time-slot.selected { border-color:#cd75ba; background:#fff0fa; color:#cd75ba; }
+.time-slot:disabled { opacity:.4; cursor:not-allowed; text-decoration:line-through; }
+.booking-confirm { display:flex; justify-content:space-between; align-items:center; gap:15px; margin-top:22px; padding-top:18px; border-top:1px solid #eee7f1; }
+.booking-confirm .btn { width:auto; min-width:220px; }
+.notification-wrap { position:relative; }
+.notification-button { position:relative; width:40px; height:40px; border:1px solid rgba(255,255,255,.3); border-radius:12px; background:rgba(255,255,255,.12); color:#fff; cursor:pointer; font-size:18px; }
+.notification-badge { position:absolute; top:-6px; right:-6px; min-width:19px; height:19px; padding:2px 5px; border-radius:999px; background:#cd75ba; color:#fff; font-size:10px; font-weight:900; display:grid; place-items:center; }
+.notification-panel { position:absolute; right:0; top:48px; z-index:30; width:min(390px,90vw); max-height:450px; overflow:auto; background:#fff; color:#29242d; border-radius:16px; box-shadow:0 15px 45px rgba(45,30,55,.2); padding:10px; }
+.notification-panel-header { display:flex; justify-content:space-between; gap:10px; align-items:center; padding:7px 8px 10px; border-bottom:1px solid #eee7f1; }
+.notification-panel-header button { border:0; background:transparent; color:#cd75ba; font-weight:800; cursor:pointer; font-size:11px; }
+.notification-item { width:100%; display:flex; flex-direction:column; gap:4px; padding:12px; margin-top:7px; border:1px solid #f0e8f2; border-radius:12px; background:#fff; text-align:left; cursor:pointer; }
+.notification-item:not(.read) { background:#fff0fa; border-color:#f0cde5; }
+.notification-item span { color:#756d7c; font-size:12px; line-height:1.4; }
+.notification-item small { color:#9a909f; font-size:10px; }
+.completion-form { margin-top:20px; padding:20px; border-radius:15px; background:#fff8fc; border:1px solid #efdbe9; display:flex; flex-direction:column; gap:8px; }
+.completion-form h3 { margin:0 0 4px; }
+.appointment-price { color:#756d7c; }
+.record-card { margin-bottom:14px; }
+.record-header { display:flex; justify-content:space-between; gap:18px; align-items:flex-start; }
+.record-header > strong { color:#cd75ba; font-size:18px; }
+.record-details { margin-top:15px; padding-top:15px; border-top:1px solid #eee7f1; }
+.record-details p { white-space:pre-wrap; line-height:1.6; }
+.record-details strong { display:block; margin-bottom:5px; color:#cd75ba; }
+.profile-bio,.doctor-bio { margin-top:16px; padding:16px; border-radius:13px; background:#fff0fa; text-align:left; }
+.profile-bio > strong,.doctor-bio h3 { color:#cd75ba; }
+.doctor-bio p { line-height:1.6; }
+.profile-address { width:100%; }
+.page-header-actions { width:100%; justify-content:flex-start; }
+.page-header-actions .page-back-button { width:auto; }
+.page-header .page-back-button { align-self:flex-start; }
+@media(max-width:900px){
+ .booking-layout{grid-template-columns:1fr}.address-grid{grid-template-columns:1fr 1fr}.address-grid .address-wide{grid-column:1/-1}
+ .admin-hours-form{grid-template-columns:1fr 1fr}.admin-hours-form .btn{grid-column:1/-1;width:100%}
+ .booking-confirm{flex-direction:column;align-items:stretch}.booking-confirm .btn{width:100%}
+ .notification-panel{right:-60px}
+}
+@media(max-width:600px){
+ .address-grid{grid-template-columns:1fr}.address-grid .address-wide{grid-column:auto}
+ .record-header{flex-direction:column}.notification-panel{right:-100px}
+}
+body.dark .notification-panel{background:#211c25;color:#eee8f2;box-shadow:0 15px 45px rgba(0,0,0,.4)}
+body.dark .notification-panel-header,body.dark .notification-item,body.dark .record-details{border-color:#3f3544}
+body.dark .notification-item{background:#211c25;color:#eee8f2}
+body.dark .notification-item:not(.read),body.dark .completion-form,body.dark .booking-price,body.dark .profile-bio,body.dark .doctor-bio{background:#302536;border-color:#514455}
+body.dark .notification-item span,body.dark .selected-date-label,body.dark .appointment-price{color:#b9aebe}
+body.dark .time-slot{background:#211c25;color:#eee8f2;border-color:#514455}
+body.dark .time-slot:hover:not(:disabled),body.dark .time-slot.selected{background:#352640;border-color:#d58cc5;color:#f0b8df}
+body.dark .record-details{border-color:#3f3544}
+
+/* Refinamento dos cards sem alterar a identidade visual */
+.value-grid .card,.acoes .card-acao{border:1px solid rgba(205,117,186,.12);position:relative;overflow:hidden;transition:transform .18s,box-shadow .18s,border-color .18s;}
+.value-grid .card::before,.acoes .card-acao::before{content:"";position:absolute;left:0;top:0;width:100%;height:3px;background:#cd75ba;opacity:.75;}
+.value-grid .card:hover,.acoes .card-acao:hover{transform:translateY(-4px);box-shadow:0 14px 35px rgba(45,30,55,.11);border-color:rgba(205,117,186,.28);}
+.doctor-card{border:1px solid rgba(205,117,186,.1);}
+body.dark .value-grid .card,body.dark .acoes .card-acao,body.dark .doctor-card{border-color:#3f3544;}
+
+/* Ajustes finais solicitados */
+.appointment-page .page-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.appointment-page .page-header-actions .page-back-button {
+  order: 2;
+}
+
+.appointment-page .page-header-actions .btn-link.compact {
+  order: 1;
+}
+
+.appointment-actions .action-row {
+  justify-content: flex-end;
+}
+
+@media (max-width: 800px) {
+  .appointment-page .page-header-actions {
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .appointment-page .page-header-actions .page-back-button,
+  .appointment-page .page-header-actions .btn-link.compact {
+    width: auto;
+  }
+}
