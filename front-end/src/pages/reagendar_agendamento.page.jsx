@@ -8,7 +8,7 @@ import Button from '../components/shared/button.jsx';
 
 import {
   buscarAgendamento,
-  reagendarAgendamento
+  reagendarAgendamento, listarDisponibilidade
 } from '../services/agendamentoService.js';
 
 import { obterUsuario } from '../storage/usuario.storage.js';
@@ -39,6 +39,8 @@ export default function ReagendarAgendamento() {
 
   const [agendamento, setAgendamento] = useState(null);
   const [form, setForm] = useState({ data: '', hora: '' });
+  const [horarios, setHorarios] = useState([]);
+  const [carregandoHorarios, setCarregandoHorarios] = useState(false);
   const [carregando, setCarregando] = useState(true);
   const [salvando, setSalvando] = useState(false);
   const [erro, setErro] = useState('');
@@ -73,10 +75,20 @@ export default function ReagendarAgendamento() {
     carregar();
   }, [id, sessao.tipo]);
 
+  useEffect(() => {
+    if (!agendamento || !form.data) return;
+    setCarregandoHorarios(true);
+    listarDisponibilidade(agendamento.id_medico, form.data)
+      .then((resposta) => setHorarios(resposta.horarios || []))
+      .catch((err) => setErro(err.response?.data?.message || 'Não foi possível carregar os horários.'))
+      .finally(() => setCarregandoHorarios(false));
+  }, [agendamento, form.data]);
+
   function handleChange(e) {
     setForm(atual => ({
       ...atual,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
+      ...(e.target.name === 'data' ? { hora: '' } : {})
     }));
     setErro('');
     setSucesso('');
@@ -188,15 +200,14 @@ export default function ReagendarAgendamento() {
                   required
                 />
 
-                <label htmlFor="hora">Novo horário</label>
-                <Input
-                  id="hora"
-                  name="hora"
-                  type="time"
-                  value={form.hora}
-                  onChange={handleChange}
-                  required
-                />
+                <label>Novo horário</label>
+                {carregandoHorarios ? <p className="muted">Carregando horários...</p> : (
+                  <div className="time-slot-grid">
+                    {horarios.length === 0 ? <p className="muted">Nenhum horário disponível para este dia.</p> : horarios.map((slot) => (
+                      <button type="button" key={slot.hora} disabled={!slot.disponivel} className={`time-slot ${form.hora === slot.hora ? 'selected' : ''}`} onClick={() => setForm((atual) => ({ ...atual, hora: slot.hora }))}>{slot.hora}</button>
+                    ))}
+                  </div>
+                )}
 
                 <div className="reschedule-actions">
                   <button

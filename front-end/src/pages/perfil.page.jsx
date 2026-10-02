@@ -52,8 +52,8 @@ export default function Perfil() {
               <p><strong>CPF:</strong> {usuario?.cpf || '—'}</p>
               <p><strong>Telefone:</strong> {usuario?.telefone || '—'}</p>
               <p><strong>Data de nascimento:</strong> {usuario?.data_nascimento ? String(usuario.data_nascimento).slice(0, 10) : '—'}</p>
-              <p><strong>Endereço:</strong> {usuario?.endereco || '—'}</p>
-              {sessao.tipo === 'cliente' ? <p><strong>Tipo de pele:</strong> {usuario?.tipo_pele || '—'}</p> : <><p><strong>CRM:</strong> {usuario?.crm || '—'}</p><p><strong>Especialização:</strong> {usuario?.especializacao || '—'}</p></>}
+              <div className="profile-address"><p><strong>CEP:</strong> {usuario?.cep || '—'}</p><p><strong>Endereço:</strong> {usuario?.logradouro ? `${usuario.logradouro}, ${usuario.numero}${usuario.complemento ? ` - ${usuario.complemento}` : ''}` : (usuario?.endereco || '—')}</p><p><strong>Bairro:</strong> {usuario?.bairro || '—'} · <strong>Cidade:</strong> {usuario?.cidade || '—'} / {usuario?.uf || '—'}</p></div>
+              {sessao.tipo === 'cliente' ? <p><strong>Tipo de pele:</strong> {usuario?.tipo_pele || '—'}</p> : <><p><strong>CRM:</strong> {usuario?.crm || '—'}</p><p><strong>Especialização:</strong> {usuario?.especializacao || '—'}</p><div className="profile-bio"><strong>Biografia</strong><p>{usuario?.biografia || 'Biografia ainda não informada.'}</p></div></>}
               <p><strong>Status:</strong> {usuario?.ativo ? 'Ativo' : 'Inativo'}</p>
             </div>
             <Link to="/perfil/editar" className="btn-link profile-edit-button">Editar</Link>
