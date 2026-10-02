@@ -1,18 +1,16 @@
 import express from 'express';
 import agendamentoController from '../controllers/agendamentoController.js';
 import authMiddleware from '../middlewares/authMiddleware.js';
-
-const router = express.Router();
-
-router.post('/', authMiddleware, agendamentoController.criar);
-router.get('/', authMiddleware, agendamentoController.selecionar);
-router.get('/agenda-medico', authMiddleware, agendamentoController.agendaMedico);
-router.get('/:id', authMiddleware, agendamentoController.buscarPorId);
-router.put('/:id/aceitar', authMiddleware, agendamentoController.aceitar);
-router.put('/:id/recusar', authMiddleware, agendamentoController.recusar);
-router.put('/:id/cancelar', authMiddleware, agendamentoController.cancelar);
-router.put('/:id/realizar', authMiddleware, agendamentoController.realizar);
-router.post('/:id/reagendar', authMiddleware, agendamentoController.reagendar);
-router.put('/:id', authMiddleware, agendamentoController.editar);
-
+const router=express.Router();
+router.use(authMiddleware);
+router.get('/disponibilidade',agendamentoController.disponibilidade);
+router.get('/agenda-medico',agendamentoController.agendaMedico);
+router.post('/',agendamentoController.criar);
+router.get('/',agendamentoController.selecionar);
+router.get('/:id',agendamentoController.buscarPorId);
+router.put('/:id/aceitar',agendamentoController.aceitar);
+router.put('/:id/recusar',agendamentoController.recusar);
+router.put('/:id/cancelar',agendamentoController.cancelar);
+router.put('/:id/realizar',agendamentoController.realizar);
+router.post('/:id/reagendar',agendamentoController.reagendar);
 export default router;

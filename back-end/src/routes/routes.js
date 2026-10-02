@@ -5,18 +5,22 @@ import clienteRoutes from './clienteRoutes.js';
 import agendamentoRoutes from './agendamentoRoutes.js';
 import atendimentoRoutes from './atendimentoRoutes.js';
 import protocoloRoutes from './protocoloRoutes.js';
+import prontuarioRoutes from './prontuarioRoutes.js';
 import procedimentoRoutes from './procedimentoRoutes.js';
 import adminRoutes from './adminRoutes.js';
+import notificacaoRoutes from './notificacaoRoutes.js';
+import configuracaoRoutes from './configuracaoRoutes.js';
 
-const router = express.Router();
-
+const router=express.Router();
 router.use(authRoutes);
-router.use('/medicos', medicoRoutes);
-router.use('/clientes', clienteRoutes);
-router.use('/agendamentos', agendamentoRoutes);
-router.use('/atendimentos', atendimentoRoutes);
-router.use('/protocolos', protocoloRoutes);
-router.use('/procedimentos', procedimentoRoutes);
-router.use('/admin', adminRoutes);
-
+router.use('/medicos',medicoRoutes);
+router.use('/clientes',clienteRoutes);
+router.use('/agendamentos',agendamentoRoutes);
+router.use('/atendimentos',atendimentoRoutes);
+router.use('/protocolos',protocoloRoutes);
+router.use('/prontuarios',prontuarioRoutes);
+router.use('/procedimentos',procedimentoRoutes);
+router.use('/notificacoes',notificacaoRoutes);
+router.use('/configuracoes/clinica',configuracaoRoutes);
+router.use('/admin',adminRoutes);
 export default router;

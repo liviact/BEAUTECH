@@ -4,6 +4,7 @@ import path from 'path';
 import 'dotenv/config';
 import routes from './routes/routes.js';
 import { ensureAdmin } from './configs/ensureAdmin.js';
+import agendamentoRepository from './repositories/agendamentoRepository.js';
 
 const app = express();
 
@@ -31,6 +32,10 @@ const port = process.env.SERVER_PORT || 8000;
 async function iniciar() {
     try {
         await ensureAdmin();
+        await agendamentoRepository.limparPendentesExpirados();
+        setInterval(() => {
+            agendamentoRepository.limparPendentesExpirados().catch((error) => console.error('Limpeza automática de solicitações:', error.message));
+        }, 15 * 60 * 1000);
         app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
     } catch (error) {
         console.error('Não foi possível preparar o administrador:', error.message);

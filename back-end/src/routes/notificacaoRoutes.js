@@ -1,0 +1,10 @@
+import express from 'express';
+import authMiddleware from '../middlewares/authMiddleware.js';
+import notificacaoController from '../controllers/notificacaoController.js';
+const router=express.Router();
+router.use(authMiddleware);
+router.get('/',notificacaoController.listar);
+router.get('/nao-lidas',notificacaoController.contar);
+router.patch('/:id/lida',notificacaoController.ler);
+router.patch('/lidas/todas',notificacaoController.lerTodas);
+export default router;
