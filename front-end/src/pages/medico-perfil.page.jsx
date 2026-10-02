@@ -35,13 +35,14 @@ export default function MedicoPerfil() {
           <h1>{medico.nome}</h1>
           <h2>{medico.especializacao || 'Especialista em estética'}</h2>
           <p><strong>CRM:</strong> {medico.crm || '—'}</p>
+          {medico.biografia && <div className="doctor-bio"><h3>Sobre o profissional</h3><p>{medico.biografia}</p></div>}
 
           <div className="doctor-detail-procedures">
             <h3>Procedimentos</h3>
             {procedimentos.length ? (
               <div className="doctor-detail-procedure-list">
                 {procedimentos.map((p) => (
-                  <span key={p.id_procedimento}>{p.nome}</span>
+                  <span key={p.id_procedimento}>{p.nome} · R$ {Number(p.preco||0).toFixed(2).replace('.',',')}</span>
                 ))}
               </div>
             ) : (
