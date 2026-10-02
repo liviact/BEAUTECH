@@ -24,9 +24,10 @@ export async function listarProcedimentosMedico(id) {
   return response.data;
 }
 
-export async function adicionarProcedimentoMedico(idMedico, idProcedimento) {
+export async function adicionarProcedimentoMedico(idMedico, idProcedimento, preco) {
   const response = await api.post(`/medicos/${idMedico}/procedimentos`, {
-    id_procedimento: idProcedimento
+    id_procedimento: idProcedimento,
+    preco: Number(String(preco).replace(',', '.'))
   });
   return response.data;
 }
