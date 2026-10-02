@@ -12,6 +12,7 @@ import NovoAgendamento from './pages/novo_agendamento.page.jsx';
 import ReagendarAgendamento from './pages/reagendar_agendamento.page.jsx';
 import MeusProcedimentos from './pages/meus_procedimentos.page.jsx';
 import Calendario from './pages/calendario.page.jsx';
+import Prontuarios from './pages/prontuarios.page.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 
 export default function App() {
@@ -31,6 +32,7 @@ export default function App() {
         <Route path="/perfil/editar" element={<EditarPerfil />} />
         <Route path="/agendamentos" element={<Agendamentos />} />
         <Route path="/calendario" element={<Calendario />} />
+        <Route path="/prontuarios" element={<Prontuarios />} />
       </Route>
 
       <Route element={<ProtectedRoute allowedRoles={['cliente']} />}>
