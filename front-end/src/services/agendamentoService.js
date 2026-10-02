@@ -42,8 +42,8 @@ export async function cancelarAgendamento(id) {
   return response.data;
 }
 
-export async function realizarAgendamento(id) {
-  const response = await api.put(`/agendamentos/${id}/realizar`);
+export async function realizarAgendamento(id, dados) {
+  const response = await api.put(`/agendamentos/${id}/realizar`, dados);
 
   return response.data;
 }
@@ -59,3 +59,4 @@ export async function atualizarAgendamento(id, dados) {
 
   return response.data;
 }
+export async function listarDisponibilidade(medico,data) { const response=await api.get('/agendamentos/disponibilidade',{params:{medico,data}}); return response.data; }
