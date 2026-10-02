@@ -36,6 +36,7 @@ const clienteController = {
             const dados = { ...req.body };
             if (req.file) dados.foto_perfil = `/uploads/perfil/${req.file.filename}`;
             if (dados.cpf) dados.cpf = String(dados.cpf).replace(/\D/g, '');
+            if (dados.cep) dados.cep = String(dados.cep).replace(/\D/g, '');
             await usuarioRepository.atualizarCliente(req.params.id, dados);
             return res.json({ message: 'Perfil atualizado com sucesso.' });
         } catch (error) {

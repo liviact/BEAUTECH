@@ -1,113 +1,89 @@
 import usuarioRepository from '../repositories/usuarioRepository.js';
-import { connection } from '../configs/Database.js';
+import medicoRepository from '../repositories/medicoRepository.js';
+import procedimentoRepository from '../repositories/procedimentoRepository.js';
 
 function semSenha(usuario) {
     if (!usuario) return usuario;
-    const { senha, ...dados } = usuario;
+    const {senha,...dados}=usuario;
     void senha;
     return dados;
 }
 
+function validarPreco(preco) {
+    const numero=Number(preco);
+    if (!Number.isFinite(numero) || numero<0) throw new Error('Informe um preço válido.');
+    return numero.toFixed(2);
+}
+
 const medicoController = {
-    listar: async (req, res) => {
+    listar: async (req,res) => {
         try {
-            const medicos = await usuarioRepository.listarMedicos();
-            return res.json(medicos.map((medico) => ({
-                ...medico,
-                procedimentos: medico.procedimentos_nomes
-                    ? medico.procedimentos_nomes.split('||').filter(Boolean)
-                    : []
-            })));
-        } catch (error) {
-            return res.status(500).json({ message: error.message });
-        }
+            const medicos=await usuarioRepository.listarMedicos();
+            return res.json(medicos.map(medico=>{
+                const procedimentos=(medico.procedimentos_info||'').split(';;;').filter(Boolean).map(item=>{
+                    const [nome,preco]=item.split('||');
+                    return {nome,preco:Number(preco)};
+                });
+                const {procedimentos_info,...dados}=medico;
+                return {...dados,procedimentos};
+            }));
+        } catch(error) { return res.status(500).json({message:error.message}); }
     },
 
-    buscarPorId: async (req, res) => {
+    buscarPorId: async (req,res) => {
         try {
-            const usuario = await usuarioRepository.buscarPorId(req.params.id);
-            if (!usuario || usuario.nivel_acesso !== 'medico' || !usuario.ativo) {
-                return res.status(404).json({ message: 'Médico não encontrado.' });
-            }
+            const usuario=await usuarioRepository.buscarPorId(req.params.id);
+            if(!usuario||usuario.nivel_acesso!=='medico'||!usuario.ativo) return res.status(404).json({message:'Médico não encontrado.'});
             return res.json(semSenha(usuario));
-        } catch (error) {
-            return res.status(500).json({ message: error.message });
-        }
+        } catch(error) { return res.status(500).json({message:error.message}); }
     },
 
-    atualizar: async (req, res) => {
-        if (req.user.tipo !== 'medico' || Number(req.user.id) !== Number(req.params.id)) {
-            return res.status(403).json({ message: 'Você só pode editar o seu próprio perfil.' });
-        }
+    atualizar: async (req,res) => {
+        if(req.user.tipo!=='medico'||Number(req.user.id)!==Number(req.params.id)) return res.status(403).json({message:'Você só pode editar o seu próprio perfil.'});
         try {
-            const dados = { ...req.body };
-            if (req.file) dados.foto_perfil = `/uploads/perfil/${req.file.filename}`;
-            if (dados.cpf) dados.cpf = String(dados.cpf).replace(/\D/g, '');
-            await usuarioRepository.atualizarMedico(req.params.id, dados);
-            return res.json({ message: 'Perfil atualizado com sucesso.' });
-        } catch (error) {
-            return res.status(400).json({ message: error.message });
-        }
+            const dados={...req.body};
+            if(req.file) dados.foto_perfil=`/uploads/perfil/${req.file.filename}`;
+            if(dados.cpf) dados.cpf=String(dados.cpf).replace(/\D/g,'');
+            if(dados.cep) dados.cep=String(dados.cep).replace(/\D/g,'');
+            await usuarioRepository.atualizarMedico(req.params.id,dados);
+            return res.json({message:'Perfil atualizado com sucesso.'});
+        } catch(error) { return res.status(400).json({message:error.message}); }
     },
 
-    listarProcedimentos: async (req, res) => {
-        try {
-            const [rows] = await connection.execute(
-                `SELECT p.id_procedimento, p.nome, p.descricao
-                 FROM procedimentos p
-                 INNER JOIN medico_procedimentos mp ON mp.id_procedimento = p.id_procedimento
-                 WHERE mp.id_medico = ? ORDER BY p.nome`,
-                [req.params.id]
-            );
-            return res.json(rows);
-        } catch (error) {
-            return res.status(500).json({ error: error.message });
-        }
+    listarProcedimentos: async (req,res) => {
+        try { return res.json(await medicoRepository.listarProcedimentos(req.params.id)); }
+        catch(error) { return res.status(500).json({message:error.message}); }
     },
 
-    adicionarProcedimento: async (req, res) => {
+    adicionarProcedimento: async (req,res) => {
         try {
-            if (req.user.tipo !== 'medico' || Number(req.user.id) !== Number(req.params.id)) {
-                return res.status(403).json({ message: 'Você não pode alterar os procedimentos de outro médico.' });
-            }
-            const { id_procedimento } = req.body;
-            if (!id_procedimento) return res.status(400).json({ message: 'Informe o procedimento.' });
-
-            const [procedimento] = await connection.execute(
-                `SELECT id_procedimento FROM procedimentos WHERE id_procedimento = ? LIMIT 1`,
-                [id_procedimento]
-            );
-            if (!procedimento.length) {
-                return res.status(404).json({ message: 'Procedimento não encontrado.' });
-            }
-
-            await connection.execute(
-                `INSERT INTO medico_procedimentos (id_medico, id_procedimento) VALUES (?, ?)`,
-                [req.params.id, id_procedimento]
-            );
-            return res.status(201).json({ message: 'Procedimento adicionado ao médico.' });
-        } catch (error) {
-            if (error.code === 'ER_DUP_ENTRY') return res.status(400).json({ message: 'Este procedimento já está associado ao médico.' });
-            return res.status(500).json({ error: error.message });
-        }
+            if(req.user.tipo!=='medico'||Number(req.user.id)!==Number(req.params.id)) return res.status(403).json({message:'Você não pode alterar os procedimentos de outro médico.'});
+            const {id_procedimento,preco}=req.body;
+            if(!id_procedimento) return res.status(400).json({message:'Informe o procedimento.'});
+            const procedimento=await procedimentoRepository.buscarPorId(id_procedimento);
+            if(!procedimento) return res.status(404).json({message:'Procedimento não encontrado.'});
+            const precoValido=validarPreco(preco);
+            await medicoRepository.adicionarProcedimento(req.params.id,id_procedimento,precoValido);
+            return res.status(201).json({message:'Procedimento e preço atualizados.'});
+        } catch(error) { return res.status(400).json({message:error.message}); }
     },
 
-    removerProcedimento: async (req, res) => {
+    atualizarPreco: async (req,res) => {
         try {
-            if (req.user.tipo !== 'medico' || Number(req.user.id) !== Number(req.params.id)) {
-                return res.status(403).json({ message: 'Você não pode alterar os procedimentos de outro médico.' });
-            }
+            if(req.user.tipo!=='medico'||Number(req.user.id)!==Number(req.params.id)) return res.status(403).json({message:'Você não pode alterar outro médico.'});
+            const preco=validarPreco(req.body.preco);
+            const result=await medicoRepository.atualizarPreco(req.params.id,req.params.id_procedimento,preco);
+            if(!result.affectedRows) return res.status(404).json({message:'Procedimento não associado ao médico.'});
+            return res.json({message:'Preço atualizado com sucesso.'});
+        } catch(error) { return res.status(400).json({message:error.message}); }
+    },
 
-            await connection.execute(
-                `DELETE FROM medico_procedimentos
-                 WHERE id_medico = ? AND id_procedimento = ?`,
-                [req.params.id, req.params.id_procedimento]
-            );
-
-            return res.json({ message: 'Procedimento removido do médico.' });
-        } catch (error) {
-            return res.status(500).json({ error: error.message });
-        }
+    removerProcedimento: async (req,res) => {
+        try {
+            if(req.user.tipo!=='medico'||Number(req.user.id)!==Number(req.params.id)) return res.status(403).json({message:'Você não pode alterar outro médico.'});
+            await medicoRepository.removerProcedimento(req.params.id,req.params.id_procedimento);
+            return res.json({message:'Procedimento removido do médico.'});
+        } catch(error) { return res.status(500).json({message:error.message}); }
     }
 };
 
